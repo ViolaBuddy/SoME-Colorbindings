@@ -1,0 +1,58 @@
+- question: how many different colorbindings are possible?
+- restriction: movement of the piece is independent of position on the board
+	- we're on an infinite board so no edge effects
+
+- but it's easier to think about more extreme restrictions:
+- restriction 0: axial pieces (pieces that can go to (n,0) and its rotations)
+	- This is basically 1D, which is easy; the resulting colorbinding group is all (x,y) s.t. x is in nZ and y is in nZ
+	- Oh, but how do we prove this? I guess all reachable squares are simply of the form A1(n,0) + A2(-n,0) + B1(0,n) + B2(0,-n). And then of course we can collapses the A's and B's each down, so we get A(n,0) + B(0,n) which is (An, Bn).
+- restriction 0b: combining axial pieces
+	- A piece that can go both to (n,0) and (m,0). It feels intuitive/obvious that you'd be able to go to any multiple of the gcd, which let's call g. But can we prove it?
+	- (Simplify to 1D). We can get to An + Bm for all integers A, B. n = Ng and m = Mg. So we can get to (AN + BM)g. So anything we can get to has to be in g. But is it all possible integer multiples? Well, N and M must be relatively prime (any common factor they have would've been pulled out into g). And then, uh... like, it's obvious that you can get to 1, right?
+- restriction 1: 8-fold symmetric pieces
+	- all pieces in ordinary Western chess, other than pawns, are 8-fold symmetric
+	- I think we end up with only gridlike patterns (lines 90 degrees apart)
+		- Oh, this is probably just because we're enforcing 8fold symmetry on the resulting group, as a consequence of the symmetry of the generating piece. So this isn't terribly interesting.
+	- How many identical pieces to cover the full plane (how to partition into cosets)? Seems like always a power of 2.
+	- So can we write explicitly what this colorbinding group is? Let's assume it's a piece that can move (m,n) with m > n. We can then obviously move to (2m, 0) and (2n, 0) so we can use our previous result (restriction 0b) to know that we can go to a grid of multiples of 2 * gcd(m,n). But not *only* there, because we're doing a very specific move to get 2m and 2n. We can also get to (m+n, m+n), for example. (m+n,m+n), (m+n, m-n), (m-n, m-n). I think those are the three places, along with their 8fold symmetric counterparts, we can get to in two moves other than the aforementioned (2m,0) and (2n, 0).
+- restriction 2: "groups"
+	- each move must be able to be undone directly, i.e. the movement patterns have 180 degree rotational symmetry
+	- something about quotient groups, subgroups, normal subgroups, and cosets. I'll need to review these terms
+	- https://math.stackexchange.com/questions/2256321/quotient-of-mathbbz2 and further stackexchange questions that the comments link to
+	- How to combine subgroups: say we're trying to combine subgroups H and K, subgroups of G. Choose one to start with; let's call it H. The quotient group G/H is the group of colorbindings that H gives. Each element of K is either in H or not in H. If it's in H, then adding it to the group H does nothing. If it's not in H, then it's in one of the cosets of H - effectively merging those two cosets.
+		- This is basically making a bit more formal the feeling that a bishop that can also move one square forward can use that "one square forward" move to switch colorbindings from light to dark, and that's how it gets to all squares.
+	- That said, this construction doesn't really tell us how to find. I feel like this might be a bit of a nothing statement, making mathematically formal some vague intuition but not actually telling us how to go about combining two particular subgroups. For example, in Z^3, why is the unicorn+bishop is not colorbound?
+- restriction 3: relaxing the symmetry requirement a little bit
+	- actually, removing the "undo" requirement is strange. You might not be able to return to your starting square. So should it be part of your colorbinding?
+	- So let's say we have a piece that can eventually return to the starting square, but not in two moves. I guess actually the Gold and Silver Generals are like that, because walking diagonally forward for a Gold or straight forward for a Silver cannot be immediately undone, but can if you take another turn after that.
+	- Are there any unique color bindings from these? I'm not sure.
+	- Oh wait, imagine a sideways dabbaaba but a forward soldier. You can return to the starting point if you only do the dabbaaba moves, but otherwise you can move forward with the pawn move. That's a new colorbinding, but it feels very forward-only.
+- restriction 4: don't require that you can return to your starting square
+	- Are the only pieces of these types forward-only pieces (if we require translational symmetry on the board)?
+	- More generally, let's expand the idea of "colorbinding" to "set that you can reach from a certain square". Are there any interesting new sets, or are the new sets just the old sets but cut off in one direction?
+	- Note that as you move, the only thing you can do is get rid of old accessible squares, since if you can access a square from position B, you can access it from position A by first going to position B. And of course, by translational symmetry, if we look at the colorbinding of B, it looks the same as the colorbinding of A. So these are necessarily self-similar, in some sense.
+
+
+how we're mapping chess variant ideas onto group theory ideas:
+
+The main group we're working with is Z x Z or Z^2. Which is simply the infinite chessboard. This is abelian, so it makes a lot of things easy, including making all subgroups normal, so we don't have to worry about that.
+
+If we're working with "nice" symmetric pieces:
+A colorbinding, the set of all squares accessible by the piece P if P starts on the (0,0) squre, is a subgroup of Z^2.
+The piece P is a generator of the colorbinding. Note that this isn't a simple generator (and so these aren't cyclic groups); this is a generating set.
+The cosets of the colorbinding are the other colorbindings for the same piece. That's actually pretty obvious once you think about it, though it isn't until you do that: it's the original colorbinding, but you start from another square. Moving to start from another square is the g from the original set Z^2. Remember as well: the cosets of a subgroup themselves form a group, the quotient group.
+
+
+Okay so https://math.stackexchange.com/questions/193863/find-all-subgroups-of-mathbbz-times-mathbbz this, giving the subsets of Z^2, really answers the question that we're looking for. Basically:
+
+- Cylic subgroups, i.e. ones generated by a single move (and its inverse), are easy. If you can only move to (x,y) and (-x, -y), then your colorbinding is simply {n(x,y) | n is an integer}
+- Combining two cylic subgroups. If the moves are parallel, then it's their "GCD" (it's a 2d move, but because it's along a single line, it's the same idea), and the result is simply another "1d" cyclic group. If the moves are not parallel, then we form a lattice.
+- If we try to add a third generator to a 2d lattice, we end up failing. So all colorbindings of pieces that can move forward AND backward are in the form of a lattice, i.e. {A(x1, y1) + B(x2, y2) | A, B are integers}. The generators aren't unique, by the way. <A, A+B> would also form a generator set.
+
+So my outline is going to be:
+- Present the basic idea, and give a few examples (bishop/ferz first, of course, but dabbaaba, etc. as well)
+- Give the proof above, ending up with the fact that all colorbindings are lattices
+- Then we can talk about cosets and the number of duplicate pieces needed to cover the plane (TODO: figure this out)
+- Then we can talk about going from groups to monoids, and removing the invertibility requirement. Hmm, does our basic proof still work with monoids? With two cyclic submonoids, we get a wedge of a lattice instead of the full lattice. If we add a third submonoid, do we still get a wedge of the lattice? (TODO: figure this out)
+	- Oh wait, the most obvious thing to start from is that any monoid colorbinding is going to be a subset of a group colorbinding, because you can augment a forward-only piece with its inverse motions to get a proper group-generating piece, which is colorbound to a subgroup.
+- Extensions: mention hex chess and Z^3 chess.
