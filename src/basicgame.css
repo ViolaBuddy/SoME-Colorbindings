@@ -1,0 +1,83 @@
+body {
+	background-color: #ffffff;
+	padding: 0px;
+	margin: 0px;
+}
+
+#alertOverlay {
+	border-radius: 15px;
+	margin: 5px;
+	padding: 16px;
+	box-sizing: border-box;
+
+	/*https://stackoverflow.com/questions/35990304/how-to-position-overlay-fixed-div-to-the-center-with-css*/
+	position:fixed;
+	top:300px;
+	left:50%;
+	transform:translate(-50%, -50%);
+	z-index: 10000;
+	border: 3px solid #743f39;
+
+	width:480px;
+	height:120px;
+	font-size:48px;
+	background-color: #ffeecc;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor:pointer; 
+	user-select: none;
+	font-variant: small-caps;
+}
+
+#wrapper{
+	position: relative;
+	margin: auto;
+}
+
+#main{
+	position: absolute;
+	width: 600px;
+	height: 600px;
+	box-sizing: border-box;
+}
+
+#maintable {
+	border-spacing: 0px;
+	border:2px solid black;
+	margin:1em;
+}
+
+#maintable td {
+	box-sizing: border-box;
+	cursor: default;
+	user-select: none;
+	position: relative;
+	width: 50px;
+
+	padding:0px;
+	margin:0px;
+	float: left;
+}
+
+#maintable td .cell {
+	margin:0px;
+	aspect-ratio: 1 / 1 ;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#maintable td .cell img {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+.lightcell {
+	background-color: #ffcc77;
+}
+.darkcell {
+	background-color: #552222;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colorbound</title>
+	<link rel="stylesheet" type="text/css" href="basicgame.css">
+	<script type="text/javascript" src="basicgame.js"></script>
+</head>
+<body>
+<div id="main">
+	<button type="button" id="againbutton">Start over</button>
+	<br>
+	<br>
+</div>
+<div id="alertOverlay">▶ Click To Start</div>
+<script type="text/javascript">
+	setupGame();
+	document.getElementById('alertOverlay').onclick = function(clickevent){
+		startGame();
+		document.getElementById('alertOverlay').style['display'] = 'none';
+
+		document.getElementById('againbutton').onclick = function(clickevent){
+			setupGame();
+			// start after a very small delay
+			setTimeout(() => startGame(), 10);
+		}
+	}
+</script>
+</body>
+</html>

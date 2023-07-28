@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colorbindings of Chess Variant Pieces</title>
+	<link rel="stylesheet" type="text/css" href="indexstyle.css">
+    <!--script type="text/javascript" src="PlayingCards.js"></script-->
+    <script type="text/javascript" id="MathJax-script" async
+    	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+	</script>
+</head>
+<body>
+<div id="left">
+		<iframe src="basicgame.html" title="Board Game" id="basicgame" class="gameiframe"></iframe>
+</div>
+<div id="right">
+	<h1>Colorbindings of Chess Variant Pieces</h1>
+	<!-- <details>: an openable/collapsable section. Within there, the <summary> tag is the label of the section -->
+	<!-- <iframe src="basicgame.html" title="Clock Solitaire"></iframe>: include an external html file-->
+	<!-- MathJax notation equation: \[\textrm{Prob}\left(k,n,p\right) = \binom{n}{k} p^k (1-p)^{n-k}\] -->
+	<!-- MathJax notation inline: Also remember that \(\binom{n}{k}\) is how we notate n-choose-k -->
+	<div class="content">
+		<h2>Introduction to chess pieces and chess variant pieces</h2>
+		<p>In chess, there are six kinds of pieces that each has its own unique way of moving. The Rook moves along horizontal and vertical lines, for example, while the Bishop moves along the 45 degree diagonals right in between the rook lines.</p>
+		<p>For most of the pieces, if you place them on an empty board, they can eventually reach any square if you let them take enough moves. But not all of them. Here's a playable simulation of the six pieces; if you aren't familiar with the chess pieces, try to figure out which pieces can and can't move from an arbitrary square to another arbitrary square:</p>
+		<p>It turns out that the Bishop cannot. Its restricted movement is actually why the chessboard is colored in two alternating colors: a Bishop that starts on a light square can only ever move to another light square, and vice versa. So we say that bishops are <strong>colorbound</strong>.</p>
+		<p>The other one that cannot is the Pawn. But that's obvious, because it can only move in one direction, so all squares not in that direction are off the table.</p>
+		<p>All other pieces can visit all 64 squares of the chessboard. So we have three categories of pieces: forward-only, light-colorbound or dark-colorbound, and unrestricted.</p>
+		<p>That then begs the question, can all pieces be classified into these three categories? There aren't any other pieces in standard Western chess, but we have a long history of making variants of chess (including a couple chess-like games in East Asia that would more properly be called games that share a common ancestor with chess, rather than variants of Western chess). And we can make up new chess pieces on the fly. Are they all so easily classified?</p>
+		<p>Well, clearly the answer is no, if I'm asking the question like this. So let's examine some of them: the most fundamental few chess variant pieces are the <strong>Wazir</strong>, the <strong>Ferz</strong>, the <strong>Dabbaaba</strong>, and the <strong>Alfil</strong>.</p>
+		<p>The Wazir and Ferz are easy. The Wazir simply moves one square rook-wise, and the Ferz moves one square bishop-wise. Which means they're completely uninteresting for our purposes; a Rook can make a superset of the Wazir's move so clearly a Rook can go everywhere a Wazir can, and conversely a Rook's move is made up of repeated Wazir's moves so a Wazir (given enough moves) can go everywhere a Rook can. Thus their reachable squares are the same. The same is true of Bishops and Ferzes.</p>
+		<p>In chess variant parlance we call Wazirs and Ferzes <strong>leapers</strong> (or <strong>steppers</strong>), and call Rooks and Bishops <strong>riders</strong> of those leapers. We just concluded that for colorbinding analysis purposes, we can actually just ignore the riders and look at the leapers. The Knight is another leaper, and its corresponding rider, the Nightrider, is a fun piece&mdash;an easy chess variant is to replace Knights with Nightriders and play the game out otherwise identically to regular Western Chess.)</p>
+		<p>So what about the Dabbaaba and the Alfil? They jump <em>two</em> squares rookwise or bishopwise respectively. So again, the Rook's move is a superset of a Dabbaaba's move. (The Dabbaaba and the Alfil can jump over any piece in between, but we're considering an empty board.) But the other way around is not true! You can see why for the Dabbaaba: every move for the Dabbaaba stays on the same color, just like the Bishop (or the Ferz), so one starting on a light square can never go to a dark square.</p>
+		<p>But it's worse than that; the Dabbaaba can't reach every light square, either. We can make another parity argument: if you start on a row (rank) with an even number, you only ever end up on rows with even numbers, and vice versa for odd numbers, and vice versa again for columns (files). So there are <em>four</em> Dabbaaba "colorbindings": the (even row, even column) binding, the (even, odd) binding, the (odd, odd) binding, and the (odd, even) binding. Even though the squares of the chessboard are no longer colored according to our reachable squares, let's continue to use the word "colorbinding" to refer to the set of reachable squares.</p>
+		<p>Homework for you! How many Alfil colorbindings are there?</p>
+		<p>Clearly, though, colorbindings can be more than just the one . So the big question that this explorable is going to take is: what colorbindings are possible?</p>
+	</div>
+
+	<div class="content">
+		<h2>Making this a little more mathy</h2>
+		<p>We've so far just been figuring out these colorbindings ad hoc. But if we're going to generalize, let's make this a bit more systematic.</p>
+		<p>First of all, the board. I'm assuming not just an 8x8 board but an infinite board, so that we can avoid edge effects. Let's also only consider the board to be empty, so we would ignore things like the Pawn's capturing moves. Chess boards are traditionally numbered along the ranks and lettered along the columns, but we'll number them. In fact, what we're ending up with is the Cartesian Plane, but only at integer coordinates.</p>
+		<p>And then the pieces. There are infinite ways of making pieces, so let's limit our scope. In fact, let's limit ourselves to leapers. Why? Well, just about all existing chess pieces are leapers or, like riders, have moves that can be "reduced" to successive leaper movements. This extends even to Shōgi and Xiangqi (Japanese and Chinese chess). But also, these kinds of pieces are <strong>translationally symmetric</strong>, which makes things easy.</p>
+		<p>Actually the Pawn comes back to bother us again. Its movements are not actually translationally symmetric. Even ignoring capturing moves, on its starting rank, a Pawn can move two spaces forward, whereas on any other rank it can only move one. So for the rest of this article, when I refer to a Pawn, I refer to a piece that can move forward one space rookwise and that's it (this is identical to the Shōgi Pawn).</p>
+		<p>Several Xiangqi pieces are also restricted by features on the board: the Elephant cannot cross the central rank (the river), and the General and its two Advisors cannot leave a 3&times;3 Palace marked on the board. We will ignore pieces like this without translational symmetry.</p>
+		<p>So a piece can be boiled down to the set of squares it can move to from a square. For example, a Wazir can be defined as the set {(0,1), (1,0), (0,-1), (-1,0)} because it can move 1 square along any primary axis. A Knight can be defined as the set {(1,2), (1,-2), (-1,-2), (-1,2), (2,1), (2,-1), (-2,-1), (-2,1)}. Formally, we can say that a piece that's on tile (x,y) can move to tile (x+N, x+M) for every (N,M) in its set of movements.</p>
+		<p>So what's a colorbinding? Let's define a colorbinding as the set of tiles that a piece can get to from (0,0) (we'll choose that tile as a starting square for standardization), given any arbitrary number of moves.</p>
+	</div>
+
+	<div class="content">
+		<h2>Where does group theory fit in?</h2>
+		<p>So this feels very group theory-y. A <strong>group</strong> is a set of things and an operation, with a couple properties I'll come back to in a moment. And indeed, here, we have a set of tiles, and ways of moving between them.</p>
+		<p>One of the easiest groups to understand is the additive group of integers, where the set of things is all integers Z and the operation is addition +. The three properties of groups that I promised you are:</p>
+		<ol>
+			<li>The group must be <strong>closed</strong> under the operation. For all elements a and b, a+b must also be part of the group.</li>
+			<li>There must be an <strong>identity</strong> element e such that any element x+e=x, and e+x=e.</li>
+			<li>For every element x there must be an <strong>inverse</strong> element x^(-1) such that x + x^(-1)=e</li>
+			<li>The operation must be <strong>associative</strong>. (a+b)+c = a+(b+c)</li>
+		</ol>
+		<p>And indeed all three are satisfied by integers and addition: zero is the identity, the negative of a number is its inverse, and addition is associative.</p>
+		<p>What about chess boards and piece movements? Well, the way we've mathematicized it, we're actually just dealing with the cross product of the integers with themselves, Z x Z. Note that tiles are certainly elements of this, but also, each movement, like (2,1), is an element of it, too. And our operation? It's just addition, on each axis separately. So we automatically just inherit these three properties.</p>
+		<p>What is a colorbinding? Well, obviously it's a subset of the Z x Z group that we're talking about. But there are special kinds of subsets of groups called subgroups - which is exactly what it sounds like, subsets that are themselves groups. Are colorbindings groups?</p>
+		<p>Associativity comes for free because that's a property of the operation part of the group, not the set part. So we only have to check the other three properties</p>
+		<ol>
+			<li>Closure. Remember our definition for this: for all elements a and b, a+b must also be part of the group. That is, choose a tile A that you can reach in some number of moves. If you do that sequence of moves but start from tile B (instead of the origin tile), do you always land on tile that's part of the original group? Well, by our original definition, yes: we defined a colorbinding as tiles that are reachable from the origin, so you can make some legal sequence of moves to get to B, and then you're making another sequence of legal moves, so you just got to A+B through a legal sequence of moves, so it's in the colorbinding.</li>
+			<li>Identity. The identity for our + operation on Z x Z is the (0,0) origin tile. You start out standing on it, so you've reached it. Therefore it's in our set.</li>
+			<li>Inverse. That is, if you travel out from the origin to some other square A, you can always find a path all the way back to the origin. But&hellip; that's not actually true. Remember the Pawn? You can't undo its moves!</li>
+		</ol>
+		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup! We can do two things with this knowledge: (1) restrict our search to symmetric pieces that can always undo any move, or (2) see what we can do even though it's not a group. And in fact, we'll do both&mdash;all our other chess pieces in Western chess can undo their moves, so we'll start there before generalizing.</p>
+	</div>
+
+	<div class="content">
+		<h2>Symmetric pieces and subgroups</h2>
+		<p>Symmetric pieces are pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). As mentioned, all five non-Pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the Gold and Silver Generals are wazirs and ferzes respectively, but also can move forward in all three kingly directions. The Shōgi Knight and Chariot, like the Pawn, can only move forward: the Shōgi Knight in the two forwardmost Knight directions, and the Chariot only in the one forward Rook direction (that is, it's a Shōgi Pawn rider). So we're ignoring all of these pieces.</p>
+		<p>So let's consider the basic pieces we've seen so far: the Wazir, the Ferz, the Dabbaaba, the Alfil, and the Knight (the Queen is, of course, a King Rider, and in turn a King is just a Wazir plus a Ferz). Out of these, the Knight and Wazir share the same colorbinding despite their movement sets looking completely different. But also, if you look at the different movement sets, they all kind of look similar. Just kind of grid-ish, lines running at right angles to each other. And you can imagine if you take a symmetric piece that can go to (0,3) and (3,0) (and of course, by the rules of symmetric pieces, (0,-3) and (-3,0) as well), you'd still get a similarly stiff 90 degree square grid but with lines 3 apart instead of 2 apart. Is that always the case?</p>
+		<p>The most obvious counterexample would be where you jump different amounts on different axes. You could be a Dabbaaba in the vertical direction but a Wazir in the horizontal: {(1,0), (-1,0), (0,2), (0,-2)}. Try it out yourself, and you'll find you end up with a stretched out rectangular grid.</p>
+		<p>What about the angles of the gridlines? Do they have to be 90 degrees? Consider the Narrow Knight. It's the Shōgi Knight, but extended to be symmetric: it's {(1,2), (-1,2), (1,-2), (-1,-2)}. Unlike the full Knight, this is colorbound! Try it yourself, and note that you do end up with a grid of sorts, but with both irregular lengths and irregular angles between the lines.</p>
+		<p>So do we always get a grid of straight lines at all? Well, other than the Knight, all the pieces we've considered so far have only two distinct moves (and their inverses). So actually maybe this should have been obvious. Like, consider the piece that can move horizontally as a Dabbaaba but forward right/backwards left as a Narrow Knight: {(2,0), (-2,0), (1,2), (-1,-2)}. For any square that you can get to, you got there by moving some number of moves along the Dabbaaba axis and the Narrow Knight axis. For our group, addition is commutative (which isn't true in general, but is true of ordinary addition of Z and therefore also of Z x Z), so we can reorder this as moving along our Dabbaaba axis first some number of times, and then along the Narrow Knight axis. These axes are linearly independent, which is to say they're not along the same direction, so once you start doing Narrow Knight moves, you'll never come back to a square along the Dabbaaba axis (the x-axis) unless you undo all your Narrow Knight moves. This will naturally look like a grid, since you have two directions.</p>
+		<p>But what happens if you add a third direction? What does our grid end up looking like? Before we dive into a proof, let's play around with this. If we start from our Dabbaaba-Narrow Knight combo. What happens if we add in the other Narrow Knight move (-1,2) and its inverse? What if we instead add in an Alfil move like (1,1) and its inverse? Or maybe this starting piece was too restrictive to show us everything - try other combinations of three moves (and their inverses).</p>
+		<p>You probably ended up only getting these sorts of parallelogram grids. In fact, I can kind of skip to the answer and tell you that you definitely did. But how can we prove so rigorously?</p>
+		<p>You know what this feels an awful lot like? Linear algebra, and finding a minimal spanning set.</p>
+	</div>
+	<hr>
+	<h1>Acknowledgments</h1>
+	<div class="content">
+		<p>This page was created by Viola Buddy for the Summer of Math Exposition 3 (SoME3), an event organized by the YouTube channel 3Blue1Brown (among others) to encourage people to create explanations of math or math-related subjects in any online medium. This page was written in HTML/Javascript, with equations written using the <a href="https://www.mathjax.org/">MathJax</a> library.</p>
+	</div>
+</div>
+
+
+</body>
+</html>
