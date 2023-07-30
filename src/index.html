@@ -1,16 +1,19 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
 <head>
 	<title>Colorbindings of Chess Variant Pieces</title>
 	<link rel="stylesheet" type="text/css" href="indexstyle.css">
-    <!--script type="text/javascript" src="PlayingCards.js"></script-->
+    <script type="text/javascript" src="chess-pieces.js"></script>
+    <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" id="MathJax-script" async
     	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 	</script>
 </head>
 <body>
 <div id="left">
-		<iframe src="basicgame.html" title="Board Game" id="basicgame" class="gameiframe"></iframe>
+	<div id="boarddivcontrols"></div>
+	<div id="boarddiv"></div>
 </div>
 <div id="right">
 	<h1>Colorbindings of Chess Variant Pieces</h1>
@@ -84,6 +87,9 @@
 	<div class="content">
 		<p>This page was created by Viola Buddy for the Summer of Math Exposition 3 (SoME3), an event organized by the YouTube channel 3Blue1Brown (among others) to encourage people to create explanations of math or math-related subjects in any online medium. This page was written in HTML/Javascript, with equations written using the <a href="https://www.mathjax.org/">MathJax</a> library.</p>
 	</div>
+<script type="text/javascript">
+	main();
+</script>
 </div>
 
 

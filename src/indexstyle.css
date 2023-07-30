@@ -179,3 +179,93 @@ hr {
 a {
 	color: #542f19;
 }
+
+/*****/
+
+
+table#maintable {
+	background-color: #ffffff;
+	white-space: nowrap;
+	border-spacing: 0px;
+	border:2px solid black;
+	padding: 1em;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+table#maintable td {
+	cursor: default;
+	user-select: none;
+	position: relative;
+
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid black;
+}
+
+table#maintable td .cell {
+	margin:0px;
+	width: 32px;
+	height: 32px;
+	aspect-ratio: 1 / 1 ;
+
+	display: flex;
+	justify-content: center;
+}
+
+table#maintable td .cell img {
+	max-width: 75px;
+	max-height: 150px;
+
+	/* align bottom of img with bottom of cell */
+	position: absolute;
+	bottom: 0%;
+}
+
+.lightcell:not(.startcell) {
+	background-color: #ffcc77;
+}
+.darkcell:not(.startcell) {
+	background-color: #552222;
+}
+.lightcell.selectable {
+	background-color: #aaaaaa;
+	cursor: pointer;
+}
+.darkcell.selectable {
+	background-color: #777777;
+	cursor: pointer;
+}
+
+.startcell {
+	background-color: #88cc33;
+}
+.lightcell.highlighted:not(.selectable,.startcell) {
+	background-color: #dd6666;
+}
+.darkcell.highlighted:not(.selectable,.startcell) {
+	background-color: #880000;
+}
+
+.cellinnertext {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	z-index: 1;
+	overflow: hidden;
+	font-size: 8px;
+}
+.lightcell .cellinnertext {
+	color: black;
+}
+.darkcell .cellinnertext {
+	color: white;
+}
+
+.pieceemoji {
+	font-size: 21px;
+	margin: 0;
+	padding: 0;
+	z-index: 2;
+	text-shadow: #222266 0 0 5px;
+}
