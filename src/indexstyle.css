@@ -100,12 +100,11 @@ div.content {
 	box-sizing: border-box;
 }
 
-div.content>:not(h2, figcaption, .mathjaxcontent) {
+div.content>:not(h2, figcaption, .mathjaxcontent), div.content button {
 	font-size: 24px;
 	line-height: 36px;
 	font-family: sans-serif;
 	text-align: justify;
-
 }
 
 summary {
