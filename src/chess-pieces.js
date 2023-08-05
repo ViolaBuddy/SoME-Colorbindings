@@ -59,63 +59,6 @@ class GameObject {
 	}
 }
 
-class AlertOverlay extends GameObject {
-	constructor(domElement, onClickHandler = null) {
-		super()
-		this.domElement = domElement;
-		this.onClickHandler = null;
-		this.setClickHandler(onClickHandler);
-	}
-
-	setClickHandler(onClickHandler) {
-		if (this.onClickHandler !== null) {
-			this.domElement.removeEventListener('click', this.onClickHandler);
-		}
-		this.onClickHandler = onClickHandler;
-		if (onClickHandler !== null) {
-			this.domElement.addEventListener('click', onClickHandler);
-		}
-	}
-
-	hide() {
-		this.domElement.style.display = 'none';
-	}
-
-	show(message) {
-		this.domElement.style.display = 'flex';
-		this.domElement.innerHTML = message;
-	}
-}
-
-class CutsceneOverlay extends GameObject {
-	constructor(domElement, onClickHandler = null) {
-		super()
-		this.domElement = domElement;
-		this.onClickHandler = null;
-		this.setClickHandler(onClickHandler);
-	}
-
-	setClickHandler(onClickHandler) {
-		if (this.onClickHandler !== null) {
-			this.domElement.removeEventListener('click', this.onClickHandler);
-		}
-		this.onClickHandler = onClickHandler;
-		if (onClickHandler !== null) {
-			this.domElement.addEventListener('click', onClickHandler);
-		}
-	}
-
-	hide() {
-		this.domElement.style.display = 'none';
-	}
-
-	show(message) {
-		 // this is the only difference between this and AlertOverlay
-		this.domElement.style.display = 'block';
-		document.getElementById('cutsceneOverlayText').innerHTML = message;
-	}
-}
-
 class Piece extends GameObject {
 	constructor(emoji, alignment, moves, attackType=null, defenseType=null) {
 		super()
@@ -384,7 +327,7 @@ class Board extends GameObject {
 		// remember that moves are (x,y) while everything else is (r,c)!
 		for (let direction of thisPiece.moves) {
 			let targetTile = [r-direction[1], c+direction[0]];
-			if (direction.length < 3 || direction[2] === MovementCategory.Leaper) {
+			if (direction.length < 3 || direction[2] === MovementCategory.Leaper || (direction[0] === 0 && direction[1] === 0)) {
 				if (this.tileIsPassable(targetTile[0], targetTile[1], thisPiece)) {
 					this.selectedTileMoveable.push(targetTile);
 					this.addToPreviouslyMoveable(targetTile);

@@ -24,9 +24,9 @@
 	<div class="content">
 		<h2>Introduction</h2>
 		<p>Chess is played by moving pieces around on a square grid. And this is true of xiangqi (Chinese chess) and shōgi (Japanese chess) too. And sure there's, like, strategy and stuff (and in Japanese chess, you can also re-deploy a captured unit), but we can skip that part today. Let's just talk about moving pieces.</p>
-		<p>Each chess piece can move in its own unique way. For examples, knights move in a distinctive L-shaped way.  Despite this strange movement, knights can actually reach any square on the board, which I will state without proof here but you can try it for yourself on the left panel by pressing this button: <button>Knight</button></p>
-		<p>But not all pieces can do that. Obviously, the pawn, as well as some similar pieces that can only move forwards in xiangqi and shōgi, cannot reach tiles behind it. But, also, there's the bishop, which can only reach half the squares on the board&dash;try it out and you'll immediately see why. <button>Pawn</button> <button>Promoted Soldier (Xiangqi)</button> <button>Lance (Shōgi)</button> <button>Laurel Horse (Shōgi)</button> <button>Bishop</button></p>
-		<p>So today I'd like to explore this idea of pieces being only able to move to certain squares. And by "today" I mean "for literally a couple decades now." As a child, I was very into chess variants and thinking about funny new pieces and how they might move, and this idea of being stuck on certain tiles is a common idea among chess variant pieces (also called "fairy chess pieces"). Within this context, this idea is sometimes called <strong>colorbindings</strong>, named after the fact that on an ordinary chessboard, the bishop that starts on one color is stuck to that color and will never leave it. But it turns out that you can construct other pieces (like the alfil <button>Alfil</button>) that have a colorbinding other than just "the light squares" and "the dark squares," so a very natural question is: <strong>what are all the ways that a piece can be colorbound?</strong></p>
+		<p>Each chess piece can move in its own unique way. For examples, knights move in a distinctive L-shaped way.  Despite this strange movement, knights can actually reach any square on the board, which I will state without proof here but you can try it for yourself on the left panel by pressing this button: <button class='knight'>Knight</button></p>
+		<p>But not all pieces can do that. Obviously, the pawn, as well as some similar pieces that can only move forwards in xiangqi and shōgi, cannot reach tiles behind it. But, also, there's the bishop, which can only reach half the squares on the board&dash;try it out and you'll immediately see why. <button class='pawn'>Pawn</button> <button class='promotedsoldier'>Promoted Soldier (Xiangqi)</button> <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='bishop'>Bishop</button></p>
+		<p>So today I'd like to explore this idea of pieces being only able to move to certain squares. And by "today" I mean "for literally a couple decades now." As a child, I was very into chess variants and thinking about funny new pieces and how they might move, and this idea of being stuck on certain tiles is a common idea among chess variant pieces (also called "fairy chess pieces"). Within this context, this idea is sometimes called <strong>colorbindings</strong>, named after the fact that on an ordinary chessboard, the bishop that starts on one color is stuck to that color and will never leave it. But it turns out that you can construct other pieces (like the alfil <button class='alfil'>Alfil</button>) that have a colorbinding other than just "the light squares" and "the dark squares," so a very natural question is: <strong>what are all the ways that a piece can be colorbound?</strong></p>
 		<p>As a child, I never got very far with this question, but now let's see if we can't do a bit better.</p>
 	</div>
 	<div class="content">
@@ -35,9 +35,9 @@
 		<p>But we can think back to the pieces from the three "canonical" types of chess I mentioned before. In almost all cases, the pieces' movements have translational symmetry: no matter where you are on the board, you can move to the same squares relative to yourself. So for our exploration today, let us only consider pieces whose movements are translationally symmetric.</p>
 		<p>We do have to qualify this a little bit. Let's ignore the fact that you're not allowed to move off the edge of a board&mdash;that is, let's consider an infinite board. Let's also assume that no other pieces are on this infinite board&mdash;pawns can't move diagonally to capture, rooks and xiangqi horses aren't blocked by pieces in the way, etc.</p>
 		<p>Even under these conditions, there are actually still a few pieces in the three canonical types of chess mentioned that are not translationally symmetric. One is the pawn in Western chess: on the second row ("rank" in chess terms, but I never remember which is rank and which is file), it can move two spaces forward, but if you translate its position up to the third row it cannot make that move. The others are from xiangqi: the general and advisors can only move within the 3x3 palace, and the elephants cannot cross the river. So, again, we're just going to ignore any pieces with these sorts of location restrictions.</p>
-		<p>Out of the remaining pieces, we can split their movements into two types: <strong>leapers</strong> and <strong>riders</strong>. Leapers like simply jump to a square a certain offset away from the starting tile. Knights and kings are leapers <button>King</button>. Riders start like leapers jumping to a square a certain offset away, but then are allowed to continue in that direction (as long as there's nothing in the way, but we're dealing with an empty board, remember) for as long as they like. Rooks and queens are riders <button>Rook</button> <button>Queen</button>. In fact, we can phrase it as "a queen is a king-rider" to denote that a queen has the same basic movement as the king but can continue riding in the same direction as a single move.</p>
-		<p>I will again simply state without proof that a leaper and its corresponding rider have the same colorbinding (i.e. they can reach the same set of squares). As an example that's not just "both pieces can reach the entire board," try playing around with an Alfil and an Alfil-rider: <button>Alfil</button> <button>Alfil-rider</button>. Because of this, we can without loss of generality consider only leapers.</p>
-		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the flying dragon and dragon horse in shōgi.) <button>Flying Dragon</button> <button>Dragon Horse</button></p>
+		<p>Out of the remaining pieces, we can split their movements into two types: <strong>leapers</strong> and <strong>riders</strong>. Leapers like simply jump to a square a certain offset away from the starting tile. Knights and kings are leapers <button class='king'>King</button>. Riders start like leapers jumping to a square a certain offset away, but then are allowed to continue in that direction (as long as there's nothing in the way, but we're dealing with an empty board, remember) for as long as they like. Rooks and queens are riders <button class='rook'>Rook</button> <button class='queen'>Queen</button>. In fact, we can phrase it as "a queen is a king-rider" to denote that a queen has the same basic movement as the king but can continue riding in the same direction as a single move.</p>
+		<p>I will again simply state without proof that a leaper and its corresponding rider have the same colorbinding (i.e. they can reach the same set of squares). As an example that's not just "both pieces can reach the entire board," try playing around with an Alfil and an Alfil-rider: <button class='alfil'>Alfil</button> <button class='alfilrider'>Alfil-rider</button>. Because of this, we can without loss of generality consider only leapers.</p>
+		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the flying dragon and dragon horse in shōgi.) <button class='flyingdragon'>Flying Dragon</button> <button class='dragonhorse'>Dragon Horse</button></p>
 		<p>We can describe a leaper as a set of moves that it can make. A knight is a <span class="mathjaxcontent">$\left\{(1,2), (1,-2), (-1,-2), (-1,2), (2,1), (2,-1), (-2,-1), (-2,1)\right\}$ leaper. A white pawn (without its double move or capture moves) is a $\{(0,1)\}$</span> leaper, and a black pawn, which moves the other way, is a $\{(0,-1)\}$</span> leaper.</p>
 		<p>On that note: rather than the standard letter-and-number system that chess uses for labeling each square on the chessboard, for our infinite chessboard, I'm labeling them $(x,y)$, like the Cartesian plane. And like the Cartesian plane, the positive x-axis is to the right and the positive y-axis is to the top. Unlike the Cartesian plane, we only have integers, none of the in-between fractions or reals.</p>
 		<p>For consistency, let's consider the colorbindings of pieces <em>that start on the origin tile</em>, i.e. tile $(0,0)$.</p>
@@ -45,36 +45,187 @@
 
 	<div class="content">
 		<h2>I Smell Group Theory</h2>
-		<p>So where do we begin? As a kid there were a lot of ways I tried to think about this, but group theory was not one of them. Because that's not a thing you learn as a kid. But now that I'm coming back to this question, having had an admittedly extremely fast crash course on the subject, I'm definitely feeling group theory vibes from this question. If we set things up right, maybe we can just nab some ideas from group theory to answer our questoin.</p>
-		<p>So let's back up and define some things. A <strong>group</strong> is a set of things and an operation, with a couple properties I'll come back to in a moment. And indeed, here, we have a set of tiles, and each given piece tells you some ways you can move between the tiles, i.e. an operation.</p>
-		<p>One of the easiest groups to understand is the additive group of integers, where the set of things is all integers $\mathbb{Z}$ and the operation is addition $+$. The three properties of groups that I promised you are:</p>
+		<p>So where do we begin? As a kid there were a lot of ways I tried to think about this, but group theory was not one of them. Because that's not a thing you learn as a kid. But now that I'm coming back to this question, having had an admittedly extremely fast crash course on the subject, I'm definitely feeling group theory vibes from this question. If we set things up right, maybe we can just nab some ideas from group theory to answer our question.</p>
+		<p>So let's start by defining some key ideas. A <strong>group</strong> is a set of things and an operation. And indeed, in this case, we have a set of tiles, and each given piece tells you some ways you can move between the tiles, which feels close enough to being an operation.</p>
+		<p>But you do need a couple properties to hold for this to properly be considered a set. Rather than apply them to our tiles-and-pieces system immediately, let's start from an easier-to-understand example, the additive group of integers. This is the set of things is all integers $\mathbb{Z}$ and the operation is addition $+$. The three properties of groups that I promised you are:</p>
 		<ol>
 			<li>The group must be <strong>closed</strong> under the operation. For all elements $a$ and $b$, $a+b$ must also be part of the group. So, like, if you add $3$ and $8$ you'll get another integer; you'll never get something that's not an integer.</li>
-			<li>There must be an <strong>identity</strong> element $e$ such that any element $x+e=x$ and $e+x=x$. For addition, that's zero. If you add zero to any integer, you'll get that same integer back.</li>
+			<li>There must be an <strong>identity</strong> element $e$ such that any element $x+e=x$ and $e+x=x$. For addition, our identity element is zero. If you add zero to any integer, you'll get that same integer back.</li>
 			<li>For every element $x$ there must be an <strong>inverse</strong> element $x^{-1}$ such that $x + x^{-1}=e$. For addition, that's the negative of a number. $3$ is an integer, so $-3$ must also be an integer.</li>
-			<li>The operation must be <strong>associative</strong>. $(a+b)+c = a+(b+c)$. I will state without proof that this is true for addition.</li>
+			<li>The operation must be <strong>associative</strong>. $(a+b)+c = a+(b+c)$. This is obviously true for addition; for example, $(3+4)+9$ and $3+(4+9)$ both equal $16$.</li>
 		</ol>
-		<p>So back to chess boards and piece movements. Do these form a group? Well, the way we've numbered the tiles has made it fairly obvious that we're actually just dealing with the cross product of the integers with themselves, $\mathbb{Z} \times \mathbb{Z}$. Note that not only tiles are elements of this&mdash;each movement for a piece, like $(2,1)$ for a knight, is an element of it, too, which is good because we our operation is to put these two things together, a starting tile and a movement, resulting in another tile. And in fact, when we say "put together" what we mean by that is that it's just plain integer addition on each axis separately: if you start from the $(3,5)$ tile and make the $(2,1)$ move, you'll end up on the $(3,5) + (2,1) = (5,6)$ tile. We basically end up inheriting these four properties of groups from the fact that we're just a cross product of two groups (I'll leave the details for a proper group theory class).</p>
-		<p>When we think of the board as a group, then what is a colorbinding? Well, since it's the set of a piece's <em>accessible</em> tiles, obviously it's a subset of <em>all</em> tiles, which we just said is $\mathbb{Z} \times \mathbb{Z}$. But there are special kinds of subsets of groups called subgroups - which is exactly what it sounds like, subsets that are themselves groups. So are colorbindings groups?</p>
-		<p>Associativity comes for free because that's a property of the operation part of the group, not the set part. So we only have to check the other three properties</p>
+		<p>If you're familiar with the formal properties of addition, there's one property that you've probably noticed is missing from the list: <strong>commutivity</strong>, which is the ability to reorder the arguments. So $4 + 8$ is the same as $8 + 4$. Addition of integers is indeed commutative, but it's not necessary to be classified as a group.</p>
+		<p>So back to our "chess board and piece movement" systems. Do these form a group? Well, the way we've numbered the tiles has made it fairly obvious that we're actually just dealing with the cross product of the integers with themselves, $\mathbb{Z} \times \mathbb{Z}$, which is to say "the set of all ordered pairs of integers."</p>
+		<p>And not only are tiles elements of this set&mdash;each movement for a piece, like $(2,1)$ for a knight, is an element of it, too! That's good, because then we can define our operation (which we handwaved earlier as "a piece movement-ish thing") more precisely as putting together two elements of our set, one of which we think of as a tile and one of which we think of as our movement.</p>
+		<p>And it gets better&mdash;when we say "put together" what we mean by that is that it's just plain integer addition, just on each axis separately. For example, if you start from the $(3,5)$ tile and make the $(2,1)$ move, you'll end up on the $(3,5) + (2,1) = (5,6)$ tile. And we just showed that the integers are a group under regular old addition! So we basically end up inheriting these four properties of groups from the fact that we're just a cross product of two groups&mdash;this is true of any cross product of groups, but I'll leave the details for a proper group theory class.</p>
+		<p>(Before group theory fans start coming after me&mdash;technically, when talking about groups and not just sets, we generally call these paired-up groups "direct products," rather than cross or Cartesian products.)</p>
+		<p>So we have this mathematical setup for the board. But the thing in particular that we were looking at were colorbindings; how does that translate into group theory language? Well, since it's the set of a piece's <em>accessible</em> tiles, obviously it's a subset of <em>all</em> tiles, which we just said is $\mathbb{Z} \times \mathbb{Z}$. And further, our concept of a movement set of a piece corresponds with the idea of a <strong>generating set</strong>: a set $M$ is said to generate another set $X$ if all elements of $X$ can be expressed as combinations of repeated applications of (possibly different) elements of $M$, and vice versa.</p>
+		<p>Some group theory fans are probably complaining again because usually when we're talking about generating sets we're talking not about any old subset of a group, but a special kind of subset of a group called a <strong>subgroup</strong>. A subgroup is exactly what it sounds like, subsets that are themselves groups. So are colorbindings subgroups of $\mathbb Z \times \mathbb Z$? We just have to check the properties above. Associativity comes for free because that's a property of the operation part of the group, not the set part. So we only have to check the other three properties:</p>
 		<ol>
-			<li>Closure. Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a tile $a$ that you can reach in some number of moves. If you do that sequence of moves but start from tile $b$ (instead of the origin tile), do you always land on tile that's part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
+			<li>Closure. Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a tile $b$ that you can reach in some number of moves. If you do that sequence of moves but start from tile $a$ (instead of the origin tile), that would be $a+b$. Is this final destination part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
 			<li>Identity. The identity for our $+$ operation on $\mathbb{Z} \times \mathbb{Z}$ is the $(0,0)$ origin tile. You start out standing on it, so you've accessed it. Therefore it's in our colorbinding.</li>
 			<li>Inverse. That is, if you travel out from the origin to some other square A, you can always find a path all the way back to the origin. But&hellip; that's not actually true. Remember the pawn? You can't undo its moves!</li>
 		</ol>
-		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup! We can do two things with this knowledge: (1) restrict our search to symmetric pieces that can always undo any move, or (2) see what we can do even though it's not a group. And in fact, we'll do both, starting with the first.</p>
+		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup. Welp. We can do two things with this knowledge: (1) ignore pieces that don't have inverses, or (2) see what we can do even though it's not a group. And in fact, we'll do both, starting with the first.</p>
+		<p>(By the way, to please those group theory fans: when talking about generating sets of <em>subgroups</em> in particular, you're also allowed to take inverses of elements while trying to create new elements in the subset. This automatically makes the resulting subset fulfil the third requirement, so it's a subgroup.)</p>
 	</div>
 
 	<div class="content">
 		<h2>Symmetric pieces and subgroups</h2>
-		<p>Symmetric pieces are pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). As mentioned, all five non-Pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the Gold and Silver Generals are wazirs and ferzes respectively, but also can move forward in all three kingly directions. The Shōgi Knight and Chariot, like the Pawn, can only move forward: the Shōgi Knight in the two forwardmost Knight directions, and the Chariot only in the one forward Rook direction (that is, it's a Shōgi Pawn rider). So we're ignoring all of these pieces.</p>
-		<p>So let's consider the basic pieces we've seen so far: the Wazir, the Ferz, the Dabbaaba, the Alfil, and the Knight (the Queen is, of course, a King Rider, and in turn a King is just a Wazir plus a Ferz). Out of these, the Knight and Wazir share the same colorbinding despite their movement sets looking completely different. But also, if you look at the different movement sets, they all kind of look similar. Just kind of grid-ish, lines running at right angles to each other. And you can imagine if you take a symmetric piece that can go to (0,3) and (3,0) (and of course, by the rules of symmetric pieces, (0,-3) and (-3,0) as well), you'd still get a similarly stiff 90 degree square grid but with lines 3 apart instead of 2 apart. Is that always the case?</p>
-		<p>The most obvious counterexample would be where you jump different amounts on different axes. You could be a Dabbaaba in the vertical direction but a Wazir in the horizontal: {(1,0), (-1,0), (0,2), (0,-2)}. Try it out yourself, and you'll find you end up with a stretched out rectangular grid.</p>
-		<p>What about the angles of the gridlines? Do they have to be 90 degrees? Consider the Narrow Knight. It's the Shōgi Knight, but extended to be symmetric: it's {(1,2), (-1,2), (1,-2), (-1,-2)}. Unlike the full Knight, this is colorbound! Try it yourself, and note that you do end up with a grid of sorts, but with both irregular lengths and irregular angles between the lines.</p>
-		<p>So do we always get a grid of straight lines at all? Well, other than the Knight, all the pieces we've considered so far have only two distinct moves (and their inverses). So actually maybe this should have been obvious. Like, consider the piece that can move horizontally as a Dabbaaba but forward right/backwards left as a Narrow Knight: {(2,0), (-2,0), (1,2), (-1,-2)}. For any square that you can get to, you got there by moving some number of moves along the Dabbaaba axis and the Narrow Knight axis. For our group, addition is commutative (which isn't true in general, but is true of ordinary addition of Z and therefore also of Z x Z), so we can reorder this as moving along our Dabbaaba axis first some number of times, and then along the Narrow Knight axis. These axes are linearly independent, which is to say they're not along the same direction, so once you start doing Narrow Knight moves, you'll never come back to a square along the Dabbaaba axis (the x-axis) unless you undo all your Narrow Knight moves. This will naturally look like a grid, since you have two directions.</p>
-		<p>But what happens if you add a third direction? What does our grid end up looking like? Before we dive into a proof, let's play around with this. If we start from our Dabbaaba-Narrow Knight combo. What happens if we add in the other Narrow Knight move (-1,2) and its inverse? What if we instead add in an Alfil move like (1,1) and its inverse? Or maybe this starting piece was too restrictive to show us everything - try other combinations of three moves (and their inverses).</p>
-		<p>You probably ended up only getting these sorts of parallelogram grids. In fact, I can kind of skip to the answer and tell you that you definitely did. But how can we prove so rigorously?</p>
-		<p>You know what this feels an awful lot like? Linear algebra, and finding a minimal spanning set.</p>
+		<p>Let's define the notion of <strong>symmetric pieces</strong> as pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). All five non-pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the lance and laurel horse, as mentioned earlier, but also the gold and silver generals. <button>Lance</button> <button>Laurel Horse</button> <button>Gold General</button> <button>Silver General</button>. These are pieces we're ignoring in this section.</p>
+		<p>Before we dive into the math, let's play around with some of these pieces. Look at the colorbindings for the dabbaaba and the alfil: <button>Dabbaaba</button> <button>Alfil</button>. They're kind of just kind of grid-ish, lines running at right angles to each other. Do all symmetric pieces have this square grid shape to their colorbindings?</p>
+		<p>Well, no. It doesn't have to be square because the side lengths don't have to be the same. A piece that's a dabbaaba horizontally but a threeleaper vertically would have a rectangular grid (I'll use <a href="https://www.chessvariants.com/d.betza/chessvar/pieces/notation.html">Ralph Betza's funny notation</a> for naming these more exotic pieces that don't have standardized names) <button>fbHsD</button>. But even more, the pieces we've been considering all lie on an axis of symmetry of the plane. If you take moves on a different angle, the grid lines skew away from perpendicular to each other. Consider the narrow knight, which is the symmetric extension of shōgi's laurel horse: <button>Narrow Knight</button>.</p>
+		<p>To some extent, this actually feels pretty natural. All these pieces we've looked at here have two moves in their movement set, plus the inverses of those two moves. So there are two axes of movement, one for each of these moves. As long as the two moves aren't parallel, of course we're going to end up with a grid like this.</p>
+		<p>So what happens if we add a third move to our movement set? Can we get something more interesting? Well, try it yourself to see what you can come up with: <button>Custom Symmetric Piece</button>.</p>
+		<p>I don't know exactly what you came up with, but you probably had coming up with anything that wasn't a parallelogram grid of some kind. In fact, that's true. For all symmetric pieces, there always exists some other symmetric piece with at most two moves (and their inverses) with the same colorbinding.</p>
+		<p>How can we prove this? Well, we can actually take a page out of linear algebra. Anyone who's familiar with linear algebra may have already felt the similarity&mdash;it feels like we're in a 2D vector space and we're trying to find the span of vectors. It's just that we now live in a quantized integer world, not one with coordinates that can freely vary through all real numbers. But if you're not familiar with it, that's okay too; we're going to go through this together.</p>
+		<p>Let's consider the symmetric piece that can move to $\{(3,2), (4,3), (5,1)\}$ (and remember that, as a symmetric piece, it can go to the inverses of these as well). We want to show that there's another symmetric piece, $\{(x_1,y_1), (x_1, y_2)\}$, with only two moves in its movement set, that has the same colorbinding, i.e. these sets generate the same subgroup of $\mathbb Z \times \mathbb Z$.</p>
+		<p>We can start by pointing out that if a piece $\{a, b, c\}$ generates a colorbinding, then the piece $\{a, b, c+a\}$ also generates the same colorbinding. In particular, consider any tile in the colorbinding that requires that we add $c$ to the path somewhere to get to it. With our new piece, instead, we can add $c+a$ and then $-a$ where we would have added $c$. Thus, if we could find a path to a tile with our first piece, we can also find a path to our second tile.</p>
+		<p>We can of course extend this to say that all of the following have the same colorbinding: $\{a, b, c+b\}$, $\{a, b, c-a\}$, $\{a, b, c+2a\}$, $\{a+c, b, c\}$. That is, we can add any multiple of one movement in our movement set to any other movement, and we would still get the same colorbinding. And we can compose this: first you might add the first move to the third, and then you might subtract this new third from the second, and then you might subtract that all from the first.</p>
+		<p>Unlike with vectors, you cannot add a movement <em>to itself</em>. When we added $a$ to another vector $c$, we required that the original $a$ stay intact, so that we can use it to "undo" that addition later. But if you add $a$ to itself, you end up destroying the original copy of $a$. Anecdotally, we've already see this&mdash;a dabbaaba and a wazir have different colorbindings! <button class='dabbaaba'>Dabbaaba</button> <button class='wazir'>Wazir</button></p>
+		<p>Now we have a way to find other pieces with three moves that have the same colorbindings as an initial three-move piece. Do you see how we could use this to <em>reduce</em> the number of moves to two? Well, one thing to note is that if $(0,0)$, the identity element, is one of the three moves, we can remove it and it wouldn't change the colorbinding. After all, it can never add any new tiles no matter how many times you add that movement.</p>
+		<p>So our plan is to figure out a way to do this "adding moves to each other" thing repeatedly until we can get one of the moves to the zero move. For convenience, let's throw the moves into a matrix, one on each row. So in our original example, we start with the following matrix: $$\begin{bmatrix}
+			3 & 2\\
+			4 & 3\\
+			5 & 1
+		\end{bmatrix}$$</p>
+		<p>What we're doing is a process from linear algebra called <strong>Gaussian elimination</strong> to make this matrix into <strong>row echelon form</strong>. This means each row in the matrix has strictly more zeros at the start of it than the row above it (exception: you're allowed to have the same number of zeros as the row above you if the entire row is already zeros). For example, the following matrices are all in row echelon form: $$\begin{bmatrix}
+			4 & 1 \\
+			0 & -9\\
+			0 & 0
+		\end{bmatrix}, \begin{bmatrix}
+			4 & 1 \\
+			0 & 0\\
+			0 & 0
+		\end{bmatrix}, \begin{bmatrix}
+			4 & 1 & 0\\
+			0 & 2 & 2\\
+			0 & 0 & 4
+		\end{bmatrix}, \begin{bmatrix}
+			4 & 1 & 0\\
+			0 & 0 & 2\\
+			0 & 0 & 0\\
+			0 & 0 & 0
+		\end{bmatrix}$$</p>
+		<p>You can see why this is useful for us: in row echelon form, if each row has to have strictly more zeros than the row above it, then at some point you run out of columns to have zeros in and you have to be all zeros, which is what we're looking for!</p>
+		<p>In linear algebra, it's easy to add something to the second and third row to get zero in the first column, because you can multiply by any number. So for example, if we pretend our matrix is from ordinary linear algebra land (i.e. in $\mathbb R \times \mathbb R$), we could do:$$\begin{aligned}
+		\begin{bmatrix}
+			3 & 2\\
+			4 & 3\\
+			5 & 1
+		\end{bmatrix}\xrightarrow{\text{add}\left(\frac{-4}{3}\times\text{row 1}\right) \text{ to row 2}}&\begin{bmatrix}
+			3 & 2\\
+			4-4 & 3 - \frac{8}{3}\\
+			5 & 1
+		\end{bmatrix} = \begin{bmatrix}
+			3 & 2\\
+			0 & \frac{1}{3}\\
+			5 & 1
+		\end{bmatrix}\\
+		\xrightarrow{\text{add}\left(\frac{-5}{3}\times\text{row 1}\right) \text{ to row 3}}&\begin{bmatrix}
+			3 & 2\\
+			0 & \frac{1}{3}\\
+			5 - 5 & 1 - \frac{10}{3}
+		\end{bmatrix} = \begin{bmatrix}
+			3 & 2\\
+			0 & \frac{1}{3}\\
+			0 & -\frac{7}{3}
+		\end{bmatrix}
+		\end{aligned}$$ </p>
+		<p>And from here we can do a similar thing for the second column. But again, we're stuck with integers so we have to find our zeros a different way.</p>
+		<p>This actually stumped me for a little bit, but actually, it turns out that there's an algorithm from number theory that does exactly what we're looking for, reduce a number down to zero by adding and subtracting back and forth. So now that we've touched on group theory and linear algebra, it's time to add a third area of math to this, number theory.</p>
+		<p>The reason why I didn't realize this was what I was looking for at first is that this algorithm isn't normally thought of as "thing that brings a number down to zero". It's Euclid's algorithm, and normally it's useful because it finds the GCF (greatest common factor) between two natural numbers. The algorithm itself is also extremely simple: if you have two numbers, subtract the smaller one from the larger one and repeat until one of them is zero. The other number will be the GCF (I won't explain why because it's not relevant to us now, but <a href="https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm">here</a> is an article from Khan Academy about it).</p>
+		<p>There's a further modification, in that we're doing this on rows with two numbers each. We're doing Euclid's algorithm on the numbers in the first column, and the second column is just coming along for the ride. An example will probably make that clear:$$\begin{aligned}
+		\begin{bmatrix}
+			3 & 2\\
+			4 & 3\\
+			5 & 1
+		\end{bmatrix}\xrightarrow{\text{subtract row 1 from row 2}} &\begin{bmatrix}
+			3 & 2\\
+			4-3 & 3-2\\
+			5 & 1
+		\end{bmatrix} = \begin{bmatrix}
+			3 & 2\\
+			1 & 1\\
+			5 & 1
+		\end{bmatrix}\\
+		\xrightarrow{\text{subtract row 2 from row 1, three times}} &\begin{bmatrix}
+			3-3 & 2-3\\
+			1 & 1\\
+			5 & 1
+		\end{bmatrix} = \begin{bmatrix}
+			0 & -1\\
+			1 & 1\\
+			5 & 1
+		\end{bmatrix}
+		\end{aligned}$$</p>
+		<p>And we actually ended up with the zero in the top row rather than in the second row. Euclid's algorithm makes no guarantee which of the two rows will end up as zero, only that one of them will. But remember our matrix is just our movement set, thrown in in any which order; we can always swap rows around because it's not like our $(0,1)$ move has any sort of priority over our $(1,1)$ move. So let's do that, and then repeat Euclid's algorithm between our first and third rows to get one of them down to zero (which is admittedly quite easy):$$\begin{aligned}
+		\begin{bmatrix}
+			0 & -1\\
+			1 & 1\\
+			5 & 1
+		\end{bmatrix}\xrightarrow{\text{swap rows 1 and 2}} &\begin{bmatrix}
+			1 & 1\\
+			0 & -1\\
+			5 & 1
+		\end{bmatrix}\\
+		\xrightarrow{\text{subtract row 1 from row 3, five times}} &\begin{bmatrix}
+			1 & 1\\
+			0 & -1\\
+			5-5 & 1-5
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 1\\
+			0 & -1\\
+			0 & -4
+		\end{bmatrix}
+		\end{aligned}$$</p>
+		<p>At this point it's pretty obvious that you can move to tile $(0, -4)$ using only $(0,-1)$ moves, but just to be systematic about this, we can repeat Euclid's algorithm on the second column of rows 2 and 3 to get a zero. Euclid's algorithm only works on positive integers, but that's okay because we're still working with symmetric pieces right now, so we can invert any row.$$\begin{aligned}
+		\begin{bmatrix}
+			1 & 1\\
+			0 & -1\\
+			0 & -4
+		\end{bmatrix}\xrightarrow{\text{invert row 2}} &\begin{bmatrix}
+			1 & 1\\
+			0 & 1\\
+			0 & -4
+		\end{bmatrix}\\
+		\xrightarrow{\text{invert row 3}} &\begin{bmatrix}
+			1 & 1\\
+			0 & 1\\
+			0 & 4
+		\end{bmatrix}\\
+		\xrightarrow{\text{subtract row 2 from row 3, four times}} &\begin{bmatrix}
+			1 & 1\\
+			0 & 1\\
+			0 & 4-4
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 1\\
+			0 & 1\\
+			0 & 0
+		\end{bmatrix}
+		\end{aligned}$$</p>
+		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button>Example piece $\{(1,1),(0,1),(0,0)\}$</button> <button>Reduced example piece $\{(1,1),(0,1)\}$</button></p>
+		<p>And there was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement. You'd end up with a degenerate parallelogram grid in that case. But I'll let you play around with that, because here is a calculator for pieces with up to four movements. What's filled in by default is a degenerate case:</p>
+		<p>
+			<!-- 9007199254740992 is the maximum integer that can be stored as a Javascript Number (a double) without losing precision when you do arithmetic on it: the next storable number is 9007199254740994, skipping over 9007199254740993 -->
+			<input type="number" id="symmetric_11" min="-9007199254740992" max="9007199254740992" value="3" autocomplete="off"/>
+			<input type="number" id="symmetric_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			<br>
+			<input type="number" id="symmetric_21" min="-9007199254740992" max="9007199254740992" value="4" autocomplete="off"/>
+			<input type="number" id="symmetric_22" min="-9007199254740992" max="9007199254740992" value="3" autocomplete="off"/>
+			<br>
+			<input type="number" id="symmetric_31" min="-9007199254740992" max="9007199254740992" value="5" autocomplete="off"/>
+			<input type="number" id="symmetric_32" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<br>
+			<input type="number" id="symmetric_41" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="symmetric_42" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="button" value="Go!" id="symmetric_go_btn" />
+			</form>
+		</p>
+		<p id="symmetric_output"></p>
+
+		<p>Credit where credit was due: <a href="https://math.stackexchange.com/a/193942">this answer on the Math StackExchange</a> was a big part of where I got this reasoning from. Also thanks to the SoME3 Discord who helped me figure out the Euclid's algorithm was the key idea.</p>
 	</div>
 	<hr>
 	<h1>Acknowledgments</h1>
@@ -89,6 +240,173 @@
 	};
 
 	main();
+
+	const WAZIR = [ [1,0],[0,1],[-1,0],[0,-1] ];
+	const FERZ = [ [1,1],[1,-1],[-1,1],[-1,-1] ];
+	const ROOK = [ [1,0,MovementCategory.Rider],[0,1,MovementCategory.Rider],[-1,0,MovementCategory.Rider],[0,-1,MovementCategory.Rider] ];
+	const BISHOP = [ [1,1,MovementCategory.Rider],[1,-1,MovementCategory.Rider],[-1,1,MovementCategory.Rider],[-1,-1,MovementCategory.Rider] ];
+	const DABBAABA = [ [2,0],[0,2],[-2,0],[0,-2] ];
+	const ALFIL = [ [2,2],[2,-2],[-2,2],[-2,-2] ];
+	const ALFILRIDER = [ [2,2,MovementCategory.Rider],[2,-2,MovementCategory.Rider],[-2,2,MovementCategory.Rider],[-2,-2,MovementCategory.Rider] ];
+	const KNIGHT = [ [1,2],[1,-2],[-1,2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1] ];
+
+	const ALL_MOVEMENTS_DICT = {
+		'wazir': WAZIR,
+		'ferz': FERZ,
+		'rook': ROOK,
+		'bishop': BISHOP,
+		'dabbaaba': DABBAABA,
+		'alfil': ALFIL,
+		'alfilrider': ALFILRIDER,
+		'knight': KNIGHT,
+	}
+
+	for(let thisBtn of document.querySelectorAll('button')) {
+		for (let [movementName, movement] of Object.entries(ALL_MOVEMENTS_DICT)) {
+			if (!thisBtn.classList.contains(movementName))
+				continue;
+
+			thisBtn.addEventListener('click', function(event){
+				thePiece.moves = movement;
+				mainBoard.addPiece(thePiece, zeroY, zeroX);
+				mainBoard.resetAll();
+				mainBoard.setSelectedTile(zeroY, zeroX);
+				mainBoard.updateDomToMatchState();
+			});
+		}
+	}
+
+	document.getElementById('symmetric_go_btn').addEventListener('click', function(event){
+		const array_ids = [
+			['symmetric_11', 'symmetric_12'],
+			['symmetric_21', 'symmetric_22'],
+			['symmetric_31', 'symmetric_32'],
+			['symmetric_41', 'symmetric_42'],
+		];
+		let array_elements = array_ids.map(row =>
+			row.map( id =>
+				parseInt(document.getElementById(id).value)
+			)
+		);
+		let matrix_4x2_to_latex = function(matrix){
+			let output = '\\begin{bmatrix}';
+
+			output += matrix[0][0];
+			output += '&';
+			output += matrix[0][1];
+			output += '\\\\';
+
+			output += matrix[1][0];
+			output += '&';
+			output += matrix[1][1];
+			output += '\\\\';
+
+			output += matrix[2][0];
+			output += '&';
+			output += matrix[2][1];
+			output += '\\\\';
+
+			output += matrix[3][0];
+			output += '&';
+			output += matrix[3][1];
+
+			output += '\\end{bmatrix}';
+			return output;
+		};
+
+		/** three elementary row operation functions. Does it in-place, and returns a string.*/
+		let swap_rows = function(matrix, r1, r2) {
+			[matrix[r1], matrix[r2]] = [matrix[r2], matrix[r1]];
+
+			let output = '\\xrightarrow{\\text{swap rows ' + (r1+1) + ' and ' + (r2+1) + '}} & ';
+			output += matrix_4x2_to_latex(matrix);
+			output += '\\\\';
+			return output;
+		}
+		let invert_row = function(matrix, r) {
+			matrix[r] = matrix[r].map( entry => -entry );
+
+			let output = '\\xrightarrow{\\text{invert row ' + (r+1) + '}} &';
+			output += matrix_4x2_to_latex(matrix);
+			output += '\\\\';
+			return output;
+		}
+		let subtract_row = function(matrix, r_unchanged, r_changed, numTimes) {
+			matrix[r_changed] = matrix[r_changed].map((entry, index) =>
+				entry - matrix[r_unchanged][index]*numTimes
+			);
+
+			let output = '\\xrightarrow{\\text{subtract row ' + (r_unchanged+1) + ' from row ' + (r_changed+1);
+			if (numTimes > 1){
+				output += ', ' + numTimes + ' times}} &';
+			} else {
+				output += '}} &';
+			}
+			output += matrix_4x2_to_latex(matrix);
+			output += '\\\\';
+			return output;
+		}
+
+		let output = '$$\\begin{aligned}';
+		output += matrix_4x2_to_latex(array_elements);
+
+		const NUM_ROWS = 4;
+		const NUM_COLS = 2;
+
+		let pivotColumn = 0;
+		let pivotRow = 0;
+		while (pivotColumn < NUM_COLS) {
+			// first, make sure that either the pivot row is nonzero or all relevant rows are zero (in this column)
+			if (array_elements[pivotRow][pivotColumn] === 0){
+				for (let newPivotRow = pivotRow + 1; newPivotRow < NUM_ROWS; newPivotRow++) {
+					if (array_elements[newPivotRow][pivotColumn] !== 0) {
+						output += swap_rows(array_elements, pivotRow, newPivotRow);
+						break;
+					}
+				}
+				// if even after all that we're still zero, then the entire column is zero
+				// skip the rest of the calculation for this column
+				if (array_elements[pivotRow][pivotColumn] === 0){
+					pivotColumn++;
+					continue;
+				}
+			}
+
+			// swap negatives: row pivotRow
+			if (array_elements[pivotRow][pivotColumn] < 0) {
+				output += invert_row(array_elements, pivotRow);
+			}
+
+			// now do Euclid's algorithm
+			for (let r = pivotRow + 1; r < NUM_ROWS; r++ ) {
+				// swap negatives: row r
+				if (array_elements[r][pivotColumn] < 0) {
+					output += invert_row(array_elements, r);
+				}
+				while(array_elements[pivotRow][pivotColumn] !== 0 && array_elements[r][pivotColumn] !== 0) {
+					if (array_elements[pivotRow][pivotColumn] < array_elements[r][pivotColumn]) {
+						let numTimes = Math.floor(array_elements[r][pivotColumn] / array_elements[pivotRow][pivotColumn]);
+						output += subtract_row(array_elements, pivotRow, r, numTimes);
+					} else {
+						let numTimes = Math.floor(array_elements[pivotRow][pivotColumn] / array_elements[r][pivotColumn]);
+						output += subtract_row(array_elements, r, pivotRow, numTimes);
+					}
+				}
+
+				if (array_elements[pivotRow][pivotColumn] === 0) {
+					output += swap_rows(array_elements, pivotRow, r);
+				}
+			}
+
+			pivotRow++;
+			pivotColumn++;
+		}
+
+		output += '\\end{aligned}$$';
+		document.getElementById('symmetric_output').innerHTML = output;
+		MathJax.typeset();
+	});
+	
 </script>
 </div>
 

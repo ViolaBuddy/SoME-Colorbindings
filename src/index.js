@@ -1,7 +1,13 @@
 "use strict";
 
 var mainBoard;
+var thePiece;
 var cutsceneOverlay;
+
+const BOARDSIZE_ROWS = 16;
+const BOARDSIZE_COLUMNS = 16;
+const zeroX = Math.floor((BOARDSIZE_COLUMNS-1)/2);
+const zeroY = Math.floor(BOARDSIZE_ROWS/2);
 
 function tileFinishUnitAnimationHandler(r, c) {
 	mainBoard.gamePhase = GamePhase.UnitSelected;
@@ -39,31 +45,24 @@ function tileClickHandler(r, c) {
 // 
 
 function main() {
-	const BOARDSIZE_ROWS = 16;
-	const BOARDSIZE_COLUMNS = 16;
 
 	mainBoard = new Board(BOARDSIZE_ROWS, BOARDSIZE_COLUMNS, null, 'maintable', tileClickHandler, null, null);
 	mainBoard.addDomToParent('boarddiv');
 
-	let zeroX = Math.floor((BOARDSIZE_COLUMNS-1)/2);
-	let zeroY = Math.floor(BOARDSIZE_ROWS/2);
-
-	let newPiece;
-	newPiece = new Piece('♟️\uFE0F', Alignment.Player, 
+	thePiece = new Piece('♟️\uFE0F', Alignment.Player, 
 		[ [1,-1, MovementCategory.Rider],[-1,1],[1,2],[2,1, MovementCategory.Rider],[-1,-2],[-2,-1],
 		], null, null);
-	mainBoard.addPiece(newPiece, zeroY, zeroX);
+	mainBoard.addPiece(thePiece, zeroY, zeroX);
 	mainBoard.setSelectedTile(zeroY, zeroX);
 
 	mainBoard.gamePhase = GamePhase.UnitSelected;
 	mainBoard.updateDomToMatchState();
 
-
 	let leftDiv = document.getElementById('left');
 	let resetBtn = document.createElement('button');
 	resetBtn.innerText = 'reset';
 	resetBtn.addEventListener('click', function(event){
-		mainBoard.addPiece(newPiece, zeroY, zeroX);
+		mainBoard.addPiece(thePiece, zeroY, zeroX);
 		mainBoard.resetAll();
 		mainBoard.setSelectedTile(zeroY, zeroX);
 		mainBoard.updateDomToMatchState();
