@@ -54,7 +54,7 @@
 				<button class='king'>King (General)</button>
 				<button class='rook'>Cannon</button>
 			</dd>
-			<dt>Historical and Common Chess Variants</dt>
+			<dt>Other Named Pieces from Chess Variants</dt>
 			<dd>
 				<button class='wazir'>Wazir</button>
 				<button class='ferz'>Ferz</button>
@@ -84,6 +84,10 @@
 		<br />
 		<button id="reset_position">Reset Position</button>
 	</fieldset>
+	<div id="boardPieceDetails">
+		<h3 id="boardPieceName">Pawn</h3>
+		<p id="boardPieceDescription"></p>
+	</div>
 	<div id="boarddivwrapper">
 		<div id="boarddiv"></div>
 	</div>
@@ -326,10 +330,35 @@
 		<p>(With symmetric pieces, even just $\{(1,1),(1,2)\}$ is enough to reach every possible space on the board.)</p>
 		<p>So then&hellip; what are we even looking for? We can name every possible symmetric piece colorbinding with a pair of moves. Sure, some of them are going to have the same colorbindings ($\{a, b\}$ and $\{a, a+b\}$ have the same colorbindings, remember), but the space of pairs of moves still feels a lot more manageable&mdash;and we even can qualitatively describe these as parallelogram grids. But with asymmetric piece colorbindings, we cannot reduce all movesets to a pair of moves, or a triplet of moves, or even a set of a million moves. I think we're kind of out of luck.</p>
 		<p>At least, that's true if we're trying specifically to reduce a moveset down to a specific number of moves. But can we at least describe qualitatively what these colorbindings are like?</p>
-		<p>We can start by saying they're subsets of their symmetric counterparts. That's obvious. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're restricted to a grid-like tile, but possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight, though when not all of your moves are in the same general direction, it's not necessarily immediately obvious what subset we're going to end up with. <button class='laurelhorse'>Laurel Horse</button><button class='narrow'>Narrow Knight</button></p>
+		<p>We can start by saying they're subsets of their symmetric counterparts. That's obvious. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're restricted to a grid-like tile, but possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight, though when not all of your moves are in the same general direction, it's not necessarily immediately obvious what subset we're going to end up with. <button class='laurelhorse'>Laurel Horse</button> <button class='narrowknight'>Narrow Knight</button></p>
 		<p>On the note of being in the same direction&mdash;when you have just two asymmetric moves, you end up with a wedge of the corresponding symmetric piece's grid, the one that sits in between the two axes. If you have more than two asymmetric moves, but all pairs of moves have wedges that lie within the same 180 degrees, then all tiles in the colorbinding lie in that 180 degrees.</p>
 		<p>At this point, I really am quite stuck at trying to describe possibilities. It's likely there are more things to say about it, even in ways that are more rigorous than just these qualitative descriptions, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any.</p>
-		<p>But I do have one last thing to say, about what happens if you mix symmetric and asymmetric moves together, and it brings us right back to group theory.</p>
+		<p>But putting asymmetric pieces aside, I do have one last thing to say, and it brings us right back to group theory.</p>
+		<p>Before we move to that, though I need to credit <a href="https://math.stackexchange.com/questions/590159/submonoids-of-mathbbnk">another Stack Overflow answer</a> here, which is about the submonoids of $\mathbb N^2$. It's not exactly the same problem as the asymmetric colorbindings that we're talking about, but it's close enough that its construction of $\{(1,n)\}$ for all $n$ works as a counterexample for our situation, too. It also talks about a concept which I didn't mention of <strong>finitely generated</strong>. I never actually specified if a piece is allowed to have an infinite number of moves in its moveset, so didn't touch on this.</p>
+	</div>
+	<div class="content">
+		<h2>Cosets: how many copies of a piece do you need to fill the plane?</h2>
+		<p>All right, so back to the much more well-behaved symmetric pieces. We've been starting pieces always from the origin. But in a real game of chess, your two bishops start on different squares. Although no one bishop can visit all squares, the two of them together can visit any square. Ralph Betza on chessvariants.com calls it the <a href="https://www.chessvariants.com/d.betza/pieceval/jacksprat.html">Jack Sprat principle</a>. <button class="bishop">Bishop</button></p>
+		<p>But not all pieces require only two pieces to cover the entire board. Obviously, pieces that can cover the entire board like the wazir just need that one piece. Meanwhile, something like the dabbaaba requires four.</p>
+		<p>The concept we're looking for is called <strong>cosets of a subgroup</strong> in group theory; for our purposes I'll call them <strong>co-colorbindings</strong> (but usually in chess variant talk, they're just also called colorbindings). It's the set of squares that a piece can access starting from any particular square, not just the origin. By the way, this means that the origin isn't (in general) a part of the set anymore. This is why it's a coset and not a cogroup, by the way, since we no longer have the identity element.</p>
+		<p>It's always true that the plane can be partitioned exactly into cosets (i.e. colorbindings). That's not necessarily immediately obvious&mdash;what if you tried filling in the plane with colorbindings, and then end up with just a few squares that are unaccounted for?&mdash;but it is a true fact from group theory that I won't prove here.</p>
+		<p>But our question now is: if we have a given symmetric piece's colorbinding, how many co-colorbindings does it have?</p>
+		<p>Well, remember that we showed above that any symmetric piece can be reduced to an equivalent piece of the form $\{(a,b), (0,d)\}$. So let's consider one example piece: <button class='example2'>Example piece $\{(3,2),(0,6)\}$</button>. We keep talking about a parallelogram grid with symmetric pieces, and here's where this becomes more relevant. In our example piece, one parallelogram of our grid is the one from $(0,0)$ to $(3,2)$ to $(3,8)$ to $(0,6)$. This is kind of the "base" parallelogram of the grid, the one containing the two vectors in our moveset.</p>
+		<p>With our original piece, starting from the origin, we cannot hit any of the points on the interior of the parallelogram, only on the corners. So we need more co-colorbinding for the tiles on the interior of the parallelogram. I will claim, with the ever-annoying proof of "proof by it's visually obvious," that each tile on the interior of the parallelogram needs a <em>different</em> co-colorbinding; no co-colorbinding will cover more than one tile inside our parallelogram. So our answer is simply the area of the parallelogram; that's how many co-colorbindings that exist.</p>
+		<p>Because we're working with square tiles (i.e. $\mathbb Z \times \mathbb Z$), rather than the much more familiar  $\mathbb R \times \mathbb R$, it's not immediately obvious what I mean by the area. I'm including the bottom and left sides of the parallelogram, but not the top or right. But even then&mdash;the bottom of the parallelogram is at a sort of funny angle that doesn't really pass through any real tiles.</p>
+		<p>But we can actually take advantage of the fact that the area of a parallelogram doesn't change if you skew it. So instead of the the aforementioned parallelogram, we can make it into the rectangle from $(0,0)$ to $(3,0)$ to $(3,6)$ to $(0,6)$. Every tile in there (including the bottom and left, not including the top or right) requires a different co-colorbinding to be accessible. So if we want to Jack Sprat the board with this funny example piece, we would need eighteen distinct copies of the piece. Equivalently, if we want to color the chessboard board according to these co-colorbindings, rather than the co-colorbindings of a bishop, we would need eighteen colors rather than two.</p>
+		<p>And this does generalize to other pieces. For any piece that can be reduced to $\{(a,b), (0,d)\}$, it has $a\cdot d$ co-colorbindings. (Why doesn't $b$ matter? Consider again the parallelogram skewing.) Actually, there is one edge case where this isn't true: if $a=0$ or $d = 0$, and the area of the parallelogram is zero. But I'll leave that edge case up to you to figure out, and ignore it.</p>
+		<p>If you'll allow me to abstract a little bit further before I let you go: these co-colorbindings themselves form a group. That is, each element of this new meta-group is itself an entire co-colorbinding. But that's hard to think about, so we usually think about the co-colorbindings as having representative tiles, the tile on the "base rectangle" that we constructed above. So for example, the original colorbinding is also known as the $(0,0)$ co-colorbinding, since it's the co-colorbinding of a piece that starts on the origin. But there's also the $(1,0)$ co-colorbinding, the $(2,0)$ co-colorbinding, the $(2,4)$ co-colorbinding, etc. And if we ever do something that produces a tile outside the base rectangle, we can just replace it with the tile within the base rectangle in the same co-colorbinding&mdash;that is, the $(3,6)$ co-colorbinding is the same thing as the $(0,0)$ co-colorbinding. (This is a 2D version of modular arithmetic, in case you're familiar with that.)</p>
+		<p>You can check the four properties of the group if you want, but I'll take it as a given that this is in fact a well-formed group (this is a result from group theory for all normal subgroups. What "normal" means is beyond the scope of this article, but I'll just say that the colorbindings we're looking at are all normal subgroups). What this means is&hellip; we can do a lot of the same things we just did, but on this meta-group instead! Define "meta-pieces" that move between co-colorbindings rather than between tiles.</p>
+		<p>This is all fun and abstract, but there is at least one way this can be useful for finding colorbindings. Because instead of needing to deal with the infinite number of tiles in $\mathbb Z \times \mathbb Z$, we now have a finite group. We can brute force things a lot more easily now. And moreover, the group loops back on itself, in a modular arithmetic-y kind of way. So those asymmetric pieces that just kind of ran off to infinity before no longer do. They're going to be a lot more well-behaved.</p>
+		<p>Of course, we do need to start with a symmetric piece in order to be able to use this "group of co-colorbindings" as a starting point at all. So let's say we have a symmetric piece like this, to which we add a single asymmetric move. What is the colorbinding of the final combined piece? By adding the asymmetric move, we're basically linking up the symmetric co-colorbindings, and putting them together in the same colorbindings. For example, add the asymmetric move $(1,2)$ to the example piece we've been working with in this section. The co-colorbinding at $(0,0)$ is connected to the co-colorbinding at $(1,2)$, because with this additional asymmetric move you can get to anything in the $(1,2)$ co-colorbinding. But you can also repeat the asymmetric move to connect the $(0,0)$ and $(1,2)$ co-colorbindings to the $(2,4)$ co-colorbinding. And then once more to get to the $(3,6)$ co-colorbinding&mdash;but that's just the same as $(0,0)$ co-colorbinding! So even by only going forward along our asymmetric $(1,2)$ move, we can actually move from any of these three co-colorbindings to any of the others. Our final piece's colorbinding is thus a combination of all three of these co-colorbindings.</p>
+		<p>An asymmetric move being added to a symmetric piece is perhaps a fairly specific case, but it's a good way of thinking of the Silver General, at least. It's an asymmetric $(0,1)$ move added to the ferz. The ferz of course only has two co-colorbindings, but this asymmetric move links the two co-colorbindings together, and that's why the Silver General can move to every tile on the board. <button class="silvergeneral">Silver General</button> <button class="ferz">Ferz</button></p>
+	</div>
+	<div class="content">
+		<h2>In conclusion</h2>
+		<p>The question we set out to answer, "what are all possible colorbindings of arbitrary leapers?" we found a little bit too difficult to answer completely. We get a very nice answer when we limit ourselves to symmetric leapers: they can always be reduced down to a parallelogram grid of two "vectors." And we can use that fact to answer an offshoot question, "how many copies of a symmetric piece do we need to be able to reach the entire board?"</p>
+		<p>As for the ever-annoying asymmetric pieces&hellip;it <em>feels</em> like there are a lot more patterns and structure in their colorbindings. But I'm really quite stuck here. Monoids are just not as well-behaved (nor as well-asked about on Stack Overflow) as groups. Again, if any of you have more ideas, I'd love to hear them.</p>
+		<p>But even if it's technically not a complete answer, the ten-year-old in me who still loves looking up chess variants and thinking about symmetries of a chessboard is happy to have any answer at all. This is something I've been thinking about on and off since that time, and it's really cool that the answer isn't trivial (either because the set of possible colorbindings is too small to be interesting or because the set of possible colorbindings is so big as to be basically "all possible subsets" without anything interesting to explore). And it was really cool that it touches on some deeper math topics (we had a bit of group theory, a bit of linear algebra, a bit of number theory) that aren't even necessarily <em>that</em> difficult but are certainly beyond what a ten-year-old would be able to figure out, even though it was ten-year-old me who original posed the question.</p>
 	</div>
 
 	<hr>
@@ -378,14 +407,6 @@
 	const SILVERGENERAL = [ [1,1],[1,-1],[-1,1],[-1,-1],[0,1] ];
 	const GOLDGENERAL = [ [1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1] ];
 
-
-				// <dd><button class='wideknight'>Wide Knight</button></dd>
-				// <dd><button class='camel'>Camel</button></dd>
-				// <dd><button class='threeleaper'>Threeleaper</button></dd>
-				// <dd><button class='dabbaabarider'>Dabbaaba-rider</button></dd>
-				// <dd><button class='alfilrider'>Alfil-rider</button></dd>
-				// <dd><button class='nightrider'>Nightrider</button></dd>
-				// <dd><button class='camelrider'>Camelrider</button></dd>
 	// special
 	const EXAMPLE1 = [ [3,2],[-3,-2],[4,3],[-4,-3],[5,1],[-5,-1] ];
 	const REDUCEDEXAMPLE1 = [ [1,1],[0,1],[-1,-1],[0,-1] ];
@@ -423,6 +444,96 @@
 		'example1': EXAMPLE1,
 		'reducedexample1': REDUCEDEXAMPLE1,
 	}
+	const ALL_NAMES_DICT = {
+		'wazir': 'Wazir',
+		'ferz': 'Ferz',
+		'dabbaaba': 'Dabbaaba',
+		'alfil': 'Alfil',
+		'threeleaper': 'Threeleaper',
+		'knight': 'Knight',
+		'camel': 'Camel',
+		'king': 'King',
+		'fbHsD': 'fbHsD',
+		'narrowknight': 'Narrow Knight',
+		'wideknight': 'Wide Knight',
+
+		'rook': 'Rook',
+		'bishop': 'Bishop',
+		'dabbaabarider': 'Dabbaaba-rider',
+		'alfilrider': 'Alfil-rider',
+		'nightrider': 'Nightrider',
+		'camelrider': 'Camelrider',
+		'queen': 'Queen',
+		'dragonking': 'Dragon King',
+		'dragonhorse': 'Dragon Horse',
+
+		'pawn': 'Pawn/Soldier',
+		'promotedsoldier': 'Promoted Soldier',
+		'lance': 'Lance',
+		'laurelhorse': 'Laurel Horse',
+		'silvergeneral': 'Silver General',
+		'goldgeneral': 'Gold General',
+
+		'example1': 'Symmetric Piece $\{(3,2),(4,3),(5,1)\}$',
+		'reducedexample1': 'Symmetric Piece $\{(1,1),(0,1)\}$',
+	}
+
+	// TODO
+	const ALL_DESCRIPTIONS_DICT = {
+		'wazir': 'Wazir',
+		'ferz': 'Ferz',
+		'dabbaaba': 'Dabbaaba',
+		'alfil': 'Alfil',
+		'threeleaper': 'Threeleaper',
+		'knight': 'Knight',
+		'camel': 'Camel',
+		'king': 'King',
+		'fbHsD': 'fbHsD',
+		'narrowknight': 'Narrow Knight',
+		'wideknight': 'Wide Knight',
+
+		'rook': 'Rook',
+		'bishop': 'Bishop',
+		'dabbaabarider': 'Dabbaaba-rider',
+		'alfilrider': 'Alfil-rider',
+		'nightrider': 'Nightrider',
+		'camelrider': 'Camelrider',
+		'queen': 'Queen',
+		'dragonking': 'Dragon King',
+		'dragonhorse': 'Dragon Horse',
+
+		'pawn': 'Pawn/Soldier',
+		'promotedsoldier': 'Promoted Soldier',
+		'lance': 'Lance',
+		'laurelhorse': 'Laurel Horse',
+		'silvergeneral': 'Silver General',
+		'goldgeneral': 'Gold General',
+
+		'example1': 'Symmetric Piece $\{(3,2),(4,3),(5,1)\}$',
+	}
+
+	for(let thisBtn of document.querySelectorAll('button')) {
+		for (let [movementName, movement] of Object.entries(ALL_MOVEMENTS_DICT)) {
+			if (!thisBtn.classList.contains(movementName))
+				continue;
+
+			thisBtn.addEventListener('click', function(event){
+				thePiece.moves = movement;
+				mainBoard.resetAll();
+				mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+				mainBoard.setSelectedTile(zeroRow, zeroCol);
+				mainBoard.updateDomToMatchState();
+
+				let boardPieceNameDiv = document.getElementById('boardPieceName');
+				let boardPieceDescriptionDiv = document.getElementById('boardPieceDescription');
+
+				boardPieceNameDiv.innerHTML = ALL_NAMES_DICT[movementName];
+				boardPieceDescriptionDiv.innerHTML = ALL_DESCRIPTIONS_DICT[movementName];
+
+				MathJax.typeset();
+			});
+		}
+	}
 
 	document.getElementById('customthreemove').addEventListener('click', function(event){
 		const array_ids = [
@@ -455,22 +566,6 @@
 			mainBoard.setSelectedTile(zeroRow, zeroCol);
 			mainBoard.updateDomToMatchState();
 	});
-	
-
-	for(let thisBtn of document.querySelectorAll('button')) {
-		for (let [movementName, movement] of Object.entries(ALL_MOVEMENTS_DICT)) {
-			if (!thisBtn.classList.contains(movementName))
-				continue;
-
-			thisBtn.addEventListener('click', function(event){
-				thePiece.moves = movement;
-				mainBoard.resetAll();
-				mainBoard.addPiece(thePiece, zeroRow, zeroCol);
-				mainBoard.setSelectedTile(zeroRow, zeroCol);
-				mainBoard.updateDomToMatchState();
-			});
-		}
-	}
 
 	document.getElementById('symmetric_go_btn').addEventListener('click', function(event){
 		const array_ids = [
