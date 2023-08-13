@@ -10,19 +10,15 @@ function createEnum(values) {
 	return Object.freeze(enumObject);
 }
 
-const TerrainTypes = createEnum(['Empty', 'Impassable', 'Goal', 'MagicalShield', 'PhysicalShield']);
+const TerrainTypes = createEnum(['Empty', 'Impassable', 'Goal']);
 const Alignment = createEnum(['Player', 'Enemy']);
 const GamePhase = createEnum([
-	'PlayerPhaseBanner',
 	'PlayerTurn',
 	'UnitSelected',
 	'UnitAnimation',
-	'EnemyPhaseBanner',
-	'EnemyTurn',
-	'EnemyUnitAnimation',
 	]);
 const MovementCategory = createEnum(['Leaper', 'Rider']);
-const WeaponType = createEnum(['Magical', 'Physical']);
+const BoardColorings = createEnum(['None', 'Checkered', 'Colorbinding']);
 
 const CSS_CELL_SIZE = 32; //must match `td .cell` size in index.css
 
@@ -35,9 +31,10 @@ const CSS_DARKCELL = 'darkcell';
 const CSS_LIGHTCELL = 'lightcell';
 const CSS_SELECTABLE = 'selectable';
 
-const CSS_HIGHLIGHTED = 'highlighted'
+// const CSS_HIGHLIGHTED = 'highlighted';
 
 const ANIMATION_TIME = 100; // in milliseconds
+const ANIMATION_TIME_AUTO = 10; // in milliseconds
 
 /** Interface. Something that has internal state and also must display it in the DOM.
 JavaScript doesn't enforce interfaces, of course, but this is for organizational purposes. */
@@ -47,7 +44,7 @@ class GameObject {
 	}
 
 	addDomToParent(parentId) {
-		if (typeof parentId == 'string')
+		if (typeof parentId === 'string')
 		{
 			var parentElement = document.getElementById(parentId);
 		}
@@ -88,11 +85,10 @@ class Board extends GameObject {
 		this.domElement = null;
 		this.selectedTile = null;
 		this.selectedTileMoveable = [];
-		this.previouslyMoveable = [];
-		this.gamePhase = GamePhase.PlayerPhaseBanner;
+		this.colorbinding = [];
+		this.gamePhase = GamePhase.UnitSelected;
 		this.turnCounter = 1;
-		this.showCheckered = true;
-		this.showMoveTo = true;
+		this.boardColoring = BoardColorings.None;
 
 		if (terrain === null) {
 			// empty board
@@ -213,6 +209,9 @@ class Board extends GameObject {
 
 		let tdDom = this.domElement.children[row].children[column].firstChild;
 		piece.addDomToParent(tdDom);
+
+
+		this.calculateColorbindingBruteForce(row, column);
 	}
 
 	/** move piece - with animation */
@@ -272,7 +271,7 @@ class Board extends GameObject {
 				let tdDom = this.domElement.children[r].children[c].firstChild;
 
 				tdDom.classList.remove(CSS_SELECTABLE);
-				tdDom.classList.remove(CSS_HIGHLIGHTED);
+				// tdDom.classList.remove(CSS_HIGHLIGHTED);
 				tdDom.classList.remove(CSS_DARKCELL);
 				tdDom.classList.remove(CSS_LIGHTCELL);
 			}
@@ -287,29 +286,29 @@ class Board extends GameObject {
 			for (let c = 0; c < this.numColumns; c++) {
 				let tdDom = this.domElement.children[r].children[c].firstChild;
 
-				if (this.previouslyMoveableContains(r, c)) {
-					tdDom.classList.add(CSS_HIGHLIGHTED);
-				}
-				let cartesianX = c - Math.ceil(this.numColumns/2 - 1);
-				let cartesianY = Math.floor(this.numRows/2) - r;
-				if ( (c%2) ^ (r%2) ) {
-					tdDom.classList.add(this.showCheckered ? CSS_DARKCELL : CSS_LIGHTCELL);
-				} else {
-					tdDom.classList.add(CSS_LIGHTCELL);
+				switch(this.boardColoring) {
+					case BoardColorings.Checkered:
+						tdDom.classList.add((c%2) ^ (r%2) ? CSS_DARKCELL : CSS_LIGHTCELL);
+						break;
+					case BoardColorings.Colorbinding:
+						tdDom.classList.add(this.colorbindingContains(r, c) ? CSS_DARKCELL : CSS_LIGHTCELL);
+						break;
+					case BoardColorings.None:
+						tdDom.classList.add(CSS_LIGHTCELL);
+						break;
+					default:
+						console.error('NOT IMPLEMENTED: DOM UPDATE FOR ' + this.boardColoring);
 				}
 
 
-				switch (mainBoard.gamePhase) {
+				switch (this.gamePhase) {
 				case GamePhase.PlayerTurn:
 					break;
 				case GamePhase.UnitSelected:
-					if (this.showMoveTo && this.selectedTileMoveableContains(r,c)) {
+					if (this.selectedTileMoveableContains(r,c)) {
 						tdDom.classList.add(CSS_SELECTABLE);
 					}
 					break;
-				case GamePhase.PlayerPhaseBanner:
-				case GamePhase.EnemyPhaseBanner:
-				case GamePhase.EnemyTurn:
 				case GamePhase.UnitAnimation:
 					break;
 				default:
@@ -330,18 +329,39 @@ class Board extends GameObject {
 			if (direction.length < 3 || direction[2] === MovementCategory.Leaper || (direction[0] === 0 && direction[1] === 0)) {
 				if (this.tileIsPassable(targetTile[0], targetTile[1], thisPiece)) {
 					this.selectedTileMoveable.push(targetTile);
-					this.addToPreviouslyMoveable(targetTile);
 				}
 			} else if (direction[2] === MovementCategory.Rider) {
 				while (this.tileIsPassable(targetTile[0], targetTile[1], thisPiece)) {
 					this.selectedTileMoveable.push(targetTile);
-					this.addToPreviouslyMoveable(targetTile);
 					targetTile = [targetTile[0]-direction[1], targetTile[1]+direction[0]];
 				}
 			} else {
 				console.error('UNRECOGNIZED MOVEMENT CATEGORY '+ direction[2]);
 			}
 		}
+	}
+
+	calculateColorbindingBruteForce(r, c) {
+		this.selectedTile = [r, c];
+		let thisPiece = this.boardPieces[r][c];
+		console.assert(thisPiece);
+
+		let frontier = [[zeroRow, zeroCol]];
+		while (frontier.length > 0) {
+			let thisTile = frontier.pop();
+			// remember that moves are (x,y) while everything else is (r,c)!
+			for (let direction of thisPiece.moves) {
+				let targetTile = [thisTile[0]-direction[1], thisTile[1]+direction[0]];
+
+				if (this.tileIsPassable(targetTile[0], targetTile[1], thisPiece)) {
+					let isNewTile = this.addToColorbinding(targetTile);
+					if (isNewTile) {
+						frontier.push(targetTile);
+					}
+				}
+			}
+		}
+
 	}
 
 	tileIsPassable(r, c, movingPiece) {
@@ -352,9 +372,7 @@ class Board extends GameObject {
 		let containsUnit = this.boardPieces[r][c] !== null;
 		let passableTerrain =
 			this.boardTerrain[r][c] === TerrainTypes.Empty ||
-			(this.boardTerrain[r][c] === TerrainTypes.Goal && movingPiece.alignment === Alignment.Player) ||
-			(this.boardTerrain[r][c] === TerrainTypes.MagicalShield && movingPiece.attackType !== WeaponType.Magical) ||
-			(this.boardTerrain[r][c] === TerrainTypes.PhysicalShield && movingPiece.attackType !== WeaponType.Physical);
+			(this.boardTerrain[r][c] === TerrainTypes.Goal && movingPiece.alignment === Alignment.Player);
 		return !containsUnit && passableTerrain;
 	}
 
@@ -375,9 +393,7 @@ class Board extends GameObject {
 			&& attackingPiece.attackType === defendingPiece.defenseType;
 		let passableTerrain =
 			this.boardTerrain[r][c] === TerrainTypes.Empty ||
-			(this.boardTerrain[r][c] === TerrainTypes.Goal && movingPiece.alignment === Alignment.Player) ||
-			(this.boardTerrain[r][c] === TerrainTypes.MagicalShield && attackingPiece.attackType !== WeaponType.Magical) ||
-			(this.boardTerrain[r][c] === TerrainTypes.PhysicalShield && attackingPiece.attackType !== WeaponType.Physical);
+			(this.boardTerrain[r][c] === TerrainTypes.Goal && movingPiece.alignment === Alignment.Player);
 		
 		return !sameTeam && !isDefended && passableTerrain;
 	}
@@ -390,7 +406,7 @@ class Board extends GameObject {
 	resetAll() {
 		this.selectedTile = null;
 		this.selectedTileMoveable = [];
-		this.previouslyMoveable = [];
+		this.colorbinding = [];
 	}
 
 	selectedTileMoveableContains(r,c) {
@@ -405,10 +421,10 @@ class Board extends GameObject {
 		return false;
 	}
 
-	previouslyMoveableContains(r,c) {
-		for (let i = 0; i < this.previouslyMoveable.length; i++)
+	colorbindingContains(r,c) {
+		for (let i = 0; i < this.colorbinding.length; i++)
 		{
-			let tile = this.previouslyMoveable[i];
+			let tile = this.colorbinding[i];
 			if (tile[0] === r && tile[1] === c)
 			{
 				return true;
@@ -417,9 +433,9 @@ class Board extends GameObject {
 		return false;
 	}
 
-	addToPreviouslyMoveable(targetTile) {
+	addToColorbinding(targetTile) {
 		let bExisting = false;
-		for (let existingTile of this.previouslyMoveable) {
+		for (let existingTile of this.colorbinding) {
 			if (existingTile[0] === targetTile[0] && existingTile[1] === targetTile[1])
 			{
 				bExisting = true;
@@ -427,8 +443,10 @@ class Board extends GameObject {
 		}
 		if (!bExisting)
 		{
-			this.previouslyMoveable.push(targetTile);
+			this.colorbinding.push(targetTile);
 		}
+
+		return !bExisting;
 	}
 
 	getAllTilesWithUnitsOfThisAlignment(alignment) {

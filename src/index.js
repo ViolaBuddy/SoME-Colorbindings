@@ -6,8 +6,8 @@ var cutsceneOverlay;
 
 const BOARDSIZE_ROWS = 16;
 const BOARDSIZE_COLUMNS = 16;
-const zeroX = Math.floor((BOARDSIZE_COLUMNS-1)/2);
-const zeroY = Math.floor(BOARDSIZE_ROWS/2);
+const zeroCol = Math.floor((BOARDSIZE_COLUMNS-1)/2);
+const zeroRow = Math.floor(BOARDSIZE_ROWS/2);
 
 function tileFinishUnitAnimationHandler(r, c) {
 	mainBoard.gamePhase = GamePhase.UnitSelected;
@@ -30,10 +30,7 @@ function tileClickHandler(r, c) {
 		tileClickHandlerUnitSelected(r, c);
 		break;
 	case GamePhase.PlayerTurn:
-	case GamePhase.PlayerPhaseBanner:
-	case GamePhase.EnemyPhaseBanner:
 	case GamePhase.UnitAnimation:
-	case GamePhase.EnemyTurn:
 		break;
 	default:
 		console.error('NOT IMPLEMENTED: tileClickHandler FOR ' + mainBoard.gamePhase);
@@ -50,49 +47,43 @@ function main() {
 	mainBoard.addDomToParent('boarddiv');
 
 	thePiece = new Piece('♟️\uFE0F', Alignment.Player, 
-		[ [1,-1, MovementCategory.Rider],[-1,1],[1,2],[2,1, MovementCategory.Rider],[-1,-2],[-2,-1],
-		], null, null);
-	mainBoard.addPiece(thePiece, zeroY, zeroX);
-	mainBoard.setSelectedTile(zeroY, zeroX);
+		[ [0,1] ], null, null);
+	mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+	mainBoard.setSelectedTile(zeroRow, zeroCol);
 
 	mainBoard.gamePhase = GamePhase.UnitSelected;
 	mainBoard.updateDomToMatchState();
 
-	let leftDiv = document.getElementById('left');
-	let resetBtn = document.createElement('button');
-	resetBtn.innerText = 'reset';
+	let resetBtn = document.getElementById('reset_position');
 	resetBtn.addEventListener('click', function(event){
-		mainBoard.addPiece(thePiece, zeroY, zeroX);
 		mainBoard.resetAll();
-		mainBoard.setSelectedTile(zeroY, zeroX);
+		mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+		mainBoard.setSelectedTile(zeroRow, zeroCol);
+		mainBoard.gamePhase = GamePhase.UnitSelected;
 		mainBoard.updateDomToMatchState();
 	});
-	leftDiv.appendChild(resetBtn);
 
-	function createCheckbox(id, text, onClick) {
-		let checkeredCheckbox = document.createElement('input');
-		checkeredCheckbox.setAttribute('type', 'checkbox');
-		checkeredCheckbox.setAttribute('id', id);
-		checkeredCheckbox.checked = true;
-		checkeredCheckbox.addEventListener('click', onClick); 
-		let checkeredCheckboxLabel = document.createElement('label');
-		checkeredCheckboxLabel.setAttribute('for', id);
-		checkeredCheckboxLabel.innerText = text;
+	let coloring_checkerboard = document.getElementById('coloring_checkerboard');
+	coloring_checkerboard.addEventListener('click', function (event) {
+		mainBoard.boardColoring = BoardColorings.Checkered;
+		mainBoard.updateDomToMatchState();
+	});
+	let coloring_colorbinding = document.getElementById('coloring_colorbinding');
+	coloring_colorbinding.addEventListener('click', function (event) {
+		mainBoard.boardColoring = BoardColorings.Colorbinding;
+		mainBoard.updateDomToMatchState();
+	});
+	let coloring_none = document.getElementById('coloring_none');
+	coloring_none.addEventListener('click', function (event) {
+		mainBoard.boardColoring = BoardColorings.None;
+		mainBoard.updateDomToMatchState();
+	});
 
-		let boarddivcontrols = document.getElementById('boarddivcontrols');
-		boarddivcontrols.appendChild(checkeredCheckbox);
-		boarddivcontrols.appendChild(checkeredCheckboxLabel);
+	for (let i of [coloring_checkerboard, coloring_colorbinding, coloring_none]) {
+		if(i.checked) {
+			console.log(i);
+			i.click();
+		}
 	}
-
-	createCheckbox('checkeredCheckbox', 'Show checkboard coloring', function (event){
-			let checkeredCheckbox = document.getElementById('checkeredCheckbox');
-			mainBoard.showCheckered = checkeredCheckbox.checked;
-			mainBoard.updateDomToMatchState();
-		});
-	createCheckbox('moveToCheckbox', 'Show tiles to move to', function (event){
-			let moveToCheckbox = document.getElementById('moveToCheckbox');
-			mainBoard.showMoveTo = moveToCheckbox.checked;
-			mainBoard.updateDomToMatchState();
-		});
 
 }

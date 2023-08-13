@@ -4,23 +4,92 @@
 <head>
 	<title>Colorbindings of Chess Variant Pieces</title>
 	<link rel="stylesheet" type="text/css" href="indexstyle.css">
-    <script type="text/javascript" src="chess-pieces.js"></script>
-    <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" id="MathJax-script" async
-    	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+	<script type="text/javascript" src="chess-pieces.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" id="MathJax-script" async
+		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 	</script>
 </head>
 <body>
 <div id="left">
-	<div id="boarddivcontrols"></div>
-	<div id="boarddiv"></div>
+	<fieldset id="boarddivcontrols">
+		<legend>Chessboard controls</legend>
+		<input type="radio" id="coloring_checkerboard" name="board_coloring" value="coloring_checkerboard" checked="on" /> <label for="coloring_checkerboard">Show standard checkerboard coloring</label><br />
+		<input type="radio" id="coloring_colorbinding" name="board_coloring" value="coloring_colorbinding" /> <label for="coloring_colorbinding">Show colorbinding of current piece</label><br />
+		<input type="radio" id="coloring_none" name="board_coloring" value="coloring_none" /> <label for="coloring_none">Show no coloring</label>
+
+		<details>
+			<summary>Choose piece</summary>
+			<dl>
+			<dt>Chess</dt>
+			<dd>
+				<button class='pawn'>Pawn</button>
+				<button class='knight'>Knight</button>
+				<button class='bishop'>Bishop</button>
+				<button class='rook'>Rook</button>
+				<button class='queen'>Queen</button>
+				<button class='king'>King</button>
+			</dd>
+			<dt>Shōgi</dt>
+			<dd>
+				<button class='pawn'>Pawn (Soldier)</button>
+				<button class='lance'>Lance</button>
+				<button class='laurelhorse'>Laurel Horse</button>
+				<button class='silvergeneral'>Silver General</button>
+				<button class='goldgeneral'>Gold General</button>
+				<button class='bishop'>Bishop</button>
+				<button class='rook'>Rook</button>
+				<button class='dragonhorse'>Dragon Horse (Promoted Bishop)</button>
+				<button class='dragonking'>Dragon King (Promoted Rook)</button>
+				<button class='king'>King</button>
+			</dd>
+			<dt>Xiangqi</dt>
+			<dd>
+				<button class='pawn'>Pawn (Soldier)</button>
+				<button class='promotedsoldier'>Promoted Pawn (Promoted Soldier)</button>
+				<button class='rook'>Rook (Chariot)</button>
+				<button class='knight'>Knight (Horse)</button>
+				<button class='alfil'>Alfil (Elephant)</button>
+				<button class='ferz'>Ferz (Advisor)</button>
+				<button class='king'>King (General)</button>
+				<button class='rook'>Cannon</button>
+			</dd>
+			<dt>Historical and Common Chess Variants</dt>
+			<dd>
+				<button class='wazir'>Wazir</button>
+				<button class='ferz'>Ferz</button>
+				<button class='dabbaaba'>Dabbaaba</button>
+				<button class='alfil'>Alfil</button>
+				<button class='narrowknight'>Narrow Knight</button>
+				<button class='wideknight'>Wide Knight</button>
+				<button class='camel'>Camel</button>
+				<button class='threeleaper'>Threeleaper</button>
+				<button class='dabbaabarider'>Dabbaaba-rider</button>
+				<button class='alfilrider'>Alfil-rider</button>
+				<button class='nightrider'>Nightrider</button>
+				<button class='camelrider'>Camelrider</button>
+			</dd>
+			<dt>Custom</dt>
+			<dd>
+				<ul>
+					<li><a href="#custom_symmetric">Jump to custom symmetric piece</a></li>
+					<li><a href="#custom_reduce">Jump to custom symmetric piece with reduction algorithm</a></li>
+					<li><a href="#custom_asymmetric">Jump to custom asymmetric piece</a></li>
+				</ul>
+			</dd>
+			</dl>
+			
+		</details>
+
+		<br />
+		<button id="reset_position">Reset Position</button>
+	</fieldset>
+	<div id="boarddivwrapper">
+		<div id="boarddiv"></div>
+	</div>
 </div>
 <div id="right">
 	<h1>Colorbindings of Chess Variant Pieces</h1>
-	<!-- <details>: an openable/collapsable section. Within there, the <summary> tag is the label of the section -->
-	<!-- <iframe src="basicgame.html" title="Clock Solitaire"></iframe>: include an external html file-->
-	<!-- MathJax notation equation: \[\textrm{Prob}\left(k,n,p\right) = \binom{n}{k} p^k (1-p)^{n-k}\] -->
-	<!-- MathJax notation inline: Also remember that \(\binom{n}{k}\) is how we notate n-choose-k -->
 	<div class="content">
 		<h2>Introduction</h2>
 		<p>Chess is played by moving pieces around on a square grid. And this is true of xiangqi (Chinese chess) and shōgi (Japanese chess) too. And sure there's, like, strategy and stuff (and in Japanese chess, you can also re-deploy a captured unit), but we can skip that part today. Let's just talk about moving pieces.</p>
@@ -37,7 +106,7 @@
 		<p>Even under these conditions, there are actually still a few pieces in the three canonical types of chess mentioned that are not translationally symmetric. One is the pawn in Western chess: on the second row ("rank" in chess terms, but I never remember which is rank and which is file), it can move two spaces forward, but if you translate its position up to the third row it cannot make that move. The others are from xiangqi: the general and advisors can only move within the 3x3 palace, and the elephants cannot cross the river. So, again, we're just going to ignore any pieces with these sorts of location restrictions.</p>
 		<p>Out of the remaining pieces, we can split their movements into two types: <strong>leapers</strong> and <strong>riders</strong>. Leapers like simply jump to a square a certain offset away from the starting tile. Knights and kings are leapers <button class='king'>King</button>. Riders start like leapers jumping to a square a certain offset away, but then are allowed to continue in that direction (as long as there's nothing in the way, but we're dealing with an empty board, remember) for as long as they like. Rooks and queens are riders <button class='rook'>Rook</button> <button class='queen'>Queen</button>. In fact, we can phrase it as "a queen is a king-rider" to denote that a queen has the same basic movement as the king but can continue riding in the same direction as a single move.</p>
 		<p>I will again simply state without proof that a leaper and its corresponding rider have the same colorbinding (i.e. they can reach the same set of squares). As an example that's not just "both pieces can reach the entire board," try playing around with an Alfil and an Alfil-rider: <button class='alfil'>Alfil</button> <button class='alfilrider'>Alfil-rider</button>. Because of this, we can without loss of generality consider only leapers.</p>
-		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the flying dragon and dragon horse in shōgi.) <button class='flyingdragon'>Flying Dragon</button> <button class='dragonhorse'>Dragon Horse</button></p>
+		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the flying dragon and dragon horse in shōgi.) <button class='dragonking'>Dragon King</button> <button class='dragonhorse'>Dragon Horse</button></p>
 		<p>We can describe a leaper as a set of moves that it can make. A knight is a <span class="mathjaxcontent">$\left\{(1,2), (1,-2), (-1,-2), (-1,2), (2,1), (2,-1), (-2,-1), (-2,1)\right\}$ leaper. A white pawn (without its double move or capture moves) is a $\{(0,1)\}$</span> leaper, and a black pawn, which moves the other way, is a $\{(0,-1)\}$</span> leaper.</p>
 		<p>On that note: rather than the standard letter-and-number system that chess uses for labeling each square on the chessboard, for our infinite chessboard, I'm labeling them $(x,y)$, like the Cartesian plane. And like the Cartesian plane, the positive x-axis is to the right and the positive y-axis is to the top. Unlike the Cartesian plane, we only have integers, none of the in-between fractions or reals.</p>
 		<p>For consistency, let's consider the colorbindings of pieces <em>that start on the origin tile</em>, i.e. tile $(0,0)$.</p>
@@ -72,12 +141,35 @@
 
 	<div class="content">
 		<h2>Symmetric pieces and subgroups</h2>
-		<p>Let's define the notion of <strong>symmetric pieces</strong> as pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). All five non-pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the lance and laurel horse, as mentioned earlier, but also the gold and silver generals. <button>Lance</button> <button>Laurel Horse</button> <button>Gold General</button> <button>Silver General</button>. These are pieces we're ignoring in this section.</p>
-		<p>Before we dive into the math, let's play around with some of these pieces. Look at the colorbindings for the dabbaaba and the alfil: <button>Dabbaaba</button> <button>Alfil</button>. They're kind of just kind of grid-ish, lines running at right angles to each other. Do all symmetric pieces have this square grid shape to their colorbindings?</p>
-		<p>Well, no. It doesn't have to be square because the side lengths don't have to be the same. A piece that's a dabbaaba horizontally but a threeleaper vertically would have a rectangular grid (I'll use <a href="https://www.chessvariants.com/d.betza/chessvar/pieces/notation.html">Ralph Betza's funny notation</a> for naming these more exotic pieces that don't have standardized names) <button>fbHsD</button>. But even more, the pieces we've been considering all lie on an axis of symmetry of the plane. If you take moves on a different angle, the grid lines skew away from perpendicular to each other. Consider the narrow knight, which is the symmetric extension of shōgi's laurel horse: <button>Narrow Knight</button>.</p>
+		<p>Let's define the notion of <strong>symmetric pieces</strong> as pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). All five non-pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the lance and laurel horse, as mentioned earlier, but also the gold and silver generals. <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='goldgeneral'>Gold General</button> <button class='silvergeneral'>Silver General</button>. These are pieces we're ignoring in this section.</p>
+		<p>Before we dive into the math, let's play around with some of these pieces. Look at the colorbindings for the dabbaaba and the alfil: <button class='dabbaaba'>Dabbaaba</button> <button class='alfil'>Alfil</button>. They're kind of just kind of grid-ish, lines running at right angles to each other. Do all symmetric pieces have this square grid shape to their colorbindings?</p>
+		<p>Well, no. It doesn't have to be square because the side lengths don't have to be the same. A piece that's a dabbaaba horizontally but a threeleaper vertically would have a rectangular grid (I'll use <a href="https://www.chessvariants.com/d.betza/chessvar/pieces/notation.html">Ralph Betza's funny notation</a> for naming this more exotic piece without a standard name) <button class='fbHsD'>fbHsD</button>. But even more, the pieces we've been considering all lie on an axis of symmetry of the plane. If you take moves on a different angle, the grid lines skew away from perpendicular to each other. Consider the narrow knight, which is the symmetric extension of shōgi's laurel horse: <button class='narrowknight'>Narrow Knight</button>.</p>
 		<p>To some extent, this actually feels pretty natural. All these pieces we've looked at here have two moves in their movement set, plus the inverses of those two moves. So there are two axes of movement, one for each of these moves. As long as the two moves aren't parallel, of course we're going to end up with a grid like this.</p>
-		<p>So what happens if we add a third move to our movement set? Can we get something more interesting? Well, try it yourself to see what you can come up with: <button>Custom Symmetric Piece</button>.</p>
-		<p>I don't know exactly what you came up with, but you probably had coming up with anything that wasn't a parallelogram grid of some kind. In fact, that's true. For all symmetric pieces, there always exists some other symmetric piece with at most two moves (and their inverses) with the same colorbinding.</p>
+		<p>So what happens if we add a third move to our movement set? Can we get something more interesting? Well, try it yourself to see what you can come up with:</p>
+		<p id="custom_symmetric">
+			<!-- 9007199254740992 is the maximum integer that can be stored as a Javascript Number (a double) without losing precision when you do arithmetic on it: the next storable number is 9007199254740994, skipping over 9007199254740993 -->
+			$\{($
+			<input type="number" id="customthreemove_11" min="-9007199254740992" max="9007199254740992" value="-2" autocomplete="off"/>
+			$,$
+			<input type="number" id="customthreemove_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			$),$
+			<br>
+			$($
+			<input type="number" id="customthreemove_21" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			$,$
+			<input type="number" id="customthreemove_22" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			$),$
+			<br>
+			$($
+			<input type="number" id="customthreemove_31" min="-9007199254740992" max="9007199254740992" value="5" autocomplete="off"/>
+			$,$
+			<input type="number" id="customthreemove_32" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			$)\}$
+			<br>
+		 	<button id="customthreemove">Custom Piece</button>
+		</p>
+		<p id="customthreemove_output"></p>
+		<p>I don't know exactly what you came up with, but you probably had coming up with anything that wasn't a parallelogram grid of some kind&mdash;with the pattern maybe messing up at the corners or edges of the board. In fact, that's true. For all symmetric pieces, there always exists some other symmetric piece with at most two moves (and their inverses) with the same colorbinding.</p>
 		<p>How can we prove this? Well, we can actually take a page out of linear algebra. Anyone who's familiar with linear algebra may have already felt the similarity&mdash;it feels like we're in a 2D vector space and we're trying to find the span of vectors. It's just that we now live in a quantized integer world, not one with coordinates that can freely vary through all real numbers. But if you're not familiar with it, that's okay too; we're going to go through this together.</p>
 		<p>Let's consider the symmetric piece that can move to $\{(3,2), (4,3), (5,1)\}$ (and remember that, as a symmetric piece, it can go to the inverses of these as well). We want to show that there's another symmetric piece, $\{(x_1,y_1), (x_1, y_2)\}$, with only two moves in its movement set, that has the same colorbinding, i.e. these sets generate the same subgroup of $\mathbb Z \times \mathbb Z$.</p>
 		<p>We can start by pointing out that if a piece $\{a, b, c\}$ generates a colorbinding, then the piece $\{a, b, c+a\}$ also generates the same colorbinding. In particular, consider any tile in the colorbinding that requires that we add $c$ to the path somewhere to get to it. With our new piece, instead, we can add $c+a$ and then $-a$ where we would have added $c$. Thus, if we could find a path to a tile with our first piece, we can also find a path to our second tile.</p>
@@ -204,29 +296,42 @@
 			0 & 0
 		\end{bmatrix}
 		\end{aligned}$$</p>
-		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button>Example piece $\{(1,1),(0,1),(0,0)\}$</button> <button>Reduced example piece $\{(1,1),(0,1)\}$</button></p>
+		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button class='example1'>Example piece $\{(3,2),(4,3),(5,1)\}$</button> <button class='reducedexample1'>Reduced example piece $\{(1,1),(0,1)\}$</button>. (Please note that with this example, we run into edge effects in the corners of a finite board where these awkward movements get caught. On an infinite board, we would be able to reach all tiles with both pieces.)</p>
 		<p>And there was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement. You'd end up with a degenerate parallelogram grid in that case. But I'll let you play around with that, because here is a calculator for pieces with up to four movements. What's filled in by default is a degenerate case:</p>
-		<p>
-			<!-- 9007199254740992 is the maximum integer that can be stored as a Javascript Number (a double) without losing precision when you do arithmetic on it: the next storable number is 9007199254740994, skipping over 9007199254740993 -->
+		<p id="custom_reduce">
 			<input type="number" id="symmetric_11" min="-9007199254740992" max="9007199254740992" value="3" autocomplete="off"/>
 			<input type="number" id="symmetric_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
 			<br>
-			<input type="number" id="symmetric_21" min="-9007199254740992" max="9007199254740992" value="4" autocomplete="off"/>
-			<input type="number" id="symmetric_22" min="-9007199254740992" max="9007199254740992" value="3" autocomplete="off"/>
+			<input type="number" id="symmetric_21" min="-9007199254740992" max="9007199254740992" value="6" autocomplete="off"/>
+			<input type="number" id="symmetric_22" min="-9007199254740992" max="9007199254740992" value="4" autocomplete="off"/>
 			<br>
-			<input type="number" id="symmetric_31" min="-9007199254740992" max="9007199254740992" value="5" autocomplete="off"/>
-			<input type="number" id="symmetric_32" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<input type="number" id="symmetric_31" min="-9007199254740992" max="9007199254740992" value="-6" autocomplete="off"/>
+			<input type="number" id="symmetric_32" min="-9007199254740992" max="9007199254740992" value="-4" autocomplete="off"/>
 			<br>
 			<input type="number" id="symmetric_41" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
 			<input type="number" id="symmetric_42" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
 			<br>
 			<input type="button" value="Go!" id="symmetric_go_btn" />
-			</form>
 		</p>
 		<p id="symmetric_output"></p>
-
-		<p>Credit where credit was due: <a href="https://math.stackexchange.com/a/193942">this answer on the Math StackExchange</a> was a big part of where I got this reasoning from. Also thanks to the SoME3 Discord who helped me figure out the Euclid's algorithm was the key idea.</p>
+		<p>So we're done here, at least for symmetric pieces.</p>
+		<p>Credit where credit was due: <a href="https://math.stackexchange.com/a/193942">this answer on the Math StackExchange</a> was a big part of where I got this reasoning from. Also thanks to the SoME3 Discord who helped me figure out that Euclid's algorithm was the key idea.</p>
 	</div>
+	<div class="content">
+		<h2>Asymmetric pieces</h2>
+		<p>So now, armed with this Gaussian elimination trick, we come back to asymmetric pieces. Can we do a similar thing, algorithmically reducing an asymmetric movement set down to a smaller set?</p>
+		<p>Well, when we lose symmetry, what in our Gaussian elimination trick fails? One place is obvious: we can't invert a row at will, since the inversion of a row is no longer implied to exist. But another sneakier place is the more fundamental idea that $\{a, b\}$, $\{a, a+b\}$, and $\{a, a-b\}$ all have the same colorbinding. If you can get to somewhere with a sequence of $a$'s and $b$'s, you cannot replace each $b$ with $a+b$ followed by $-a$, because of course $-a$ doesn't exist. On the converse, you <em>can</em> replace $b$'s with $a-b$ followed by $a$, so we're okay here&mdash;but that doesn't actually mean that the colorbindings are the same, only that the first is a <em>subset</em> of the latter. If we consider a sequence of $a$'s and $a-b$'s instead and try to replicate it with only $a$'s and $b$'s, we end up unable to do so.</p>
+		<p>With that idea gone, Gaussian elimination is completely out the window. So what other ways are there of reducing a large number of moves to a smaller number? <em>Is</em> there such a way?</p>
+		<p>But in fact, no, we cannot. Or at least, not in general, not to something manageable. Because we can construct a piece with any arbitrary number of moves, and yet no way to reduce that moveset down without changing the colorbinding. Consider the piece that can move to $\{(1,1),(1,2),(1,3),(1,4),\ldots, (1,n)\}$, basically jumping to any of the first $n$ spaces in the next column over. This basically just creates rays going out from the origin at slopes $1, 2, 3, 4, \ldots, n$. So obviously any piece with the same colorbinding must only have moves in the "first quadrant" (moves with strictly positive $x$ and $y$ components), since our colorbinding doesn't include anything in the other quadrants. But then, if that's the case, the only way to reach any tiles in column $1$ is to jump there directly, since you can't go backwards so you can't overshoot the first column and then come back. So if we have to cover all $n$ tiles in the first column, then we have to have all $n$ different moves.</p>
+		<p>(With symmetric pieces, even just $\{(1,1),(1,2)\}$ is enough to reach every possible space on the board.)</p>
+		<p>So then&hellip; what are we even looking for? We can name every possible symmetric piece colorbinding with a pair of moves. Sure, some of them are going to have the same colorbindings ($\{a, b\}$ and $\{a, a+b\}$ have the same colorbindings, remember), but the space of pairs of moves still feels a lot more manageable&mdash;and we even can qualitatively describe these as parallelogram grids. But with asymmetric piece colorbindings, we cannot reduce all movesets to a pair of moves, or a triplet of moves, or even a set of a million moves. I think we're kind of out of luck.</p>
+		<p>At least, that's true if we're trying specifically to reduce a moveset down to a specific number of moves. But can we at least describe qualitatively what these colorbindings are like?</p>
+		<p>We can start by saying they're subsets of their symmetric counterparts. That's obvious. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're restricted to a grid-like tile, but possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight, though when not all of your moves are in the same general direction, it's not necessarily immediately obvious what subset we're going to end up with. <button class='laurelhorse'>Laurel Horse</button><button class='narrow'>Narrow Knight</button></p>
+		<p>On the note of being in the same direction&mdash;when you have just two asymmetric moves, you end up with a wedge of the corresponding symmetric piece's grid, the one that sits in between the two axes. If you have more than two asymmetric moves, but all pairs of moves have wedges that lie within the same 180 degrees, then all tiles in the colorbinding lie in that 180 degrees.</p>
+		<p>At this point, I really am quite stuck at trying to describe possibilities. It's likely there are more things to say about it, even in ways that are more rigorous than just these qualitative descriptions, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any.</p>
+		<p>But I do have one last thing to say, about what happens if you mix symmetric and asymmetric moves together, and it brings us right back to group theory.</p>
+	</div>
+
 	<hr>
 	<h1>Acknowledgments</h1>
 	<div class="content">
@@ -241,25 +346,116 @@
 
 	main();
 
+	// symmetric leapers
 	const WAZIR = [ [1,0],[0,1],[-1,0],[0,-1] ];
 	const FERZ = [ [1,1],[1,-1],[-1,1],[-1,-1] ];
-	const ROOK = [ [1,0,MovementCategory.Rider],[0,1,MovementCategory.Rider],[-1,0,MovementCategory.Rider],[0,-1,MovementCategory.Rider] ];
-	const BISHOP = [ [1,1,MovementCategory.Rider],[1,-1,MovementCategory.Rider],[-1,1,MovementCategory.Rider],[-1,-1,MovementCategory.Rider] ];
 	const DABBAABA = [ [2,0],[0,2],[-2,0],[0,-2] ];
 	const ALFIL = [ [2,2],[2,-2],[-2,2],[-2,-2] ];
-	const ALFILRIDER = [ [2,2,MovementCategory.Rider],[2,-2,MovementCategory.Rider],[-2,2,MovementCategory.Rider],[-2,-2,MovementCategory.Rider] ];
+	const THREELEAPER = [ [3,0],[0,3],[-3,0],[0,-3] ];
 	const KNIGHT = [ [1,2],[1,-2],[-1,2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1] ];
+	const CAMEL = [ [1,3],[1,-3],[-1,3],[-1,-3],[3,1],[3,-1],[-3,1],[-3,-1] ];
+	const KING = WAZIR.concat(FERZ);
+	const fbHsD = [ [2,0],[0,3],[-2,0],[0,-3] ];
+	const NARROWKNIGHT = [ [1,2],[1,-2],[-1,2],[-1,-2] ];
+	const WIDEKNIGHT = [ [2,1],[-2,1],[2,-1],[-2,-1] ];
+
+	// symmetric riders and combination rider-leapers
+	const ROOK = [ [1,0,MovementCategory.Rider],[0,1,MovementCategory.Rider],[-1,0,MovementCategory.Rider],[0,-1,MovementCategory.Rider] ];
+	const BISHOP = [ [1,1,MovementCategory.Rider],[1,-1,MovementCategory.Rider],[-1,1,MovementCategory.Rider],[-1,-1,MovementCategory.Rider] ];
+	const DABBAABARIDER = [ [2,0,MovementCategory.Rider],[-2,0,MovementCategory.Rider],[0,2,MovementCategory.Rider],[0,-2,MovementCategory.Rider] ];
+	const ALFILRIDER = [ [2,2,MovementCategory.Rider],[2,-2,MovementCategory.Rider],[-2,2,MovementCategory.Rider],[-2,-2,MovementCategory.Rider] ];
+	const NIGHTRIDER = [ [1,2,MovementCategory.Rider],[1,-2,MovementCategory.Rider],[-1,2,MovementCategory.Rider],[-1,-2,MovementCategory.Rider],[2,1,MovementCategory.Rider],[2,-1,MovementCategory.Rider],[-2,1,MovementCategory.Rider],[-2,-1,MovementCategory.Rider] ];
+	const CAMELRIDER = [ [1,3,MovementCategory.Rider],[1,-3,MovementCategory.Rider],[-1,3,MovementCategory.Rider],[-1,-3,MovementCategory.Rider],[3,1,MovementCategory.Rider],[3,-1,MovementCategory.Rider],[-3,1,MovementCategory.Rider],[-3,-1,MovementCategory.Rider] ];
+	const QUEEN = ROOK.concat(BISHOP);
+	const DRAGONKING = ROOK.concat(FERZ);
+	const DRAGONHORSE = BISHOP.concat(WAZIR);
+
+	// asymmetric leapers and riders
+	const PAWN = [ [0,1] ];
+	const PROMOTEDSOLDIER = [ [1,0],[0,1],[-1,0] ];
+	const LANCE = [ [0,1,MovementCategory.Rider] ];
+	const LAURELHORSE = [ [1,2],[-1,2] ];
+	const SILVERGENERAL = [ [1,1],[1,-1],[-1,1],[-1,-1],[0,1] ];
+	const GOLDGENERAL = [ [1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1] ];
+
+
+				// <dd><button class='wideknight'>Wide Knight</button></dd>
+				// <dd><button class='camel'>Camel</button></dd>
+				// <dd><button class='threeleaper'>Threeleaper</button></dd>
+				// <dd><button class='dabbaabarider'>Dabbaaba-rider</button></dd>
+				// <dd><button class='alfilrider'>Alfil-rider</button></dd>
+				// <dd><button class='nightrider'>Nightrider</button></dd>
+				// <dd><button class='camelrider'>Camelrider</button></dd>
+	// special
+	const EXAMPLE1 = [ [3,2],[-3,-2],[4,3],[-4,-3],[5,1],[-5,-1] ];
+	const REDUCEDEXAMPLE1 = [ [1,1],[0,1],[-1,-1],[0,-1] ];
 
 	const ALL_MOVEMENTS_DICT = {
 		'wazir': WAZIR,
 		'ferz': FERZ,
-		'rook': ROOK,
-		'bishop': BISHOP,
 		'dabbaaba': DABBAABA,
 		'alfil': ALFIL,
-		'alfilrider': ALFILRIDER,
+		'threeleaper': THREELEAPER,
 		'knight': KNIGHT,
+		'camel': CAMEL,
+		'king': KING,
+		'fbHsD': fbHsD,
+		'narrowknight': NARROWKNIGHT,
+		'wideknight': WIDEKNIGHT,
+
+		'rook': ROOK,
+		'bishop': BISHOP,
+		'dabbaabarider': DABBAABARIDER,
+		'alfilrider': ALFILRIDER,
+		'nightrider': NIGHTRIDER,
+		'camelrider': CAMELRIDER,
+		'queen': QUEEN,
+		'dragonking': DRAGONKING,
+		'dragonhorse': DRAGONHORSE,
+
+		'pawn': PAWN,
+		'promotedsoldier': PROMOTEDSOLDIER,
+		'lance': LANCE,
+		'laurelhorse': LAURELHORSE,
+		'silvergeneral': SILVERGENERAL,
+		'goldgeneral': GOLDGENERAL,
+
+		'example1': EXAMPLE1,
+		'reducedexample1': REDUCEDEXAMPLE1,
 	}
+
+	document.getElementById('customthreemove').addEventListener('click', function(event){
+		const array_ids = [
+			['customthreemove_11', 'customthreemove_12'],
+			['customthreemove_21', 'customthreemove_22'],
+			['customthreemove_31', 'customthreemove_32'],
+		];
+		let array_elements = array_ids.map(row =>
+			row.map( id =>
+				parseInt(document.getElementById(id).value)
+			)
+		);
+		// check validity
+		if (array_elements.some(row =>
+				row.some(element =>
+					!Number.isInteger(element)
+				)
+			)) {
+			document.getElementById('customthreemove_output').innerHTML = '⚠️ error parsing input ⚠️';
+			return;
+		}
+
+		let movement = array_elements.concat(
+				array_elements.map(row => row.map( id => -id))
+			);
+
+			thePiece.moves = movement;
+			mainBoard.resetAll();
+			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+			mainBoard.setSelectedTile(zeroRow, zeroCol);
+			mainBoard.updateDomToMatchState();
+	});
+	
 
 	for(let thisBtn of document.querySelectorAll('button')) {
 		for (let [movementName, movement] of Object.entries(ALL_MOVEMENTS_DICT)) {
@@ -268,9 +464,9 @@
 
 			thisBtn.addEventListener('click', function(event){
 				thePiece.moves = movement;
-				mainBoard.addPiece(thePiece, zeroY, zeroX);
 				mainBoard.resetAll();
-				mainBoard.setSelectedTile(zeroY, zeroX);
+				mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+				mainBoard.setSelectedTile(zeroRow, zeroCol);
 				mainBoard.updateDomToMatchState();
 			});
 		}
@@ -288,6 +484,16 @@
 				parseInt(document.getElementById(id).value)
 			)
 		);
+		// check validity
+		if (array_elements.some(row =>
+				row.some(element =>
+					!Number.isInteger(element)
+				)
+			)) {
+			document.getElementById('symmetric_output').innerHTML = '⚠️ error parsing matrix ⚠️';
+			return;
+		}
+
 		let matrix_4x2_to_latex = function(matrix){
 			let output = '\\begin{bmatrix}';
 
@@ -384,7 +590,7 @@
 					output += invert_row(array_elements, r);
 				}
 				while(array_elements[pivotRow][pivotColumn] !== 0 && array_elements[r][pivotColumn] !== 0) {
-					if (array_elements[pivotRow][pivotColumn] < array_elements[r][pivotColumn]) {
+					if (array_elements[pivotRow][pivotColumn] <= array_elements[r][pivotColumn]) {
 						let numTimes = Math.floor(array_elements[r][pivotColumn] / array_elements[pivotRow][pivotColumn]);
 						output += subtract_row(array_elements, pivotRow, r, numTimes);
 					} else {
@@ -403,8 +609,46 @@
 		}
 
 		output += '\\end{aligned}$$';
-		document.getElementById('symmetric_output').innerHTML = output;
+		let output_div = document.getElementById('symmetric_output');
+		output_div.innerHTML = output;
 		MathJax.typeset();
+
+		let originalPieceBtn = document.createElement('button');
+		originalPieceBtn.innerHTML = 'Custom Piece';
+		originalPieceBtn.addEventListener('click', function(event){
+			let movement = array_ids.map(row =>
+				row.map( id =>
+					parseInt(document.getElementById(id).value)
+				)
+			).concat(array_ids.map(row =>
+				row.map( id =>
+					-parseInt(document.getElementById(id).value)
+				)
+			));
+
+			thePiece.moves = movement;
+			mainBoard.resetAll();
+			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+			mainBoard.setSelectedTile(zeroRow, zeroCol);
+			mainBoard.updateDomToMatchState();
+		});
+		output_div.appendChild(originalPieceBtn);
+
+
+		let reducedPieceBtn = document.createElement('button');
+		reducedPieceBtn.innerHTML = 'Reduced Piece';
+		reducedPieceBtn.addEventListener('click', function(event){
+			let movement = array_elements.concat(
+				array_elements.map(row => row.map( id => -id))
+			);
+
+			thePiece.moves = movement;
+			mainBoard.resetAll();
+			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
+			mainBoard.setSelectedTile(zeroRow, zeroCol);
+			mainBoard.updateDomToMatchState();
+		});
+		output_div.appendChild(reducedPieceBtn);
 	});
 	
 </script>
