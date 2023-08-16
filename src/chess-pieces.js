@@ -20,7 +20,7 @@ const GamePhase = createEnum([
 const MovementCategory = createEnum(['Leaper', 'Rider']);
 const BoardColorings = createEnum(['None', 'Checkered', 'Colorbinding']);
 
-const CSS_CELL_SIZE = 32; //must match `td .cell` size in index.css
+const CSS_CELL_SIZE = 40; //must match `td .cell` size in index.css
 
 const CSS_CELL = 'cell';
 const CSS_CELL_INNER_TEXT = 'cellinnertext';
@@ -53,6 +53,10 @@ class GameObject {
 			var parentElement = parentId;
 		}
 		parentElement.appendChild(this.domElement);
+	}
+
+	removeDomFromParent() {
+		this.domElement.parentNode.removeChild(this.domElement);
 	}
 }
 

@@ -2,6 +2,16 @@ body {
 	background-color: #542f19;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
 li>strong {
 	text-decoration: underline;
 }
@@ -19,16 +29,32 @@ li>strong {
 
 	border: 8px solid #221105;
 	border-radius: 8px;
-	background-color: #99ccff;
+	background-color: #bbccff;
 	overflow: scroll;
 	position: fixed;
 	box-sizing: border-box;
+
+	font-size: 20px;
 }
 #boarddivwrapper {
+	position:relative;
 	box-sizing: border-box;
 	overflow: scroll;
 	margin-top: 8px;
 }
+#choose_piece {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+#choose_piece details {
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 0.2em solid #8877ff;
+}
+legend {
+	font-size: 1.25em;
+}
+
 #right {
 	float: right;
 	width: calc(70% - 12px);
@@ -86,6 +112,9 @@ h3 {
 
 	box-sizing: border-box;
 }
+#left h3 {
+	background-color: #110533;
+}
 
 div.content {
 	margin-left: auto;
@@ -112,12 +141,6 @@ div.content>:not(h2, figcaption, .mathjaxcontent), div.content button {
 
 summary {
 	cursor: pointer;
-}
-
-details>:not(summary) {
-	margin-left: 1em;
-	padding-left: 1em;
-	border-left: 0.2em solid brown;
 }
 
 figure.floatright {
@@ -182,6 +205,10 @@ a {
 	color: #542f19;
 }
 
+fieldset {
+	border-color: #8877ff;
+}
+
 /*****/
 
 
@@ -203,25 +230,26 @@ table#maintable td {
 	padding: 0px;
 	margin: 0px;
 	border: 1px solid black;
+	box-sizing: border-box;	
 }
 
 table#maintable td .cell {
 	margin:0px;
-	width: 32px;
-	height: 32px;
+	width: 40px;
+	height: 40px;
 	aspect-ratio: 1 / 1 ;
+	box-sizing: border-box;
 
 	display: flex;
 	justify-content: center;
 }
 
-table#maintable td .cell img {
-	max-width: 75px;
-	max-height: 150px;
-
-	/* align bottom of img with bottom of cell */
-	position: absolute;
-	bottom: 0%;
+.pieceemoji {
+	font-size: 26px;
+	margin: 0;
+	padding: 0;
+	z-index: 2;
+	text-shadow: #222266 0 0 5px;
 }
 
 .lightcell:not(.startcell) {
@@ -255,7 +283,7 @@ table#maintable td .cell img {
 	left: 2px;
 	z-index: 1;
 	overflow: hidden;
-	font-size: 8px;
+	font-size: 10px;
 }
 .lightcell .cellinnertext {
 	color: black;
@@ -264,10 +292,13 @@ table#maintable td .cell img {
 	color: white;
 }
 
-.pieceemoji {
-	font-size: 21px;
-	margin: 0;
-	padding: 0;
-	z-index: 2;
-	text-shadow: #222266 0 0 5px;
+.divline {
+	z-index:10;
+	background-color:red;
+	border-radius: 2px;
+	margin:0px;
+	padding:0px;
+	height:4px;
+	transform-origin:2px 2px;
+	pointer-events: none; 
 }

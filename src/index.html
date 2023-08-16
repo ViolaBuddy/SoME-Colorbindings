@@ -4,58 +4,64 @@
 <head>
 	<title>Colorbindings of Chess Variant Pieces</title>
 	<link rel="stylesheet" type="text/css" href="indexstyle.css">
-	<script type="text/javascript" src="chess-pieces.js"></script>
-	<script type="text/javascript" src="index.js"></script>
 	<script type="text/javascript" id="MathJax-script" async
 		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 	</script>
+	<script type="text/javascript" src="chess-pieces.js"></script>
+	<script type="text/javascript" src="list-of-chess-pieces.js"></script>
+	<script type="text/javascript" src="index.js"></script>
 </head>
 <body>
 <div id="left">
 	<fieldset id="boarddivcontrols">
-		<legend>Chessboard controls</legend>
+		<legend>Chessboard Controls</legend>
 		<input type="radio" id="coloring_checkerboard" name="board_coloring" value="coloring_checkerboard" checked="on" /> <label for="coloring_checkerboard">Show standard checkerboard coloring</label><br />
 		<input type="radio" id="coloring_colorbinding" name="board_coloring" value="coloring_colorbinding" /> <label for="coloring_colorbinding">Show colorbinding of current piece</label><br />
 		<input type="radio" id="coloring_none" name="board_coloring" value="coloring_none" /> <label for="coloring_none">Show no coloring</label>
 
-		<details>
-			<summary>Choose piece</summary>
-			<dl>
-			<dt>Chess</dt>
-			<dd>
+		<div id="choose_piece">Choose piece:
+			<details>
+				<summary>Western Chess</summary>
+				Standard international chess. The oldest known version was chaturanga, from India under the Gupta Empire in the 600s, before spreading westward through Persia, Arabia, and Europe in the middle ages.<br/>
 				<button class='pawn'>Pawn</button>
 				<button class='knight'>Knight</button>
 				<button class='bishop'>Bishop</button>
 				<button class='rook'>Rook</button>
 				<button class='queen'>Queen</button>
 				<button class='king'>King</button>
-			</dd>
-			<dt>Shōgi</dt>
-			<dd>
-				<button class='pawn'>Pawn (Soldier)</button>
-				<button class='lance'>Lance</button>
-				<button class='laurelhorse'>Laurel Horse</button>
-				<button class='silvergeneral'>Silver General</button>
-				<button class='goldgeneral'>Gold General</button>
-				<button class='bishop'>Bishop</button>
-				<button class='rook'>Rook</button>
-				<button class='dragonhorse'>Dragon Horse (Promoted Bishop)</button>
-				<button class='dragonking'>Dragon King (Promoted Rook)</button>
-				<button class='king'>King</button>
-			</dd>
-			<dt>Xiangqi</dt>
-			<dd>
+			</details>
+
+			<details>
+				<summary>Xiangqi (象棋)</summary>
+				Chinese chess. The game clearly is related to chaturanga, but it's unclear whether (proto-)xiangqi or chaturanga came first, and different sources online say different things. Unlike Western chess, pieces are placed on the intersections of lines, rather than on the tiles outlined by the lines, but for the purposes of this page, I standardize everything to be on the tiles.<br/>
 				<button class='pawn'>Pawn (Soldier)</button>
 				<button class='promotedsoldier'>Promoted Pawn (Promoted Soldier)</button>
 				<button class='rook'>Rook (Chariot)</button>
 				<button class='knight'>Knight (Horse)</button>
 				<button class='alfil'>Alfil (Elephant)</button>
 				<button class='ferz'>Ferz (Advisor)</button>
-				<button class='king'>King (General)</button>
+				<button class='wazir'>King (General)</button>
 				<button class='rook'>Cannon</button>
-			</dd>
-			<dt>Other Named Pieces from Chess Variants</dt>
-			<dd>
+			</details>
+
+			<details>
+				<summary>Shōgi (将棋)</summary>
+				Japanese chess. The oldest known version, Heian shōgi, is from, well, the Heian period, between the 9th and 12th centuries, but it kept evolving over the next few centuries when it took its modern form in the 1500s. Heian shōgi had developed out of some sort of chess brought to Japan from overseas.<br/>
+				<button class='pawn'>Pawn (Soldier)</button>
+				<button class='lance'>Lance (Fragrant Chariot)</button>
+				<button class='laurelhorse'>Laurel Horse</button>
+				<button class='silvergeneral'>Silver General</button>
+				<button class='goldgeneral'>Gold General</button>
+				<button class='bishop'>Bishop (Angle Mover)</button>
+				<button class='rook'>Rook (Flying Dragon)</button>
+				<button class='dragonhorse'>Dragon Horse (Promoted Bishop)</button>
+				<button class='dragonking'>Dragon King (Promoted Rook)</button>
+				<button class='king'>King</button>
+			</details>
+
+			<details>
+				<summary>Other Chess Variants</summary>
+				There are a few other pieces from chess variants with well-established names, especially if they were in one of the most historically significant versions and variations of chess. Chaturanga was already mentioned in the Western Chess section, but other important historical chess variants include Tamerlane Chess from the Timurid Empire (1300s Persia and India), and Courier Chess from medieval Germany (1200s)&mdash;along with, of course, modern chess variant communities.
 				<button class='wazir'>Wazir</button>
 				<button class='ferz'>Ferz</button>
 				<button class='dabbaaba'>Dabbaaba</button>
@@ -68,25 +74,29 @@
 				<button class='alfilrider'>Alfil-rider</button>
 				<button class='nightrider'>Nightrider</button>
 				<button class='camelrider'>Camelrider</button>
-			</dd>
-			<dt>Custom</dt>
-			<dd>
-				<ul>
-					<li><a href="#custom_symmetric">Jump to custom symmetric piece</a></li>
-					<li><a href="#custom_reduce">Jump to custom symmetric piece with reduction algorithm</a></li>
-					<li><a href="#custom_asymmetric">Jump to custom asymmetric piece</a></li>
-				</ul>
-			</dd>
-			</dl>
-			
-		</details>
+			</details>
 
-		<br />
-		<button id="reset_position">Reset Position</button>
+			<details>
+				<summary>Custom</summary>
+				The main article in the right gives you a few places to create custom pieces. Here are links to jump to those places.
+				<ul>
+					<li><a href="#custom_symmetric">Jump to custom symmetric piece input</a></li>
+					<li><a href="#custom_reduce">Jump to custom symmetric piece input with reduction algorithm</a></li>
+					<li><a href="#custom_asymmetric">Jump to custom asymmetric piece input</a></li>
+				</ul>
+			</details>
+		</div>
+
+
+		<label for="board_size_input">Board size:</label> <input type="range" min="1" max="32" value="11" step="1" class="slider" id="board_size_input"> <span id="board_size_output">11</span><br />
 	</fieldset>
 	<div id="boardPieceDetails">
 		<h3 id="boardPieceName">Pawn</h3>
-		<p id="boardPieceDescription"></p>
+		<details>
+			<summary>Details about this piece</summary>
+			<p id="boardPieceDescription"></p>
+		</details>
+		<button id="reset_position">Reset Position</button>
 	</div>
 	<div id="boarddivwrapper">
 		<div id="boarddiv"></div>
@@ -96,51 +106,52 @@
 	<h1>Colorbindings of Chess Variant Pieces</h1>
 	<div class="content">
 		<h2>Introduction</h2>
-		<p>Chess is played by moving pieces around on a square grid. And this is true of xiangqi (Chinese chess) and shōgi (Japanese chess) too. And sure there's, like, strategy and stuff (and in Japanese chess, you can also re-deploy a captured unit), but we can skip that part today. Let's just talk about moving pieces.</p>
-		<p>Each chess piece can move in its own unique way. For examples, knights move in a distinctive L-shaped way.  Despite this strange movement, knights can actually reach any square on the board, which I will state without proof here but you can try it for yourself on the left panel by pressing this button: <button class='knight'>Knight</button></p>
-		<p>But not all pieces can do that. Obviously, the pawn, as well as some similar pieces that can only move forwards in xiangqi and shōgi, cannot reach tiles behind it. But, also, there's the bishop, which can only reach half the squares on the board&dash;try it out and you'll immediately see why. <button class='pawn'>Pawn</button> <button class='promotedsoldier'>Promoted Soldier (Xiangqi)</button> <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='bishop'>Bishop</button></p>
-		<p>So today I'd like to explore this idea of pieces being only able to move to certain squares. And by "today" I mean "for literally a couple decades now." As a child, I was very into chess variants and thinking about funny new pieces and how they might move, and this idea of being stuck on certain tiles is a common idea among chess variant pieces (also called "fairy chess pieces"). Within this context, this idea is sometimes called <strong>colorbindings</strong>, named after the fact that on an ordinary chessboard, the bishop that starts on one color is stuck to that color and will never leave it. But it turns out that you can construct other pieces (like the alfil <button class='alfil'>Alfil</button>) that have a colorbinding other than just "the light squares" and "the dark squares," so a very natural question is: <strong>what are all the ways that a piece can be colorbound?</strong></p>
-		<p>As a child, I never got very far with this question, but now let's see if we can't do a bit better.</p>
+		<p>Chess is played by moving pieces around on a square grid. And this is true of xiangqi (Chinese chess) and shōgi (Japanese chess) too. And sure there's, like, strategy and stuff, but we can skip that part today. Let's just talk about moving pieces.</p>
+		<p>Each chess piece can move in its own unique way. For examples, knights move in a distinctive L-shaped way.  Despite this strange movement, knights can actually reach any square on the board, which I will state without proof here, but you can try it for yourself! If you press this button <button class='knight'>Knight</button>, in the left panel the piece will update to have a knight's movement (the piece's image will not change). Gray squares are where you can move; click on them to move there.</p>
+		<p>But not all pieces can do that. Obviously, the pawn, which can only move forward, cannot reach squares behind it. There are some similar forward-only pieces from xiangqi and shōgi, too. But, also, there's the bishop, which can only reach half the squares on the board&mdash;try it out and you'll immediately see why. <button class='pawn'>Pawn</button> <button class='promotedsoldier'>Promoted Soldier (Xiangqi)</button> <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='bishop'>Bishop</button></p>
+		<p>So today I'd like to explore this idea of pieces being only able to move to certain squares. And by "today" I mean "I've been thinking about this for many, many years now." As a child, I was very into chess variants, perusing the pages of <a href="https://www.chessvariants.com">chessvariants.com</a> and thinking about funny new pieces and how they might move. And this idea of being stuck on certain squares is a common idea among chess variant pieces (also called "fairy chess pieces"). This idea is generally called being <strong>colorbound</strong>, named after the fact that on an ordinary chessboard, the bishop that starts on one color is stuck to that color and will never leave it.</p>
+		<p>But it turns out that you can construct other pieces (like the alfil <button class='alfil'>Alfil</button>) that have can reach a set of squares other than just "the light squares" and "the dark squares." I will still call this set of reachable squares a "colorbinding" even if a normal chessboard isn't colored that way. In "Chessboard Controls" in the left panel, you can choose to color the board according to the current piece's colorbinding, or to leave the board uncolored.</p>
+		<p>Since there's more than one way to be colorbound, a very natural question to ask is: <strong>what are all the ways that a piece can be colorbound?</strong> As a ten-year-old, I never got very far with this question, but now, nearly two decades later, let's see if we can't do a bit better.</p>
 	</div>
 	<div class="content">
-		<h2>Formalizing What We Got</h2>
-		<p>First of all, what can a chess variant piece be? People have done really wild and creative things with their chess variants. For example, you <em>could</em> arbitrarily choose a set of tiles on the board and be like "well my new piece, the gobbledygook, can teleport between any of those tiles." But if we allowed that sort of piece, then all possible ways of being colorbound is, trivially, possible, by just declaring any arbitrary set of tiles for the gobbledygook.</p>
-		<p>But we can think back to the pieces from the three "canonical" types of chess I mentioned before. In almost all cases, the pieces' movements have translational symmetry: no matter where you are on the board, you can move to the same squares relative to yourself. So for our exploration today, let us only consider pieces whose movements are translationally symmetric.</p>
-		<p>We do have to qualify this a little bit. Let's ignore the fact that you're not allowed to move off the edge of a board&mdash;that is, let's consider an infinite board. Let's also assume that no other pieces are on this infinite board&mdash;pawns can't move diagonally to capture, rooks and xiangqi horses aren't blocked by pieces in the way, etc.</p>
-		<p>Even under these conditions, there are actually still a few pieces in the three canonical types of chess mentioned that are not translationally symmetric. One is the pawn in Western chess: on the second row ("rank" in chess terms, but I never remember which is rank and which is file), it can move two spaces forward, but if you translate its position up to the third row it cannot make that move. The others are from xiangqi: the general and advisors can only move within the 3x3 palace, and the elephants cannot cross the river. So, again, we're just going to ignore any pieces with these sorts of location restrictions.</p>
-		<p>Out of the remaining pieces, we can split their movements into two types: <strong>leapers</strong> and <strong>riders</strong>. Leapers like simply jump to a square a certain offset away from the starting tile. Knights and kings are leapers <button class='king'>King</button>. Riders start like leapers jumping to a square a certain offset away, but then are allowed to continue in that direction (as long as there's nothing in the way, but we're dealing with an empty board, remember) for as long as they like. Rooks and queens are riders <button class='rook'>Rook</button> <button class='queen'>Queen</button>. In fact, we can phrase it as "a queen is a king-rider" to denote that a queen has the same basic movement as the king but can continue riding in the same direction as a single move.</p>
-		<p>I will again simply state without proof that a leaper and its corresponding rider have the same colorbinding (i.e. they can reach the same set of squares). As an example that's not just "both pieces can reach the entire board," try playing around with an Alfil and an Alfil-rider: <button class='alfil'>Alfil</button> <button class='alfilrider'>Alfil-rider</button>. Because of this, we can without loss of generality consider only leapers.</p>
-		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the flying dragon and dragon horse in shōgi.) <button class='dragonking'>Dragon King</button> <button class='dragonhorse'>Dragon Horse</button></p>
+		<h2>Let's start with some terms and conditions</h2>
+		<p>First of all, what can a chess variant piece be? People have done really wild and creative things with their chess variants. For example, you could arbitrarily choose a set of squares on the board and be like "Well, my new piece, the gobbledygook, can teleport between any of those squares." But if we allowed that sort of piece, then all possible ways of being colorbound is, trivially, possible, by just declaring any arbitrary set of squares for the gobbledygook.</p>
+		<p>Instead, we can think back to the pieces from the three "canonical" types of chess I mentioned before. In almost all cases, the pieces' movements have translational symmetry: no matter where you are on the board, you can move to the same squares relative to yourself. So for our exploration today, let us only consider pieces whose movements are translationally symmetric.</p>
+		<p>We do have to qualify this a little bit. Let's ignore the fact that you're not allowed to move off the edge of a board&mdash;that is, let's consider an infinite board. (In the left panel, we have a finite-sized board, but you can resize it if you're running into too many edge effects.) Let's also assume that no other pieces are on this infinite board&mdash;pawns can't move diagonally to capture, rooks and xiangqi horses aren't blocked by pieces in the way, etc.</p>
+		<p>Even under these conditions, there are actually still a few pieces in the three canonical types of chess that are not translationally symmetric. One is the pawn in Western chess: if it's on the second row ("rank" in chess terms, but I never remember which is rank and which is file), it has the additional move of moving two squares forward. Others are from xiangqi: the general and advisors can only move within the 3&times;3 palace, and the elephants cannot cross the river that divides the xiangqi board in half. So, again, we're just going to ignore any pieces with these sorts of location restrictions.</p>
+		<p>Out of the remaining pieces, we can split their movements into two types: <strong>leapers</strong> and <strong>riders</strong>. Leapers like simply jump to a square a certain offset away from the starting square. Knights and kings are leapers <button class='knight'>Knight</button> <button class='king'>King</button>. Riders start like leapers jumping to a square a certain offset away, but then are allowed to continue in that direction for as long as they like (we're on an empty infinite board, remember). Rooks and queens are riders <button class='rook'>Rook</button> <button class='queen'>Queen</button>. In fact, we can phrase it as "a queen is a king-rider" to denote that a queen has the same basic movement as the king but can continue riding in the same direction as a single move.</p>
+		<p>A leaper and its corresponding rider have the same colorbinding (i.e. they can reach the same set of squares). I state this without proof beyond "it's obvious" in the annoying way that you always find in math. But I'll at least leave you with an example: try playing around with an Alfil and an Alfil-rider: <button class='alfil'>Alfil</button> <button class='alfilrider'>Alfil-rider</button>. Because of this, we can without loss of generality consider only leapers.</p>
+		<p>(As an irrelevant aside: you can actually combine leapers and riders, so that you're a rider in some directions and a leaper in others, like the dragon king and dragon horse in shōgi.) <button class='dragonking'>Dragon King</button> <button class='dragonhorse'>Dragon Horse</button></p>
 		<p>We can describe a leaper as a set of moves that it can make. A knight is a <span class="mathjaxcontent">$\left\{(1,2), (1,-2), (-1,-2), (-1,2), (2,1), (2,-1), (-2,-1), (-2,1)\right\}$ leaper. A white pawn (without its double move or capture moves) is a $\{(0,1)\}$</span> leaper, and a black pawn, which moves the other way, is a $\{(0,-1)\}$</span> leaper.</p>
 		<p>On that note: rather than the standard letter-and-number system that chess uses for labeling each square on the chessboard, for our infinite chessboard, I'm labeling them $(x,y)$, like the Cartesian plane. And like the Cartesian plane, the positive x-axis is to the right and the positive y-axis is to the top. Unlike the Cartesian plane, we only have integers, none of the in-between fractions or reals.</p>
-		<p>For consistency, let's consider the colorbindings of pieces <em>that start on the origin tile</em>, i.e. tile $(0,0)$.</p>
+		<p>For consistency, let's consider the colorbindings of pieces that start on the origin square, i.e. square $(0,0)$, colored green in the left panel.</p>
 	</div>
 
 	<div class="content">
-		<h2>I Smell Group Theory</h2>
-		<p>So where do we begin? As a kid there were a lot of ways I tried to think about this, but group theory was not one of them. Because that's not a thing you learn as a kid. But now that I'm coming back to this question, having had an admittedly extremely fast crash course on the subject, I'm definitely feeling group theory vibes from this question. If we set things up right, maybe we can just nab some ideas from group theory to answer our question.</p>
-		<p>So let's start by defining some key ideas. A <strong>group</strong> is a set of things and an operation. And indeed, in this case, we have a set of tiles, and each given piece tells you some ways you can move between the tiles, which feels close enough to being an operation.</p>
-		<p>But you do need a couple properties to hold for this to properly be considered a set. Rather than apply them to our tiles-and-pieces system immediately, let's start from an easier-to-understand example, the additive group of integers. This is the set of things is all integers $\mathbb{Z}$ and the operation is addition $+$. The three properties of groups that I promised you are:</p>
+		<h2>I smell group theory</h2>
+		<p>So where do we begin? As a kid there were a lot of ways I tried to think about this, but group theory was not one of them. Because that's not a thing you learn as a kid. But now, years later, having had an admittedly extremely fast crash course on the subject as part of another class, I'm definitely feeling group theory vibes from this question. If we set things up right, maybe we can just nab some ideas from group theory to answer our question.</p>
+		<p>So let's start by defining some key ideas. A <strong>group</strong> is a set of things and an operation. Which sounds very vague but that's why it's so applicable to so many things. In this case, we have a set of squares on the board, and each given piece tells you some ways you can move between the squares, which feels close enough to being an operation. Is that good enough to be a group?</p>
+		<p>Well, you do need a couple properties to hold before you're really be considered a group. Let's start from an easier-to-understand example: the additive group of integers. This is the set of things is all integers $\mathbb{Z}$, with the operation of addition $+$. The four required properties of groups are:</p>
 		<ol>
 			<li>The group must be <strong>closed</strong> under the operation. For all elements $a$ and $b$, $a+b$ must also be part of the group. So, like, if you add $3$ and $8$ you'll get another integer; you'll never get something that's not an integer.</li>
 			<li>There must be an <strong>identity</strong> element $e$ such that any element $x+e=x$ and $e+x=x$. For addition, our identity element is zero. If you add zero to any integer, you'll get that same integer back.</li>
-			<li>For every element $x$ there must be an <strong>inverse</strong> element $x^{-1}$ such that $x + x^{-1}=e$. For addition, that's the negative of a number. $3$ is an integer, so $-3$ must also be an integer.</li>
+			<li>For every element $x$ there must be an <strong>inverse</strong> element $x_{inverse}$ such that $x + x_{inverse}=e$. For addition, that's the negative of a number. $3$ is an integer, so $-3$ must also be an integer, and $3 + -3$ must equal $0$.</li>
 			<li>The operation must be <strong>associative</strong>. $(a+b)+c = a+(b+c)$. This is obviously true for addition; for example, $(3+4)+9$ and $3+(4+9)$ both equal $16$.</li>
 		</ol>
 		<p>If you're familiar with the formal properties of addition, there's one property that you've probably noticed is missing from the list: <strong>commutivity</strong>, which is the ability to reorder the arguments. So $4 + 8$ is the same as $8 + 4$. Addition of integers is indeed commutative, but it's not necessary to be classified as a group.</p>
-		<p>So back to our "chess board and piece movement" systems. Do these form a group? Well, the way we've numbered the tiles has made it fairly obvious that we're actually just dealing with the cross product of the integers with themselves, $\mathbb{Z} \times \mathbb{Z}$, which is to say "the set of all ordered pairs of integers."</p>
-		<p>And not only are tiles elements of this set&mdash;each movement for a piece, like $(2,1)$ for a knight, is an element of it, too! That's good, because then we can define our operation (which we handwaved earlier as "a piece movement-ish thing") more precisely as putting together two elements of our set, one of which we think of as a tile and one of which we think of as our movement.</p>
-		<p>And it gets better&mdash;when we say "put together" what we mean by that is that it's just plain integer addition, just on each axis separately. For example, if you start from the $(3,5)$ tile and make the $(2,1)$ move, you'll end up on the $(3,5) + (2,1) = (5,6)$ tile. And we just showed that the integers are a group under regular old addition! So we basically end up inheriting these four properties of groups from the fact that we're just a cross product of two groups&mdash;this is true of any cross product of groups, but I'll leave the details for a proper group theory class.</p>
-		<p>(Before group theory fans start coming after me&mdash;technically, when talking about groups and not just sets, we generally call these paired-up groups "direct products," rather than cross or Cartesian products.)</p>
-		<p>So we have this mathematical setup for the board. But the thing in particular that we were looking at were colorbindings; how does that translate into group theory language? Well, since it's the set of a piece's <em>accessible</em> tiles, obviously it's a subset of <em>all</em> tiles, which we just said is $\mathbb{Z} \times \mathbb{Z}$. And further, our concept of a movement set of a piece corresponds with the idea of a <strong>generating set</strong>: a set $M$ is said to generate another set $X$ if all elements of $X$ can be expressed as combinations of repeated applications of (possibly different) elements of $M$, and vice versa.</p>
+		<p>So back to our "chess board and piece movement" systems. Do these form a group? Well, the way we've numbered the squares as $(x,y)$ suggests that we're actually just dealing with the cross product of the integers with themselves, $\mathbb{Z} \times \mathbb{Z}$, i.e. the set of all ordered pairs of integers.</p>
+		<p>(Before group theory fans start coming after me&mdash;technically, when talking about groups and not just sets, we generally call these paired-up groups <strong>direct products</strong>, rather than cross products.)</p>
+		<p>And not only are squares elements of this set&mdash;each movement for a piece, like $(2,1)$ for a knight, is an element of it, too! That's good, because then we can define our operation (which we handwaved earlier as "a piece movement-ish thing") more precisely as putting together two elements of our set, one of which we think of as a square and one of which we think of as our movement.</p>
+		<p>And it gets better&mdash;when we say "put together" what we mean by that is that it's just plain integer addition, just on each axis separately. For example, if you start from the $(3,5)$ square and make the $(2,1)$ move, you'll end up on the $(3,5) + (2,1) = (5,6)$ square. And we just showed that the integers are a group under regular old addition! So we're basically inheriting these four properties of groups from the fact that we're just a cross product of two groups.</p>
+		<p>So we have this mathematical setup for the board. Great. But the thing in particular that we were trying to think about were colorbindings; how does that translate into group theory language? Well, since a colorbinding is the set of a piece's <em>accessible</em> squares, obviously it's a subset of <em>all</em> squares, which we just said is $\mathbb{Z} \times \mathbb{Z}$. And further, our concept of a movement set of a piece corresponds with the idea of a <strong>generating set</strong>: a set $M$ is said to generate another set $X$ if all elements of $X$ can be expressed as combinations of repeated applications of (possibly different) elements of $M$. So exactly the relationship between a movement set and a colorbinding.</p>
 		<p>Some group theory fans are probably complaining again because usually when we're talking about generating sets we're talking not about any old subset of a group, but a special kind of subset of a group called a <strong>subgroup</strong>. A subgroup is exactly what it sounds like, subsets that are themselves groups. So are colorbindings subgroups of $\mathbb Z \times \mathbb Z$? We just have to check the properties above. Associativity comes for free because that's a property of the operation part of the group, not the set part. So we only have to check the other three properties:</p>
 		<ol>
-			<li>Closure. Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a tile $b$ that you can reach in some number of moves. If you do that sequence of moves but start from tile $a$ (instead of the origin tile), that would be $a+b$. Is this final destination part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
-			<li>Identity. The identity for our $+$ operation on $\mathbb{Z} \times \mathbb{Z}$ is the $(0,0)$ origin tile. You start out standing on it, so you've accessed it. Therefore it's in our colorbinding.</li>
-			<li>Inverse. That is, if you travel out from the origin to some other square A, you can always find a path all the way back to the origin. But&hellip; that's not actually true. Remember the pawn? You can't undo its moves!</li>
+			<li><strong>Closure:</strong> Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a tile $b$ that you can reach in some number of moves. If you do that sequence of moves but start from tile $a$ (instead of the origin tile), that would be $a+b$. Is this final destination part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
+			<li><strong>Identity:</strong> The identity for our $+$ operation on $\mathbb{Z} \times \mathbb{Z}$ is the $(0,0)$ origin tile. You start out standing on it, so you've accessed it. Therefore it's in our colorbinding.</li>
+			<li><strong>Inverse:</strong> That is, if you travel out from the origin to some other square A, you can always find a path all the way back to the origin. But&hellip; that's not actually true. Remember the pawn? You can't undo its moves!</li>
 		</ol>
-		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup. Welp. We can do two things with this knowledge: (1) ignore pieces that don't have inverses, or (2) see what we can do even though it's not a group. And in fact, we'll do both, starting with the first.</p>
-		<p>(By the way, to please those group theory fans: when talking about generating sets of <em>subgroups</em> in particular, you're also allowed to take inverses of elements while trying to create new elements in the subset. This automatically makes the resulting subset fulfil the third requirement, so it's a subgroup.)</p>
+		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup. Welp. Still, almost-groups that don't have inverses are called <strong>monoids</strong>, and even though they're not quite as well-studied as groups, they're well-studied enough to have a name, at least.</p>
+		<p>So now we can do two things: (1) ignore pieces that don't have inverses, or (2) see what we can do even though it's not a group&mdash; And in fact, we'll do both, starting with the first.</p>
 	</div>
 
 	<div class="content">
@@ -301,16 +312,16 @@
 		\end{bmatrix}
 		\end{aligned}$$</p>
 		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button class='example1'>Example piece $\{(3,2),(4,3),(5,1)\}$</button> <button class='reducedexample1'>Reduced example piece $\{(1,1),(0,1)\}$</button>. (Please note that with this example, we run into edge effects in the corners of a finite board where these awkward movements get caught. On an infinite board, we would be able to reach all tiles with both pieces.)</p>
-		<p>And there was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement. You'd end up with a degenerate parallelogram grid in that case. But I'll let you play around with that, because here is a calculator for pieces with up to four movements. What's filled in by default is a degenerate case:</p>
+		<p>And there was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement. You'd end up with a degenerate parallelogram grid in that case. But I'll let you play around with that, because here is a calculator for pieces with up to four movements:</p>
 		<p id="custom_reduce">
-			<input type="number" id="symmetric_11" min="-9007199254740992" max="9007199254740992" value="3" autocomplete="off"/>
+			<input type="number" id="symmetric_11" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
 			<input type="number" id="symmetric_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
 			<br>
-			<input type="number" id="symmetric_21" min="-9007199254740992" max="9007199254740992" value="6" autocomplete="off"/>
-			<input type="number" id="symmetric_22" min="-9007199254740992" max="9007199254740992" value="4" autocomplete="off"/>
+			<input type="number" id="symmetric_21" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			<input type="number" id="symmetric_22" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
 			<br>
-			<input type="number" id="symmetric_31" min="-9007199254740992" max="9007199254740992" value="-6" autocomplete="off"/>
-			<input type="number" id="symmetric_32" min="-9007199254740992" max="9007199254740992" value="-4" autocomplete="off"/>
+			<input type="number" id="symmetric_31" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<input type="number" id="symmetric_32" min="-9007199254740992" max="9007199254740992" value="-1" autocomplete="off"/>
 			<br>
 			<input type="number" id="symmetric_41" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
 			<input type="number" id="symmetric_42" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
@@ -332,7 +343,49 @@
 		<p>At least, that's true if we're trying specifically to reduce a moveset down to a specific number of moves. But can we at least describe qualitatively what these colorbindings are like?</p>
 		<p>We can start by saying they're subsets of their symmetric counterparts. That's obvious. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're restricted to a grid-like tile, but possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight, though when not all of your moves are in the same general direction, it's not necessarily immediately obvious what subset we're going to end up with. <button class='laurelhorse'>Laurel Horse</button> <button class='narrowknight'>Narrow Knight</button></p>
 		<p>On the note of being in the same direction&mdash;when you have just two asymmetric moves, you end up with a wedge of the corresponding symmetric piece's grid, the one that sits in between the two axes. If you have more than two asymmetric moves, but all pairs of moves have wedges that lie within the same 180 degrees, then all tiles in the colorbinding lie in that 180 degrees.</p>
-		<p>At this point, I really am quite stuck at trying to describe possibilities. It's likely there are more things to say about it, even in ways that are more rigorous than just these qualitative descriptions, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any.</p>
+		<p>At this point, I really am quite stuck at trying to describe possibilities. It's likely there are more things to say about it, even in ways that are more rigorous than just these qualitative descriptions, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any. To help, here you can create an arbitrary asymmetric piece with up to twelve moves:</p>
+
+		<p id="custom_asymmetric">
+			<input type="number" id="asymmetric_11" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<input type="number" id="asymmetric_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_21" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<input type="number" id="asymmetric_22" min="-9007199254740992" max="9007199254740992" value="-1" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_31" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_32" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_41" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_42" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_51" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_52" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_61" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_62" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_71" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_72" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_81" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_82" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_91" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_92" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_101" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_102" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_111" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_112" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="number" id="asymmetric_121" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<input type="number" id="asymmetric_122" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
+			<br>
+			<input type="button" value="Go!" id="asymmetric_go_btn" />
+		</p>
+		<p id="asymmetric_output"></p>
+
 		<p>But putting asymmetric pieces aside, I do have one last thing to say, and it brings us right back to group theory.</p>
 		<p>Before we move to that, though I need to credit <a href="https://math.stackexchange.com/questions/590159/submonoids-of-mathbbnk">another Stack Overflow answer</a> here, which is about the submonoids of $\mathbb N^2$. It's not exactly the same problem as the asymmetric colorbindings that we're talking about, but it's close enough that its construction of $\{(1,n)\}$ for all $n$ works as a counterexample for our situation, too. It also talks about a concept which I didn't mention of <strong>finitely generated</strong>. I never actually specified if a piece is allowed to have an infinite number of moves in its moveset, so didn't touch on this.</p>
 	</div>
@@ -373,144 +426,8 @@
 	  }
 	};
 
-	main();
-
-	// symmetric leapers
-	const WAZIR = [ [1,0],[0,1],[-1,0],[0,-1] ];
-	const FERZ = [ [1,1],[1,-1],[-1,1],[-1,-1] ];
-	const DABBAABA = [ [2,0],[0,2],[-2,0],[0,-2] ];
-	const ALFIL = [ [2,2],[2,-2],[-2,2],[-2,-2] ];
-	const THREELEAPER = [ [3,0],[0,3],[-3,0],[0,-3] ];
-	const KNIGHT = [ [1,2],[1,-2],[-1,2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1] ];
-	const CAMEL = [ [1,3],[1,-3],[-1,3],[-1,-3],[3,1],[3,-1],[-3,1],[-3,-1] ];
-	const KING = WAZIR.concat(FERZ);
-	const fbHsD = [ [2,0],[0,3],[-2,0],[0,-3] ];
-	const NARROWKNIGHT = [ [1,2],[1,-2],[-1,2],[-1,-2] ];
-	const WIDEKNIGHT = [ [2,1],[-2,1],[2,-1],[-2,-1] ];
-
-	// symmetric riders and combination rider-leapers
-	const ROOK = [ [1,0,MovementCategory.Rider],[0,1,MovementCategory.Rider],[-1,0,MovementCategory.Rider],[0,-1,MovementCategory.Rider] ];
-	const BISHOP = [ [1,1,MovementCategory.Rider],[1,-1,MovementCategory.Rider],[-1,1,MovementCategory.Rider],[-1,-1,MovementCategory.Rider] ];
-	const DABBAABARIDER = [ [2,0,MovementCategory.Rider],[-2,0,MovementCategory.Rider],[0,2,MovementCategory.Rider],[0,-2,MovementCategory.Rider] ];
-	const ALFILRIDER = [ [2,2,MovementCategory.Rider],[2,-2,MovementCategory.Rider],[-2,2,MovementCategory.Rider],[-2,-2,MovementCategory.Rider] ];
-	const NIGHTRIDER = [ [1,2,MovementCategory.Rider],[1,-2,MovementCategory.Rider],[-1,2,MovementCategory.Rider],[-1,-2,MovementCategory.Rider],[2,1,MovementCategory.Rider],[2,-1,MovementCategory.Rider],[-2,1,MovementCategory.Rider],[-2,-1,MovementCategory.Rider] ];
-	const CAMELRIDER = [ [1,3,MovementCategory.Rider],[1,-3,MovementCategory.Rider],[-1,3,MovementCategory.Rider],[-1,-3,MovementCategory.Rider],[3,1,MovementCategory.Rider],[3,-1,MovementCategory.Rider],[-3,1,MovementCategory.Rider],[-3,-1,MovementCategory.Rider] ];
-	const QUEEN = ROOK.concat(BISHOP);
-	const DRAGONKING = ROOK.concat(FERZ);
-	const DRAGONHORSE = BISHOP.concat(WAZIR);
-
-	// asymmetric leapers and riders
-	const PAWN = [ [0,1] ];
-	const PROMOTEDSOLDIER = [ [1,0],[0,1],[-1,0] ];
-	const LANCE = [ [0,1,MovementCategory.Rider] ];
-	const LAURELHORSE = [ [1,2],[-1,2] ];
-	const SILVERGENERAL = [ [1,1],[1,-1],[-1,1],[-1,-1],[0,1] ];
-	const GOLDGENERAL = [ [1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1] ];
-
-	// special
-	const EXAMPLE1 = [ [3,2],[-3,-2],[4,3],[-4,-3],[5,1],[-5,-1] ];
-	const REDUCEDEXAMPLE1 = [ [1,1],[0,1],[-1,-1],[0,-1] ];
-
-	const ALL_MOVEMENTS_DICT = {
-		'wazir': WAZIR,
-		'ferz': FERZ,
-		'dabbaaba': DABBAABA,
-		'alfil': ALFIL,
-		'threeleaper': THREELEAPER,
-		'knight': KNIGHT,
-		'camel': CAMEL,
-		'king': KING,
-		'fbHsD': fbHsD,
-		'narrowknight': NARROWKNIGHT,
-		'wideknight': WIDEKNIGHT,
-
-		'rook': ROOK,
-		'bishop': BISHOP,
-		'dabbaabarider': DABBAABARIDER,
-		'alfilrider': ALFILRIDER,
-		'nightrider': NIGHTRIDER,
-		'camelrider': CAMELRIDER,
-		'queen': QUEEN,
-		'dragonking': DRAGONKING,
-		'dragonhorse': DRAGONHORSE,
-
-		'pawn': PAWN,
-		'promotedsoldier': PROMOTEDSOLDIER,
-		'lance': LANCE,
-		'laurelhorse': LAURELHORSE,
-		'silvergeneral': SILVERGENERAL,
-		'goldgeneral': GOLDGENERAL,
-
-		'example1': EXAMPLE1,
-		'reducedexample1': REDUCEDEXAMPLE1,
-	}
-	const ALL_NAMES_DICT = {
-		'wazir': 'Wazir',
-		'ferz': 'Ferz',
-		'dabbaaba': 'Dabbaaba',
-		'alfil': 'Alfil',
-		'threeleaper': 'Threeleaper',
-		'knight': 'Knight',
-		'camel': 'Camel',
-		'king': 'King',
-		'fbHsD': 'fbHsD',
-		'narrowknight': 'Narrow Knight',
-		'wideknight': 'Wide Knight',
-
-		'rook': 'Rook',
-		'bishop': 'Bishop',
-		'dabbaabarider': 'Dabbaaba-rider',
-		'alfilrider': 'Alfil-rider',
-		'nightrider': 'Nightrider',
-		'camelrider': 'Camelrider',
-		'queen': 'Queen',
-		'dragonking': 'Dragon King',
-		'dragonhorse': 'Dragon Horse',
-
-		'pawn': 'Pawn/Soldier',
-		'promotedsoldier': 'Promoted Soldier',
-		'lance': 'Lance',
-		'laurelhorse': 'Laurel Horse',
-		'silvergeneral': 'Silver General',
-		'goldgeneral': 'Gold General',
-
-		'example1': 'Symmetric Piece $\{(3,2),(4,3),(5,1)\}$',
-		'reducedexample1': 'Symmetric Piece $\{(1,1),(0,1)\}$',
-	}
-
-	// TODO
-	const ALL_DESCRIPTIONS_DICT = {
-		'wazir': 'Wazir',
-		'ferz': 'Ferz',
-		'dabbaaba': 'Dabbaaba',
-		'alfil': 'Alfil',
-		'threeleaper': 'Threeleaper',
-		'knight': 'Knight',
-		'camel': 'Camel',
-		'king': 'King',
-		'fbHsD': 'fbHsD',
-		'narrowknight': 'Narrow Knight',
-		'wideknight': 'Wide Knight',
-
-		'rook': 'Rook',
-		'bishop': 'Bishop',
-		'dabbaabarider': 'Dabbaaba-rider',
-		'alfilrider': 'Alfil-rider',
-		'nightrider': 'Nightrider',
-		'camelrider': 'Camelrider',
-		'queen': 'Queen',
-		'dragonking': 'Dragon King',
-		'dragonhorse': 'Dragon Horse',
-
-		'pawn': 'Pawn/Soldier',
-		'promotedsoldier': 'Promoted Soldier',
-		'lance': 'Lance',
-		'laurelhorse': 'Laurel Horse',
-		'silvergeneral': 'Silver General',
-		'goldgeneral': 'Gold General',
-
-		'example1': 'Symmetric Piece $\{(3,2),(4,3),(5,1)\}$',
-	}
+	main(document.getElementById('board_size_input').value);
+	document.getElementById('board_size_output').innerText = document.getElementById('board_size_input').value;
 
 	for(let thisBtn of document.querySelectorAll('button')) {
 		for (let [movementName, movement] of Object.entries(ALL_MOVEMENTS_DICT)) {
@@ -518,19 +435,7 @@
 				continue;
 
 			thisBtn.addEventListener('click', function(event){
-				thePiece.moves = movement;
-				mainBoard.resetAll();
-				mainBoard.addPiece(thePiece, zeroRow, zeroCol);
-				mainBoard.setSelectedTile(zeroRow, zeroCol);
-				mainBoard.updateDomToMatchState();
-
-				let boardPieceNameDiv = document.getElementById('boardPieceName');
-				let boardPieceDescriptionDiv = document.getElementById('boardPieceDescription');
-
-				boardPieceNameDiv.innerHTML = ALL_NAMES_DICT[movementName];
-				boardPieceDescriptionDiv.innerHTML = ALL_DESCRIPTIONS_DICT[movementName];
-
-				MathJax.typeset();
+				setPiece(movement, ALL_NAMES_DICT[movementName], ALL_DESCRIPTIONS_DICT[movementName]);
 			});
 		}
 	}
@@ -541,13 +446,13 @@
 			['customthreemove_21', 'customthreemove_22'],
 			['customthreemove_31', 'customthreemove_32'],
 		];
-		let array_elements = array_ids.map(row =>
+		let movement_array = array_ids.map(row =>
 			row.map( id =>
 				parseInt(document.getElementById(id).value)
 			)
 		);
 		// check validity
-		if (array_elements.some(row =>
+		if (movement_array.some(row =>
 				row.some(element =>
 					!Number.isInteger(element)
 				)
@@ -556,15 +461,12 @@
 			return;
 		}
 
-		let movement = array_elements.concat(
-				array_elements.map(row => row.map( id => -id))
+		// make symmetric
+		let movement = movement_array.concat(
+				movement_array.map(row => row.map( id => -id))
 			);
 
-			thePiece.moves = movement;
-			mainBoard.resetAll();
-			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
-			mainBoard.setSelectedTile(zeroRow, zeroCol);
-			mainBoard.updateDomToMatchState();
+		setPiece(movement, 'Custom Symmetric Piece', 'Symmetric Piece ' + movesetToString(movement_array));
 	});
 
 	document.getElementById('symmetric_go_btn').addEventListener('click', function(event){
@@ -574,13 +476,18 @@
 			['symmetric_31', 'symmetric_32'],
 			['symmetric_41', 'symmetric_42'],
 		];
-		let array_elements = array_ids.map(row =>
+		let original_movement_array = array_ids.map(row =>
+			row.map( id =>
+				parseInt(document.getElementById(id).value)
+			)
+		);
+		let movement_array = array_ids.map(row =>
 			row.map( id =>
 				parseInt(document.getElementById(id).value)
 			)
 		);
 		// check validity
-		if (array_elements.some(row =>
+		if (movement_array.some(row =>
 				row.some(element =>
 					!Number.isInteger(element)
 				)
@@ -649,7 +556,7 @@
 		}
 
 		let output = '$$\\begin{aligned}';
-		output += matrix_4x2_to_latex(array_elements);
+		output += matrix_4x2_to_latex(movement_array);
 
 		const NUM_ROWS = 4;
 		const NUM_COLS = 2;
@@ -658,44 +565,44 @@
 		let pivotRow = 0;
 		while (pivotColumn < NUM_COLS) {
 			// first, make sure that either the pivot row is nonzero or all relevant rows are zero (in this column)
-			if (array_elements[pivotRow][pivotColumn] === 0){
+			if (movement_array[pivotRow][pivotColumn] === 0){
 				for (let newPivotRow = pivotRow + 1; newPivotRow < NUM_ROWS; newPivotRow++) {
-					if (array_elements[newPivotRow][pivotColumn] !== 0) {
-						output += swap_rows(array_elements, pivotRow, newPivotRow);
+					if (movement_array[newPivotRow][pivotColumn] !== 0) {
+						output += swap_rows(movement_array, pivotRow, newPivotRow);
 						break;
 					}
 				}
 				// if even after all that we're still zero, then the entire column is zero
 				// skip the rest of the calculation for this column
-				if (array_elements[pivotRow][pivotColumn] === 0){
+				if (movement_array[pivotRow][pivotColumn] === 0){
 					pivotColumn++;
 					continue;
 				}
 			}
 
 			// swap negatives: row pivotRow
-			if (array_elements[pivotRow][pivotColumn] < 0) {
-				output += invert_row(array_elements, pivotRow);
+			if (movement_array[pivotRow][pivotColumn] < 0) {
+				output += invert_row(movement_array, pivotRow);
 			}
 
 			// now do Euclid's algorithm
 			for (let r = pivotRow + 1; r < NUM_ROWS; r++ ) {
 				// swap negatives: row r
-				if (array_elements[r][pivotColumn] < 0) {
-					output += invert_row(array_elements, r);
+				if (movement_array[r][pivotColumn] < 0) {
+					output += invert_row(movement_array, r);
 				}
-				while(array_elements[pivotRow][pivotColumn] !== 0 && array_elements[r][pivotColumn] !== 0) {
-					if (array_elements[pivotRow][pivotColumn] <= array_elements[r][pivotColumn]) {
-						let numTimes = Math.floor(array_elements[r][pivotColumn] / array_elements[pivotRow][pivotColumn]);
-						output += subtract_row(array_elements, pivotRow, r, numTimes);
+				while(movement_array[pivotRow][pivotColumn] !== 0 && movement_array[r][pivotColumn] !== 0) {
+					if (movement_array[pivotRow][pivotColumn] <= movement_array[r][pivotColumn]) {
+						let numTimes = Math.floor(movement_array[r][pivotColumn] / movement_array[pivotRow][pivotColumn]);
+						output += subtract_row(movement_array, pivotRow, r, numTimes);
 					} else {
-						let numTimes = Math.floor(array_elements[pivotRow][pivotColumn] / array_elements[r][pivotColumn]);
-						output += subtract_row(array_elements, r, pivotRow, numTimes);
+						let numTimes = Math.floor(movement_array[pivotRow][pivotColumn] / movement_array[r][pivotColumn]);
+						output += subtract_row(movement_array, r, pivotRow, numTimes);
 					}
 				}
 
-				if (array_elements[pivotRow][pivotColumn] === 0) {
-					output += swap_rows(array_elements, pivotRow, r);
+				if (movement_array[pivotRow][pivotColumn] === 0) {
+					output += swap_rows(movement_array, pivotRow, r);
 				}
 			}
 
@@ -704,46 +611,105 @@
 		}
 
 		output += '\\end{aligned}$$';
+
+		function onClickOriginalPiece(event) {
+			let movement = original_movement_array.concat(
+				original_movement_array.map(row => row.map( id => -id))
+			);
+			setPiece(movement, 'Custom Symmetric Piece', 'Symmetric Piece ' + movesetToString(original_movement_array));
+		}
+		function onClickReducedPiece(event) {
+			let movement = movement_array.concat(
+				movement_array.map(row => row.map( id => -id))
+			);
+
+			setPiece(movement, 'Reduced Custom Symmetric Piece', 'Symmetric Piece ' + movesetToString(movement_array) +', the reduced version of ' + movesetToString(original_movement_array));
+		}
+		function onClickShowParallelogram(event) {
+			//https://stackoverflow.com/a/14560350
+			function linedraw(theDiv,ax,ay,bx,by)
+			{
+				ax = ax * (CSS_CELL_SIZE+1); // +1 for the table spacing between cells
+				ay = -ay * (CSS_CELL_SIZE+1);
+				bx = bx * (CSS_CELL_SIZE+1);
+				by = -by * (CSS_CELL_SIZE+1);
+
+			    var calc=Math.atan2((ay-by),(bx-ax));
+			    calc=-calc*180/Math.PI;
+			    var length=Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by))+4; // +4 to account for +2 on each side for line thickness
+
+			    theDiv.setAttribute('style', "width:" + length + "px;position:absolute;transform:translate(" + (ax+CSS_CELL_SIZE/2) + "px, " + (ay-CSS_CELL_SIZE/2) + "px) rotate(" + calc + "deg);");
+			}
+			linedraw(parallelogramDivs[0], 0, 0, movement_array[0][0], movement_array[0][1]);
+			linedraw(parallelogramDivs[1], movement_array[0][0], movement_array[0][1],
+				movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+			linedraw(parallelogramDivs[3], 0, 0, movement_array[1][0], movement_array[1][1]);
+			linedraw(parallelogramDivs[2], movement_array[1][0], movement_array[1][1],
+				movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+
+			toggleShowParallelogram();
+		}
+		onClickShowParallelogram();
+
 		let output_div = document.getElementById('symmetric_output');
-		output_div.innerHTML = output;
-		MathJax.typeset();
+		output_div.innerHTML = '';
 
 		let originalPieceBtn = document.createElement('button');
 		originalPieceBtn.innerHTML = 'Custom Piece';
-		originalPieceBtn.addEventListener('click', function(event){
-			let movement = array_ids.map(row =>
-				row.map( id =>
-					parseInt(document.getElementById(id).value)
-				)
-			).concat(array_ids.map(row =>
-				row.map( id =>
-					-parseInt(document.getElementById(id).value)
-				)
-			));
-
-			thePiece.moves = movement;
-			mainBoard.resetAll();
-			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
-			mainBoard.setSelectedTile(zeroRow, zeroCol);
-			mainBoard.updateDomToMatchState();
-		});
+		originalPieceBtn.addEventListener('click', onClickOriginalPiece);
 		output_div.appendChild(originalPieceBtn);
-
 
 		let reducedPieceBtn = document.createElement('button');
 		reducedPieceBtn.innerHTML = 'Reduced Piece';
-		reducedPieceBtn.addEventListener('click', function(event){
-			let movement = array_elements.concat(
-				array_elements.map(row => row.map( id => -id))
-			);
-
-			thePiece.moves = movement;
-			mainBoard.resetAll();
-			mainBoard.addPiece(thePiece, zeroRow, zeroCol);
-			mainBoard.setSelectedTile(zeroRow, zeroCol);
-			mainBoard.updateDomToMatchState();
-		});
+		reducedPieceBtn.addEventListener('click', onClickReducedPiece);
 		output_div.appendChild(reducedPieceBtn);
+
+		let showParallelogramBtn = document.createElement('button');
+		showParallelogramBtn.innerHTML = 'Show/Hide Parallelogram';
+		showParallelogramBtn.addEventListener('click', onClickShowParallelogram);
+		output_div.appendChild(showParallelogramBtn);
+
+		let output_div_latex = document.createElement('div');
+		output_div_latex.innerHTML = output;
+		output_div.appendChild(output_div_latex);
+
+		onClickOriginalPiece();
+	});
+
+	document.getElementById('asymmetric_go_btn').addEventListener('click', function(event){
+		const array_ids = [
+			['asymmetric_11', 'asymmetric_12'],
+			['asymmetric_21', 'asymmetric_22'],
+			['asymmetric_31', 'asymmetric_32'],
+			['asymmetric_41', 'asymmetric_42'],
+			['asymmetric_51', 'asymmetric_52'],
+			['asymmetric_61', 'asymmetric_62'],
+			['asymmetric_71', 'asymmetric_72'],
+			['asymmetric_81', 'asymmetric_82'],
+			['asymmetric_91', 'asymmetric_92'],
+			['asymmetric_101', 'asymmetric_102'],
+			['asymmetric_111', 'asymmetric_112'],
+			['asymmetric_121', 'asymmetric_122'],
+		];
+		let movement_array = array_ids.map(row =>
+			row.map( id =>
+				parseInt(document.getElementById(id).value)
+			)
+		);
+		// check validity
+		if (movement_array.some(row =>
+				row.some(element =>
+					!Number.isInteger(element)
+				)
+			)) {
+			document.getElementById('asymmetric_output').innerHTML = '⚠️ error parsing input ⚠️';
+			return;
+		}
+
+		// DON'T make symmetric
+		let movement = movement_array;
+
+		setPiece(movement, 'Custom Asymmetric Piece', 'Asymmetric Piece ' + movesetToString(movement_array));
 	});
 	
 </script>
