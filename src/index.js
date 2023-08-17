@@ -6,7 +6,7 @@ var cutsceneOverlay;
 var parallelogramDivs = [];
 var showParallelogram = false;
 
-var BOARDSIZE = 16;
+var BOARDSIZE = 13;
 var zeroCol = Math.floor((BOARDSIZE-1)/2);
 var zeroRow = Math.floor(BOARDSIZE/2);
 
@@ -109,6 +109,21 @@ function movesetToString(moveset) {
 	}
 	outputString += '\\}$';
 	return outputString;
+}
+
+//https://stackoverflow.com/a/14560350
+function linedraw(theDiv,ax,ay,bx,by)
+{
+	ax = ax * (CSS_CELL_SIZE+1); // +1 for the table spacing between cells
+	ay = -ay * (CSS_CELL_SIZE+1);
+	bx = bx * (CSS_CELL_SIZE+1);
+	by = -by * (CSS_CELL_SIZE+1);
+
+    var calc=Math.atan2((ay-by),(bx-ax));
+    calc=-calc*180/Math.PI;
+    var length=Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by))+4; // +4 to account for +2 on each side for line thickness
+
+    theDiv.setAttribute('style', "width:" + length + "px;position:absolute;transform:translate(" + (ax+CSS_CELL_SIZE/2) + "px, " + (ay-CSS_CELL_SIZE/2) + "px) rotate(" + calc + "deg);");
 }
 
 // 

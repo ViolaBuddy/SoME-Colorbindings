@@ -13,6 +13,17 @@
 </head>
 <body>
 <div id="left">
+	<div id="boardPieceDetails">
+		<h3 id="boardPieceName">Pawn</h3>
+		<details>
+			<summary>Details about this piece</summary>
+			<p id="boardPieceDescription"></p>
+		</details>
+		<button id="reset_position">Reset Position</button>
+	</div>
+	<div id="boarddivwrapper">
+		<div id="boarddiv"></div>
+	</div>
 	<fieldset id="boarddivcontrols">
 		<legend>Chessboard Controls</legend>
 		<input type="radio" id="coloring_checkerboard" name="board_coloring" value="coloring_checkerboard" checked="on" /> <label for="coloring_checkerboard">Show standard checkerboard coloring</label><br />
@@ -33,14 +44,14 @@
 
 			<details>
 				<summary>Xiangqi (象棋)</summary>
-				Chinese chess. The game clearly is related to chaturanga, but it's unclear whether (proto-)xiangqi or chaturanga came first, and different sources online say different things. Unlike Western chess, pieces are placed on the intersections of lines, rather than on the tiles outlined by the lines, but for the purposes of this page, I standardize everything to be on the tiles.<br/>
+				Chinese chess. The game clearly is related to chaturanga, but it's unclear whether (proto-)xiangqi or chaturanga came first, and different sources online say different things. Unlike Western chess, pieces are placed on the intersections of lines, rather than on the squares outlined by the lines, but for the purposes of this page, I standardize everything to be on the squares.<br/>
 				<button class='pawn'>Pawn (Soldier)</button>
 				<button class='promotedsoldier'>Promoted Pawn (Promoted Soldier)</button>
 				<button class='rook'>Rook (Chariot)</button>
 				<button class='knight'>Knight (Horse)</button>
 				<button class='alfil'>Alfil (Elephant)</button>
 				<button class='ferz'>Ferz (Advisor)</button>
-				<button class='wazir'>King (General)</button>
+				<button class='wazir'>Wazir (General/King)</button>
 				<button class='rook'>Cannon</button>
 			</details>
 
@@ -61,7 +72,7 @@
 
 			<details>
 				<summary>Other Chess Variants</summary>
-				There are a few other pieces from chess variants with well-established names, especially if they were in one of the most historically significant versions and variations of chess. Chaturanga was already mentioned in the Western Chess section, but other important historical chess variants include Tamerlane Chess from the Timurid Empire (1300s Persia and India), and Courier Chess from medieval Germany (1200s)&mdash;along with, of course, modern chess variant communities.
+				There are a few other pieces from chess variants with well-established names, especially if they were in one of the most historically significant versions and variations of chess. Chaturanga was already mentioned in the Western Chess section, but other important historical chess variants include Tamerlane Chess from the Timurid Empire (1300s Persia and India), and Courier Chess from medieval Germany (1200s)&mdash;along with, of course, modern chess variant communities.<br />
 				<button class='wazir'>Wazir</button>
 				<button class='ferz'>Ferz</button>
 				<button class='dabbaaba'>Dabbaaba</button>
@@ -88,19 +99,9 @@
 		</div>
 
 
-		<label for="board_size_input">Board size:</label> <input type="range" min="1" max="32" value="11" step="1" class="slider" id="board_size_input"> <span id="board_size_output">11</span><br />
+		<label for="board_size_input">Board size: <span id="board_size_output">11</span></label> <input type="range" min="1" max="32" value="13" step="1" class="slider" id="board_size_input"><br/>
+		(Note: changing board size resets the piece back to Pawn)<br />
 	</fieldset>
-	<div id="boardPieceDetails">
-		<h3 id="boardPieceName">Pawn</h3>
-		<details>
-			<summary>Details about this piece</summary>
-			<p id="boardPieceDescription"></p>
-		</details>
-		<button id="reset_position">Reset Position</button>
-	</div>
-	<div id="boarddivwrapper">
-		<div id="boarddiv"></div>
-	</div>
 </div>
 <div id="right">
 	<h1>Colorbindings of Chess Variant Pieces</h1>
@@ -110,7 +111,7 @@
 		<p>Each chess piece can move in its own unique way. For examples, knights move in a distinctive L-shaped way.  Despite this strange movement, knights can actually reach any square on the board, which I will state without proof here, but you can try it for yourself! If you press this button <button class='knight'>Knight</button>, in the left panel the piece will update to have a knight's movement (the piece's image will not change). Gray squares are where you can move; click on them to move there.</p>
 		<p>But not all pieces can do that. Obviously, the pawn, which can only move forward, cannot reach squares behind it. There are some similar forward-only pieces from xiangqi and shōgi, too. But, also, there's the bishop, which can only reach half the squares on the board&mdash;try it out and you'll immediately see why. <button class='pawn'>Pawn</button> <button class='promotedsoldier'>Promoted Soldier (Xiangqi)</button> <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='bishop'>Bishop</button></p>
 		<p>So today I'd like to explore this idea of pieces being only able to move to certain squares. And by "today" I mean "I've been thinking about this for many, many years now." As a child, I was very into chess variants, perusing the pages of <a href="https://www.chessvariants.com">chessvariants.com</a> and thinking about funny new pieces and how they might move. And this idea of being stuck on certain squares is a common idea among chess variant pieces (also called "fairy chess pieces"). This idea is generally called being <strong>colorbound</strong>, named after the fact that on an ordinary chessboard, the bishop that starts on one color is stuck to that color and will never leave it.</p>
-		<p>But it turns out that you can construct other pieces (like the alfil <button class='alfil'>Alfil</button>) that have can reach a set of squares other than just "the light squares" and "the dark squares." I will still call this set of reachable squares a "colorbinding" even if a normal chessboard isn't colored that way. In "Chessboard Controls" in the left panel, you can choose to color the board according to the current piece's colorbinding, or to leave the board uncolored.</p>
+		<p>But it turns out that you can construct other pieces (like the alfil <button class='alfil'>Alfil</button>) that have can reach a set of squares other than just "the light squares" and "the dark squares." I will still call this set of reachable squares a "colorbinding" even if a normal chessboard isn't colored that way. In "Chessboard Controls" at the bottom of the left panel, you can choose to color the board according to the current piece's colorbinding, or to leave the board uncolored.</p>
 		<p>Since there's more than one way to be colorbound, a very natural question to ask is: <strong>what are all the ways that a piece can be colorbound?</strong> As a ten-year-old, I never got very far with this question, but now, nearly two decades later, let's see if we can't do a bit better.</p>
 	</div>
 	<div class="content">
@@ -146,52 +147,58 @@
 		<p>So we have this mathematical setup for the board. Great. But the thing in particular that we were trying to think about were colorbindings; how does that translate into group theory language? Well, since a colorbinding is the set of a piece's <em>accessible</em> squares, obviously it's a subset of <em>all</em> squares, which we just said is $\mathbb{Z} \times \mathbb{Z}$. And further, our concept of a movement set of a piece corresponds with the idea of a <strong>generating set</strong>: a set $M$ is said to generate another set $X$ if all elements of $X$ can be expressed as combinations of repeated applications of (possibly different) elements of $M$. So exactly the relationship between a movement set and a colorbinding.</p>
 		<p>Some group theory fans are probably complaining again because usually when we're talking about generating sets we're talking not about any old subset of a group, but a special kind of subset of a group called a <strong>subgroup</strong>. A subgroup is exactly what it sounds like, subsets that are themselves groups. So are colorbindings subgroups of $\mathbb Z \times \mathbb Z$? We just have to check the properties above. Associativity comes for free because that's a property of the operation part of the group, not the set part. So we only have to check the other three properties:</p>
 		<ol>
-			<li><strong>Closure:</strong> Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a tile $b$ that you can reach in some number of moves. If you do that sequence of moves but start from tile $a$ (instead of the origin tile), that would be $a+b$. Is this final destination part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
-			<li><strong>Identity:</strong> The identity for our $+$ operation on $\mathbb{Z} \times \mathbb{Z}$ is the $(0,0)$ origin tile. You start out standing on it, so you've accessed it. Therefore it's in our colorbinding.</li>
+			<li><strong>Closure:</strong> Remember our definition for this: for all elements $a$ and $b$, $a+b$ must also be part of the group. So consider a square $b$ that you can reach in some number of moves. If you do that sequence of moves but start from square $a$ (instead of the origin square), that would be $a+b$. Is this final destination part of the original group? Well, yes, by our original definition. It's an accessible square because you just accessed it, starting from the origin.</li>
+			<li><strong>Identity:</strong> The identity for our $+$ operation on $\mathbb{Z} \times \mathbb{Z}$ is the $(0,0)$ origin square. You start out standing on it, so you've accessed it. Therefore it's in our colorbinding.</li>
 			<li><strong>Inverse:</strong> That is, if you travel out from the origin to some other square A, you can always find a path all the way back to the origin. But&hellip; that's not actually true. Remember the pawn? You can't undo its moves!</li>
 		</ol>
 		<p>So in fact, no, a colorbinding of an arbitrary piece isn't a subgroup. Welp. Still, almost-groups that don't have inverses are called <strong>monoids</strong>, and even though they're not quite as well-studied as groups, they're well-studied enough to have a name, at least.</p>
-		<p>So now we can do two things: (1) ignore pieces that don't have inverses, or (2) see what we can do even though it's not a group&mdash; And in fact, we'll do both, starting with the first.</p>
+		<p>So now we can do two things: (1) ignore pieces that don't have inverses, or (2) see what we can do even though it's not a group&mdash;and in fact, we'll do both, starting with the first.</p>
 	</div>
 
 	<div class="content">
-		<h2>Symmetric pieces and subgroups</h2>
-		<p>Let's define the notion of <strong>symmetric pieces</strong> as pieces whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). All five non-pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the lance and laurel horse, as mentioned earlier, but also the gold and silver generals. <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='goldgeneral'>Gold General</button> <button class='silvergeneral'>Silver General</button>. These are pieces we're ignoring in this section.</p>
-		<p>Before we dive into the math, let's play around with some of these pieces. Look at the colorbindings for the dabbaaba and the alfil: <button class='dabbaaba'>Dabbaaba</button> <button class='alfil'>Alfil</button>. They're kind of just kind of grid-ish, lines running at right angles to each other. Do all symmetric pieces have this square grid shape to their colorbindings?</p>
-		<p>Well, no. It doesn't have to be square because the side lengths don't have to be the same. A piece that's a dabbaaba horizontally but a threeleaper vertically would have a rectangular grid (I'll use <a href="https://www.chessvariants.com/d.betza/chessvar/pieces/notation.html">Ralph Betza's funny notation</a> for naming this more exotic piece without a standard name) <button class='fbHsD'>fbHsD</button>. But even more, the pieces we've been considering all lie on an axis of symmetry of the plane. If you take moves on a different angle, the grid lines skew away from perpendicular to each other. Consider the narrow knight, which is the symmetric extension of shōgi's laurel horse: <button class='narrowknight'>Narrow Knight</button>.</p>
-		<p>To some extent, this actually feels pretty natural. All these pieces we've looked at here have two moves in their movement set, plus the inverses of those two moves. So there are two axes of movement, one for each of these moves. As long as the two moves aren't parallel, of course we're going to end up with a grid like this.</p>
-		<p>So what happens if we add a third move to our movement set? Can we get something more interesting? Well, try it yourself to see what you can come up with:</p>
+		<h2>Keeping things easy: symmetric pieces</h2>
+		<p>When talking about a generating set $\{a, b, c, \ldots\}$ of a <em>subgroup</em>, we allow not only repeated applications of $a$, $b$, $c$, etc., but also $a_{inverse}$, $b_{inverse}$, $c_{inverse}$, etc. This makes the third "Inverse" property of groups automatically satisfied, no matter what the generating set was.</p>
+		<p>So for our case, this kind of generating set corresponds to the movement set of something that we can call a <strong>symmetric piece</strong>. That is, a piece whose movements come in pairs: for every move (x,y) that it can make, it can also make the move (-x,-y). As such, when listing out the moves of a symmetric piece, we don't need to write the inverse move: a knight is a $\{(1,2),(2,1),(-1,2),(-2,1)\}$ symmetric piece; the other four moves are automatically included. <button class='knight'>Knight</button></p>
+		<p>Before we dive too deep into the math, let's just play around with some examples. All five non-pawn pieces in Western chess are symmetric. Shōgi, on the other hand, has a lot of asymmetric pieces: the lance and laurel horse, as mentioned earlier, are forward-only, but the gold and silver generals are also asymmetric. <button class='lance'>Lance</button> <button class='laurelhorse'>Laurel Horse</button> <button class='goldgeneral'>Gold General</button> <button class='silvergeneral'>Silver General</button></p>
+		<p>Now let's look at the colorbindings for the dabbaaba and the alfil: <button class='dabbaaba'>Dabbaaba</button> <button class='alfil'>Alfil</button>. They're kind of just kind of grid-ish, lines running at right angles to each other. Do all symmetric pieces have this square grid shape to their colorbindings?</p>
+		<p>Well, no. It doesn't have to be square because the side lengths don't have to be the same. A piece that's a dabbaaba horizontally but a threeleaper vertically would have a rectangular grid, rather than a square one (I'll use <a href="https://www.chessvariants.com/d.betza/chessvar/pieces/notation.html">Ralph Betza's funny notation</a> for naming this more exotic piece without a standard name: <button class='fbHsD'>fbHsD</button>). But even more, the pieces we've been considering all lie on an axis of symmetry of the plane. If you take moves on a different angle, the grid lines skew away from perpendicular to each other, to form a parallelogram. Consider the narrow knight, which is the symmetric extension of shōgi's laurel horse: <button class='narrowknight'>Narrow Knight</button> <button id='narrowknightparallelogram'>Show/Hide Parallelogram</button>.</p>
+		<p>To some extent, this actually feels pretty natural. All these pieces we've looked at here have two moves in their symmetric movement set. So there are two axes of movement, one for each of these moves. As long as the two moves aren't parallel, of course we're going to end up with some sort of grid like this.</p>
+		<p>So what happens if we add a third move to our movement set? Can we get something more interesting with three moves? Well, try it yourself to see what you can come up with:</p>
 		<p id="custom_symmetric">
 			<!-- 9007199254740992 is the maximum integer that can be stored as a Javascript Number (a double) without losing precision when you do arithmetic on it: the next storable number is 9007199254740994, skipping over 9007199254740993 -->
 			$\{($
-			<input type="number" id="customthreemove_11" min="-9007199254740992" max="9007199254740992" value="-2" autocomplete="off"/>
+			<input type="number" id="customthreemove_11" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
 			$,$
 			<input type="number" id="customthreemove_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
 			$),$
 			<br>
 			$($
-			<input type="number" id="customthreemove_21" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
+			<input type="number" id="customthreemove_21" min="-9007199254740992" max="9007199254740992" value="-1" autocomplete="off"/>
 			$,$
 			<input type="number" id="customthreemove_22" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
 			$),$
 			<br>
 			$($
-			<input type="number" id="customthreemove_31" min="-9007199254740992" max="9007199254740992" value="5" autocomplete="off"/>
+			<input type="number" id="customthreemove_31" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
 			$,$
-			<input type="number" id="customthreemove_32" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
+			<input type="number" id="customthreemove_32" min="-9007199254740992" max="9007199254740992" value="0" autocomplete="off"/>
 			$)\}$
 			<br>
 		 	<button id="customthreemove">Custom Piece</button>
 		</p>
 		<p id="customthreemove_output"></p>
 		<p>I don't know exactly what you came up with, but you probably had coming up with anything that wasn't a parallelogram grid of some kind&mdash;with the pattern maybe messing up at the corners or edges of the board. In fact, that's true. For all symmetric pieces, there always exists some other symmetric piece with at most two moves (and their inverses) with the same colorbinding.</p>
-		<p>How can we prove this? Well, we can actually take a page out of linear algebra. Anyone who's familiar with linear algebra may have already felt the similarity&mdash;it feels like we're in a 2D vector space and we're trying to find the span of vectors. It's just that we now live in a quantized integer world, not one with coordinates that can freely vary through all real numbers. But if you're not familiar with it, that's okay too; we're going to go through this together.</p>
-		<p>Let's consider the symmetric piece that can move to $\{(3,2), (4,3), (5,1)\}$ (and remember that, as a symmetric piece, it can go to the inverses of these as well). We want to show that there's another symmetric piece, $\{(x_1,y_1), (x_1, y_2)\}$, with only two moves in its movement set, that has the same colorbinding, i.e. these sets generate the same subgroup of $\mathbb Z \times \mathbb Z$.</p>
-		<p>We can start by pointing out that if a piece $\{a, b, c\}$ generates a colorbinding, then the piece $\{a, b, c+a\}$ also generates the same colorbinding. In particular, consider any tile in the colorbinding that requires that we add $c$ to the path somewhere to get to it. With our new piece, instead, we can add $c+a$ and then $-a$ where we would have added $c$. Thus, if we could find a path to a tile with our first piece, we can also find a path to our second tile.</p>
+		<p>How can we prove this? Well, we can actually take a page out of linear algebra. Anyone who's familiar with linear algebra may have already felt the similarity&mdash;it feels like we're in a 2D vector space and we're trying to find the span of vectors. It's just that we now live in a quantized integer world, not one with coordinates that can freely vary through all real numbers. But if you're not familiar with linear algebra, that's okay too; we're going to go through this together.</p>
+	</div>
+
+	<div class="content">
+		<h2>Some almost linear algebra via some actual number theory</h2>
+		<p>So we're starting with a symmetric piece $\{a, b, c\}$, and we want to "reduce" it to another piece $\{m, n\}$ that has the same colorbinding, but only two moves in its moveset. Let's use $\{(3,2), (4,3), (5,1)\}$ as our example. <button class='example1'>Example symmetric piece $\{(3,2),(4,3),(5,1)\}$</button></p>
+		<p>We can start by observing that if a piece $\{a, b, c\}$ generates a colorbinding, then the piece $\{a, b, c+a\}$ also generates the same colorbinding. In particular, consider any square in the colorbinding that we can get to with the first piece through some path that includes the move $c$. With our new piece, instead of $c$, we can add $c+a$ and then $-a$ to replace it, and we would end up in the same place. Thus, if we could find a path to a square with our first piece, we can also find a path to our second square. And the converse is also true; anywhere our second piece can go to, if it involves $c+a$ we can replace that with $c$ and then $a$, and our first piece can go there too.</p>
 		<p>We can of course extend this to say that all of the following have the same colorbinding: $\{a, b, c+b\}$, $\{a, b, c-a\}$, $\{a, b, c+2a\}$, $\{a+c, b, c\}$. That is, we can add any multiple of one movement in our movement set to any other movement, and we would still get the same colorbinding. And we can compose this: first you might add the first move to the third, and then you might subtract this new third from the second, and then you might subtract that all from the first.</p>
-		<p>Unlike with vectors, you cannot add a movement <em>to itself</em>. When we added $a$ to another vector $c$, we required that the original $a$ stay intact, so that we can use it to "undo" that addition later. But if you add $a$ to itself, you end up destroying the original copy of $a$. Anecdotally, we've already see this&mdash;a dabbaaba and a wazir have different colorbindings! <button class='dabbaaba'>Dabbaaba</button> <button class='wazir'>Wazir</button></p>
-		<p>Now we have a way to find other pieces with three moves that have the same colorbindings as an initial three-move piece. Do you see how we could use this to <em>reduce</em> the number of moves to two? Well, one thing to note is that if $(0,0)$, the identity element, is one of the three moves, we can remove it and it wouldn't change the colorbinding. After all, it can never add any new tiles no matter how many times you add that movement.</p>
-		<p>So our plan is to figure out a way to do this "adding moves to each other" thing repeatedly until we can get one of the moves to the zero move. For convenience, let's throw the moves into a matrix, one on each row. So in our original example, we start with the following matrix: $$\begin{bmatrix}
+		<p>Unlike with vectors, you cannot add a movement <em>to itself</em>. When we added $a$ to another vector $c$, we required that the original $a$ stay intact, so that we can use it to "undo" that addition later. But if you add $a$ to itself, you end up destroying the original copy of $a$. Anecdotally, we've already seen this&mdash;a dabbaaba and a wazir have different colorbindings, even though a dabbaaba's move is just twice a wazir's move! <button class='dabbaaba'>Dabbaaba</button> <button class='wazir'>Wazir</button></p>
+		<p>Great, so we have a way to transform pieces with three moves into other pieces with three moves, all while keeping the colorbinding the same. But do you see how we could use this to <em>reduce</em> the number of moves to two? Well, if $(0,0)$, the identity element, is one of the three moves, we can remove it and it wouldn't change the colorbinding. After all, it can never add any new squares no matter how many times you repeat that move.</p>
+		<p>So our plan is to figure out a way to do this "adding moves to each other" thing repeatedly until we can get one of the moves to the zero move. So, back to our example piece. For convenience, let's throw the moves into a matrix, one on each row. So in our original example $\{(3,2),(4,3),(5,1)\}$, we start with the following matrix: $$\begin{bmatrix}
 			3 & 2\\
 			4 & 3\\
 			5 & 1
@@ -215,7 +222,7 @@
 			0 & 0 & 0
 		\end{bmatrix}$$</p>
 		<p>You can see why this is useful for us: in row echelon form, if each row has to have strictly more zeros than the row above it, then at some point you run out of columns to have zeros in and you have to be all zeros, which is what we're looking for!</p>
-		<p>In linear algebra, it's easy to add something to the second and third row to get zero in the first column, because you can multiply by any number. So for example, if we pretend our matrix is from ordinary linear algebra land (i.e. in $\mathbb R \times \mathbb R$), we could do:$$\begin{aligned}
+		<p>In linear algebra, it's easy to add something to the second and third row to get zero in the first column, because you can multiply by any number. And likewise for getting a zero in the the second column of the third row. So for example, if we pretend our matrix is from ordinary linear algebra land (i.e. each row vector is in $\mathbb R \times \mathbb R$), we could do:$$\begin{aligned}
 		\begin{bmatrix}
 			3 & 2\\
 			4 & 3\\
@@ -237,11 +244,20 @@
 			3 & 2\\
 			0 & \frac{1}{3}\\
 			0 & -\frac{7}{3}
+		\end{bmatrix}\\
+		\xrightarrow{\text{add}\left(7\times\text{row 2}\right) \text{ to row 3}}&\begin{bmatrix}
+			3 & 2\\
+			0 & \frac{1}{3}\\
+			0 & \frac{7}{3} - \frac{7}{3}
+		\end{bmatrix} = \begin{bmatrix}
+			3 & 2\\
+			0 & \frac{1}{3}\\
+			0 & 0
 		\end{bmatrix}
 		\end{aligned}$$ </p>
-		<p>And from here we can do a similar thing for the second column. But again, we're stuck with integers so we have to find our zeros a different way.</p>
-		<p>This actually stumped me for a little bit, but actually, it turns out that there's an algorithm from number theory that does exactly what we're looking for, reduce a number down to zero by adding and subtracting back and forth. So now that we've touched on group theory and linear algebra, it's time to add a third area of math to this, number theory.</p>
-		<p>The reason why I didn't realize this was what I was looking for at first is that this algorithm isn't normally thought of as "thing that brings a number down to zero". It's Euclid's algorithm, and normally it's useful because it finds the GCF (greatest common factor) between two natural numbers. The algorithm itself is also extremely simple: if you have two numbers, subtract the smaller one from the larger one and repeat until one of them is zero. The other number will be the GCF (I won't explain why because it's not relevant to us now, but <a href="https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm">here</a> is an article from Khan Academy about it).</p>
+		<p>But again, for our actual matrix we're stuck with integers, so we can't just multiply by fractions like this. We have to find our zeros a different way.</p>
+		<p>This actually stumped me for a little bit, but it turns out that there's an algorithm from number theory that does exactly what we're looking for, reduce a number down to zero by adding and subtracting back and forth. So now that we've touched on group theory and linear algebra, it's time to add a third area of math to this, number theory.</p>
+		<p>The reason why I didn't realize this was what I was looking for at first is that this algorithm isn't normally thought of as "a thing that brings a number down to zero." It spits out two numbers, one of which is zero, but the other number is the GCF (greatest common factor) between the two original natural numbers, and of course that part is usually a lot more useful than "a number that is always zero." It's called <strong>Euclid's algorithm</strong>, and is extremely simple: if you have two numbers, subtract the smaller one from the larger one and repeat until one of them is zero. The other number remaining will be the GCF (I won't explain why because it's not relevant to us now, but <a href="https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm">here</a> is an article from Khan Academy about it).</p>
 		<p>There's a further modification, in that we're doing this on rows with two numbers each. We're doing Euclid's algorithm on the numbers in the first column, and the second column is just coming along for the ride. An example will probably make that clear:$$\begin{aligned}
 		\begin{bmatrix}
 			3 & 2\\
@@ -266,7 +282,7 @@
 			5 & 1
 		\end{bmatrix}
 		\end{aligned}$$</p>
-		<p>And we actually ended up with the zero in the top row rather than in the second row. Euclid's algorithm makes no guarantee which of the two rows will end up as zero, only that one of them will. But remember our matrix is just our movement set, thrown in in any which order; we can always swap rows around because it's not like our $(0,1)$ move has any sort of priority over our $(1,1)$ move. So let's do that, and then repeat Euclid's algorithm between our first and third rows to get one of them down to zero (which is admittedly quite easy):$$\begin{aligned}
+		<p>And we actually ended up with the zero in the top row rather than in the second row. Euclid's algorithm makes no guarantee which of the two rows will end up as zero, only that one of them will. But remember, our matrix is just our movement set, thrown in in any which order; we can always swap rows around because it's not like our $(0,1)$ move has any sort of priority over our $(1,1)$ move. So let's do that, and then repeat Euclid's algorithm between our first and third rows to get one of them down to zero (which happens very quickly this time, in one step):$$\begin{aligned}
 		\begin{bmatrix}
 			0 & -1\\
 			1 & 1\\
@@ -286,7 +302,7 @@
 			0 & -4
 		\end{bmatrix}
 		\end{aligned}$$</p>
-		<p>At this point it's pretty obvious that you can move to tile $(0, -4)$ using only $(0,-1)$ moves, but just to be systematic about this, we can repeat Euclid's algorithm on the second column of rows 2 and 3 to get a zero. Euclid's algorithm only works on positive integers, but that's okay because we're still working with symmetric pieces right now, so we can invert any row.$$\begin{aligned}
+		<p>At this point it's pretty obvious that you can move to square $(0, -4)$ using only $(0,-1)$ moves, but just to be systematic about this, we can repeat Euclid's algorithm on the second column of rows 2 and 3 to get a zero. Euclid's algorithm only works on positive integers, but that's okay because we're still working with symmetric pieces right now, so we can invert any row.$$\begin{aligned}
 		\begin{bmatrix}
 			1 & 1\\
 			0 & -1\\
@@ -311,8 +327,8 @@
 			0 & 0
 		\end{bmatrix}
 		\end{aligned}$$</p>
-		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button class='example1'>Example piece $\{(3,2),(4,3),(5,1)\}$</button> <button class='reducedexample1'>Reduced example piece $\{(1,1),(0,1)\}$</button>. (Please note that with this example, we run into edge effects in the corners of a finite board where these awkward movements get caught. On an infinite board, we would be able to reach all tiles with both pieces.)</p>
-		<p>And there was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement. You'd end up with a degenerate parallelogram grid in that case. But I'll let you play around with that, because here is a calculator for pieces with up to four movements:</p>
+		<p>And there we have it. Our original piece with a symmetric movement set of $\{(3,2),(4,3),(5,1)\}$ has the same colorbinding as a piece with a symmetric movement set of $\{(1,1),(0,1),(0,0)\}$, and as we said, we can always remove $(0,0)$ from a movement set, so we can get $\{(1,1),(0,1)\}$. <button class='example1'>Example symmetric piece $\{(3,2),(4,3),(5,1)\}$</button> <button class='reducedexample1'>Reduced example piece $\{(1,1),(0,1)\}$</button>. (Please note that with this example, if you're looking at the "show colorbinding of current piece" view, we run into edge effects in the corners of a finite board where these awkward movements get caught. On an infinite board, we would be able to reach all squares with both pieces.)</p>
+		<p>There was nothing special about our original piece here. Any symmetric leaper with more than two movements in its movement set can be reduced in the same way down to something with at most two movements. And pieces with two moves in their movement sets have a grid-like colorbinding, as we saw. So <strong>all symmetric leapers have colorbindings that are parallelogram grids</strong>. Well, actually, some pieces may end up reducing down to a piece with only one movement, which would give you just a line, which is a sort of degenerate parallelogram grid in that case. But I'll let you play around with that here, with a calculator for symmetric pieces with up to four moves:</p>
 		<p id="custom_reduce">
 			<input type="number" id="symmetric_11" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
 			<input type="number" id="symmetric_12" min="-9007199254740992" max="9007199254740992" value="2" autocomplete="off"/>
@@ -334,16 +350,16 @@
 	</div>
 	<div class="content">
 		<h2>Asymmetric pieces</h2>
-		<p>So now, armed with this Gaussian elimination trick, we come back to asymmetric pieces. Can we do a similar thing, algorithmically reducing an asymmetric movement set down to a smaller set?</p>
-		<p>Well, when we lose symmetry, what in our Gaussian elimination trick fails? One place is obvious: we can't invert a row at will, since the inversion of a row is no longer implied to exist. But another sneakier place is the more fundamental idea that $\{a, b\}$, $\{a, a+b\}$, and $\{a, a-b\}$ all have the same colorbinding. If you can get to somewhere with a sequence of $a$'s and $b$'s, you cannot replace each $b$ with $a+b$ followed by $-a$, because of course $-a$ doesn't exist. On the converse, you <em>can</em> replace $b$'s with $a-b$ followed by $a$, so we're okay here&mdash;but that doesn't actually mean that the colorbindings are the same, only that the first is a <em>subset</em> of the latter. If we consider a sequence of $a$'s and $a-b$'s instead and try to replicate it with only $a$'s and $b$'s, we end up unable to do so.</p>
+		<p>So now, armed with this Gaussian elimination trick, we come back to asymmetric pieces, with their monoid colorbindings. (Remember that term? It's like a group but doesn't require inverses.) Can we do a similar thing, algorithmically reducing an asymmetric movement set down to a smaller set?</p>
+		<p>Well, when we lose symmetry, what in our Gaussian elimination trick fails? One place is obvious: we can't invert a row at will, since the inversion of a row is no longer implied to exist. But another sneakier place is the more fundamental idea that $\{a, b\}$, $\{a, a+b\}$, and $\{a, a-b\}$ all have the same colorbinding. Given a square that you can get to via a sequence of $a$'s and $b$'s, you cannot replace each $b$ with $a+b$ followed by $-a$, because of course $-a$ doesn't exist. For the minus version, you <em>can</em> replace $b$'s with $a-b$ followed by $a$, so we're okay here&mdash;but going the other way doesn't work. If we have a sequence of $a$'s and $a-b$'s that the second piece can do, we cannot replicate it with the first piece's $a$'s and $b$'s.</p>
 		<p>With that idea gone, Gaussian elimination is completely out the window. So what other ways are there of reducing a large number of moves to a smaller number? <em>Is</em> there such a way?</p>
-		<p>But in fact, no, we cannot. Or at least, not in general, not to something manageable. Because we can construct a piece with any arbitrary number of moves, and yet no way to reduce that moveset down without changing the colorbinding. Consider the piece that can move to $\{(1,1),(1,2),(1,3),(1,4),\ldots, (1,n)\}$, basically jumping to any of the first $n$ spaces in the next column over. This basically just creates rays going out from the origin at slopes $1, 2, 3, 4, \ldots, n$. So obviously any piece with the same colorbinding must only have moves in the "first quadrant" (moves with strictly positive $x$ and $y$ components), since our colorbinding doesn't include anything in the other quadrants. But then, if that's the case, the only way to reach any tiles in column $1$ is to jump there directly, since you can't go backwards so you can't overshoot the first column and then come back. So if we have to cover all $n$ tiles in the first column, then we have to have all $n$ different moves.</p>
-		<p>(With symmetric pieces, even just $\{(1,1),(1,2)\}$ is enough to reach every possible space on the board.)</p>
-		<p>So then&hellip; what are we even looking for? We can name every possible symmetric piece colorbinding with a pair of moves. Sure, some of them are going to have the same colorbindings ($\{a, b\}$ and $\{a, a+b\}$ have the same colorbindings, remember), but the space of pairs of moves still feels a lot more manageable&mdash;and we even can qualitatively describe these as parallelogram grids. But with asymmetric piece colorbindings, we cannot reduce all movesets to a pair of moves, or a triplet of moves, or even a set of a million moves. I think we're kind of out of luck.</p>
-		<p>At least, that's true if we're trying specifically to reduce a moveset down to a specific number of moves. But can we at least describe qualitatively what these colorbindings are like?</p>
-		<p>We can start by saying they're subsets of their symmetric counterparts. That's obvious. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're restricted to a grid-like tile, but possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight, though when not all of your moves are in the same general direction, it's not necessarily immediately obvious what subset we're going to end up with. <button class='laurelhorse'>Laurel Horse</button> <button class='narrowknight'>Narrow Knight</button></p>
-		<p>On the note of being in the same direction&mdash;when you have just two asymmetric moves, you end up with a wedge of the corresponding symmetric piece's grid, the one that sits in between the two axes. If you have more than two asymmetric moves, but all pairs of moves have wedges that lie within the same 180 degrees, then all tiles in the colorbinding lie in that 180 degrees.</p>
-		<p>At this point, I really am quite stuck at trying to describe possibilities. It's likely there are more things to say about it, even in ways that are more rigorous than just these qualitative descriptions, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any. To help, here you can create an arbitrary asymmetric piece with up to twelve moves:</p>
+		<p>But in fact, no, we cannot. Or at least, not in general, not to something manageable. Because we can construct a piece with any arbitrary number of moves and no way to reduce that moveset down. Consider the piece that can move to $\{(1,1),(1,2),(1,3),(1,4),\ldots, (1,n)\}$, basically jumping to any of the first $n$ spaces in the next column over. This basically just creates rays going out from the origin at slopes $1, 2, 3, 4, \ldots, n$. So obviously any piece with the same colorbinding must only have moves in the "first quadrant" (moves with strictly positive $x$ and $y$ components), since our colorbinding doesn't include anything in the other quadrants. But then, if that's the case, the only way to reach any squares in column $1$ is to jump there directly, since you can't go backwards so you can't overshoot the first column and then come back. So if we have to cover all $n$ squares in the first column, then we have to have all $n$ different moves. <button class='example3'>Asymmetric piece $\{(1,1),(1,2),(1,3),(1,4)\}$</button></p>
+		<p>(What would be different if this were a symmetric piece instead? <a href="#custom_reduce">Jump back up to the custom symmetric piece input</a> and try $\{(1,1),(1,2),(1,3),(1,4)\}$ yourself! In fact, also try just $\{(1,1), (1,2)\}$.)</p>
+		<p>So then&hellip; what are we even looking for? How can we describe the space of possible asymmetric colorbindings if even irreducible pieces can have an arbitrarily large number of moves in them?</p>
+		<p>But unfortunately, here, I really am stuck. It feels like there's a significant structure to these submonoids of the infinite chessboard, but they aren't easily summarized as the symmetric colorbindings, as far as I can tell.</p>
+		<p>We can make a few qualitative observations, at least. They're subsets of their symmetric counterparts&mdash;obviously. If an asymmetric piece can get somewhere, then the asymmetric piece can too, by following the same moves. So we're still restricted to a parallelogram grid, but now possibly just a section of it. This is most obvious with something like the Laurel Horse vs. the Narrow Knight <button class='laurelhorse'>Laurel Horse</button> <button class='narrowknight'>Narrow Knight</button>. When you have just two asymmetric moves, it's easy to visualize the resulting colorbinding, because you simply take a wedge of the corresponding symmetric piece's parallelogram grid, the one that sits in between the two moves.</p>
+		<p>But with more moves, the parallelogram grid may be something wildly different from any of the original moves, so it's not necessarily immediately obvious what subset we're going to end up with. Consider what happens if you add the move $(1,3)$ to the Laurel Horse/Narrow Knight: <button class='example4'>Asymmetric Piece $\{(1,2), (-1,2), (1,3)\}$</button> <button class='example4_symmetric'>Symmetric Piece $\{(1,2), (-1,2), (1,3)\}$</button>.</p>
+		<p>It's likely there are more things you can say about asymmetric colorbindings, but I've had trouble getting anywhere further with this&mdash;I'd love to hear more ideas if you have any. To help, here you can create an arbitrary asymmetric piece with up to twelve moves (and remember you can resize the board, since some of these colorbindings take a bit of space before they get interesting):</p>
 
 		<p id="custom_asymmetric">
 			<input type="number" id="asymmetric_11" min="-9007199254740992" max="9007199254740992" value="1" autocomplete="off"/>
@@ -386,38 +402,47 @@
 		</p>
 		<p id="asymmetric_output"></p>
 
-		<p>But putting asymmetric pieces aside, I do have one last thing to say, and it brings us right back to group theory.</p>
-		<p>Before we move to that, though I need to credit <a href="https://math.stackexchange.com/questions/590159/submonoids-of-mathbbnk">another Stack Overflow answer</a> here, which is about the submonoids of $\mathbb N^2$. It's not exactly the same problem as the asymmetric colorbindings that we're talking about, but it's close enough that its construction of $\{(1,n)\}$ for all $n$ works as a counterexample for our situation, too. It also talks about a concept which I didn't mention of <strong>finitely generated</strong>. I never actually specified if a piece is allowed to have an infinite number of moves in its moveset, so didn't touch on this.</p>
+		<p>But putting asymmetric pieces aside, I do have one last concept to cover, and it brings us right back to group theory.</p>
+		<p>Before we move to that, I need to credit <a href="https://math.stackexchange.com/questions/590159/submonoids-of-mathbbnk">another StackExchange answer</a> here, which is about the submonoids of $\mathbb N^2$. It's not exactly the same problem as the asymmetric colorbindings that we're talking about, but it's close enough that I could nab its example. It also talks about a concept which I didn't mention of <strong>finitely generated</strong>. I never actually specified if a piece is allowed to have an infinite number of moves in its moveset, so didn't touch on this.</p>
 	</div>
 	<div class="content">
-		<h2>Cosets: how many copies of a piece do you need to fill the plane?</h2>
+		<h2>How many copies of a piece do we need?</h2>
 		<p>All right, so back to the much more well-behaved symmetric pieces. We've been starting pieces always from the origin. But in a real game of chess, your two bishops start on different squares. Although no one bishop can visit all squares, the two of them together can visit any square. Ralph Betza on chessvariants.com calls it the <a href="https://www.chessvariants.com/d.betza/pieceval/jacksprat.html">Jack Sprat principle</a>. <button class="bishop">Bishop</button></p>
-		<p>But not all pieces require only two pieces to cover the entire board. Obviously, pieces that can cover the entire board like the wazir just need that one piece. Meanwhile, something like the dabbaaba requires four.</p>
-		<p>The concept we're looking for is called <strong>cosets of a subgroup</strong> in group theory; for our purposes I'll call them <strong>co-colorbindings</strong> (but usually in chess variant talk, they're just also called colorbindings). It's the set of squares that a piece can access starting from any particular square, not just the origin. By the way, this means that the origin isn't (in general) a part of the set anymore. This is why it's a coset and not a cogroup, by the way, since we no longer have the identity element.</p>
-		<p>It's always true that the plane can be partitioned exactly into cosets (i.e. colorbindings). That's not necessarily immediately obvious&mdash;what if you tried filling in the plane with colorbindings, and then end up with just a few squares that are unaccounted for?&mdash;but it is a true fact from group theory that I won't prove here.</p>
-		<p>But our question now is: if we have a given symmetric piece's colorbinding, how many co-colorbindings does it have?</p>
-		<p>Well, remember that we showed above that any symmetric piece can be reduced to an equivalent piece of the form $\{(a,b), (0,d)\}$. So let's consider one example piece: <button class='example2'>Example piece $\{(3,2),(0,6)\}$</button>. We keep talking about a parallelogram grid with symmetric pieces, and here's where this becomes more relevant. In our example piece, one parallelogram of our grid is the one from $(0,0)$ to $(3,2)$ to $(3,8)$ to $(0,6)$. This is kind of the "base" parallelogram of the grid, the one containing the two vectors in our moveset.</p>
-		<p>With our original piece, starting from the origin, we cannot hit any of the points on the interior of the parallelogram, only on the corners. So we need more co-colorbinding for the tiles on the interior of the parallelogram. I will claim, with the ever-annoying proof of "proof by it's visually obvious," that each tile on the interior of the parallelogram needs a <em>different</em> co-colorbinding; no co-colorbinding will cover more than one tile inside our parallelogram. So our answer is simply the area of the parallelogram; that's how many co-colorbindings that exist.</p>
-		<p>Because we're working with square tiles (i.e. $\mathbb Z \times \mathbb Z$), rather than the much more familiar  $\mathbb R \times \mathbb R$, it's not immediately obvious what I mean by the area. I'm including the bottom and left sides of the parallelogram, but not the top or right. But even then&mdash;the bottom of the parallelogram is at a sort of funny angle that doesn't really pass through any real tiles.</p>
-		<p>But we can actually take advantage of the fact that the area of a parallelogram doesn't change if you skew it. So instead of the the aforementioned parallelogram, we can make it into the rectangle from $(0,0)$ to $(3,0)$ to $(3,6)$ to $(0,6)$. Every tile in there (including the bottom and left, not including the top or right) requires a different co-colorbinding to be accessible. So if we want to Jack Sprat the board with this funny example piece, we would need eighteen distinct copies of the piece. Equivalently, if we want to color the chessboard board according to these co-colorbindings, rather than the co-colorbindings of a bishop, we would need eighteen colors rather than two.</p>
-		<p>And this does generalize to other pieces. For any piece that can be reduced to $\{(a,b), (0,d)\}$, it has $a\cdot d$ co-colorbindings. (Why doesn't $b$ matter? Consider again the parallelogram skewing.) Actually, there is one edge case where this isn't true: if $a=0$ or $d = 0$, and the area of the parallelogram is zero. But I'll leave that edge case up to you to figure out, and ignore it.</p>
-		<p>If you'll allow me to abstract a little bit further before I let you go: these co-colorbindings themselves form a group. That is, each element of this new meta-group is itself an entire co-colorbinding. But that's hard to think about, so we usually think about the co-colorbindings as having representative tiles, the tile on the "base rectangle" that we constructed above. So for example, the original colorbinding is also known as the $(0,0)$ co-colorbinding, since it's the co-colorbinding of a piece that starts on the origin. But there's also the $(1,0)$ co-colorbinding, the $(2,0)$ co-colorbinding, the $(2,4)$ co-colorbinding, etc. And if we ever do something that produces a tile outside the base rectangle, we can just replace it with the tile within the base rectangle in the same co-colorbinding&mdash;that is, the $(3,6)$ co-colorbinding is the same thing as the $(0,0)$ co-colorbinding. (This is a 2D version of modular arithmetic, in case you're familiar with that.)</p>
-		<p>You can check the four properties of the group if you want, but I'll take it as a given that this is in fact a well-formed group (this is a result from group theory for all normal subgroups. What "normal" means is beyond the scope of this article, but I'll just say that the colorbindings we're looking at are all normal subgroups). What this means is&hellip; we can do a lot of the same things we just did, but on this meta-group instead! Define "meta-pieces" that move between co-colorbindings rather than between tiles.</p>
-		<p>This is all fun and abstract, but there is at least one way this can be useful for finding colorbindings. Because instead of needing to deal with the infinite number of tiles in $\mathbb Z \times \mathbb Z$, we now have a finite group. We can brute force things a lot more easily now. And moreover, the group loops back on itself, in a modular arithmetic-y kind of way. So those asymmetric pieces that just kind of ran off to infinity before no longer do. They're going to be a lot more well-behaved.</p>
-		<p>Of course, we do need to start with a symmetric piece in order to be able to use this "group of co-colorbindings" as a starting point at all. So let's say we have a symmetric piece like this, to which we add a single asymmetric move. What is the colorbinding of the final combined piece? By adding the asymmetric move, we're basically linking up the symmetric co-colorbindings, and putting them together in the same colorbindings. For example, add the asymmetric move $(1,2)$ to the example piece we've been working with in this section. The co-colorbinding at $(0,0)$ is connected to the co-colorbinding at $(1,2)$, because with this additional asymmetric move you can get to anything in the $(1,2)$ co-colorbinding. But you can also repeat the asymmetric move to connect the $(0,0)$ and $(1,2)$ co-colorbindings to the $(2,4)$ co-colorbinding. And then once more to get to the $(3,6)$ co-colorbinding&mdash;but that's just the same as $(0,0)$ co-colorbinding! So even by only going forward along our asymmetric $(1,2)$ move, we can actually move from any of these three co-colorbindings to any of the others. Our final piece's colorbinding is thus a combination of all three of these co-colorbindings.</p>
+		<p>But not all pieces require only two pieces to cover the entire board. Obviously, pieces that can cover the entire board like the wazir just need that one piece. Meanwhile, something like the dabbaaba requires four. <button class="wazir">Wazir</button> <button class="dabbaaba">Dabbaaba</button></p>
+		<p>The concept we're looking for is called <strong>cosets of a subgroup</strong> in group theory; for our purposes I'll call them <strong>co-colorbindings</strong> (but usually in chess variant talk, they're just also called colorbindings). It's the set of squares that a piece can access starting from <em>any</em> particular square, not just the origin.</p>
+		<p>(By the way, this means that the origin isn't in general a part of the set anymore. This is why it's a co<em>set</em> and not a co<em>group</em>, since we no longer have the identity element.)</p>
+		<p>It's always true that a group can be partitioned exactly into cosets of one of its subgroup (i.e. the plane can always be partitioned into co-colorbindings of one piece). That is, every element in a group is in exactly one coset of a particular subgroup. That's not necessarily immediately obvious, but it is a true fact from group theory that I won't prove here.</p>
+		<p>But our question now is: <strong>if we have a given symmetric piece's colorbinding, how many co-colorbindings does it have?</strong></p>
+		<p>Well, remember that we showed above that any symmetric piece can be reduced to an equivalent piece of the form $\{(a,b), (0,d)\}$. So let's consider one example piece and its parallelogram: <button class='example2'>Example symmetric piece $\{(3,3),(0,6)\}$</button>. (Set the board size to at least 18 to see the full parallelogram.) We keep talking about a parallelogram grid with symmetric pieces, and here this shape becomes even more relevant. What I'm showing is kind of the "base" parallelogram of the grid, the one containing the two vectors in our moveset.</p>
+		<p>With our original piece, starting from the origin, we cannot hit any of the points on the interior of the parallelogram, only on the corners. So we need more co-colorbinding for the squares on the interior of the parallelogram. I will claim, with the ever-annoying proof of "proof by it's visually obvious," that each square on the interior of the parallelogram needs a <em>different</em> co-colorbinding; no co-colorbinding will cover more than one square inside our parallelogram. So our answer is simply that <strong>the area of the parallelogram is how many co-colorbindings that exist</strong>.</p>
+		<p>Because we're working with discrete squares (i.e. $\mathbb Z \times \mathbb Z$), rather than the much more familiar  $\mathbb R \times \mathbb R$, it's not immediately obvious what I mean by the area. I'm including the bottom and left sides of the parallelogram, but not the top or right. With the bottom side at any odd angle depending on the parallelogram, in other cases it's not necessarily clear which tile is or isn't in the interior&mdash; but it doesn't actually matter, as long as we're consistent about it at the top and bottom of the parallelogram (if we include a tile at the bottom, exclude the corresponding tile at the top).</p>
+		<p>We can actually take advantage of this arbitrariness to skew the parallelogram into a rectangle by taking tiles off the top and including more tiles on the bottom. So instead of the the aforementioned parallelogram, we can make it into the rectangle from $(0,0)$ to $(3,0)$ to $(3,6)$ to $(0,6)$ <button id='example2_rectangle'>Show rectangle</button>. Every square in there (including the bottom and left, not including the top or right) requires a different co-colorbinding to be accessible. So if we want to Jack Sprat the board with this funny example piece, we would need eighteen distinct copies of the piece. Equivalently, if we want to color the chessboard board according to these co-colorbindings, rather than the co-colorbindings of a bishop, we would need eighteen colors rather than two.</p>
+		<p>And this does generalize to other pieces. For any piece that can be reduced to $\{(a,b), (0,d)\}$, it has $a\cdot d$ co-colorbindings. (Why doesn't $b$ matter? Consider again the parallelogram skewing.) Actually, there is one edge case where this isn't true: if $a=0$ or $d = 0$, and the area of the parallelogram is zero. But I'll ignore the degenerate case, and leave that up to you to figure out.</p>
+	</div>
+	<div class="content">
+		<h2>Group-ception: putting co-colorbindings in a group</h2>
+		<p>If you'll allow me to abstract these concepts even further before I let you go: the co-colorbindings of a piece themselves form a group. That is, each element of this new meta-group is itself an entire co-colorbinding. This meta-group is called the <strong>quotient group</strong>. Hey, I warned you at the beginning of this paragraph that this was going to be abstract!</p>
+		<p>But yes, that's hard to think about, so we usually think about the co-colorbindings as having <strong>representative elements</strong>, and then do all our operations on the representative elements instead, with the understanding that the representative element is a stand-in for the whole group.</p>
+		<p>In our case the representative elements are the squares on the "base parallelogram" that we constructed above. So for example, the original colorbinding is also known as the $(0,0)$ co-colorbinding, since it's the co-colorbinding of a piece that starts on the origin. But there's also the $(1,0)$ co-colorbinding, the $(2,0)$ co-colorbinding, the $(2,4)$ co-colorbinding, etc. And if we ever do something that produces a square outside the base rectangle, we can just replace it with the square within the base rectangle in the same co-colorbinding&mdash;that is, the $(3,9)$ co-colorbinding is the same thing as the $(0,0)$ co-colorbinding. (This is a 2D version of modular arithmetic, in case you're familiar with that.)</p>
+		<p>You can check the four properties of the group if you want, but I'll take it as a given that this is in fact a well-formed group (this is a result from group theory for all normal subgroups. What "normal" means is beyond the scope of this article, but I'll just say that the colorbindings we're looking at are all normal subgroups). What this means is&hellip; we can do a lot of the same things we just did, but on this meta-group instead! Define "meta-pieces" that move between co-colorbindings rather than between squares.</p>
+		<p>This is all fun and abstract, but there is at least one way this can be useful for finding colorbindings. Because instead of needing to deal with the infinite number of squares in $\mathbb Z \times \mathbb Z$, we now have a finite group. We can brute force things a lot more easily now. And moreover, the group loops back on itself, in a modular arithmetic-y kind of way. So those asymmetric pieces that just kind of ran off to infinity before no longer do. They're going to be a lot more well-behaved.</p>
+		<p>Of course, we do need to start with a symmetric piece in order to be able to use this "group of co-colorbindings" as a starting point at all. So let's say we have a symmetric piece like this, to which we add a single asymmetric move. What is the colorbinding of the final combined piece? By adding the asymmetric move, we're basically linking up the symmetric co-colorbindings, and putting them together in the same colorbinding.</p>
+		<p>For example, add the asymmetric move $(1,3)$ to the example piece we've been working with in this section: <button class='example2'>Original example piece</button> <button class='example2augmented'>Example piece with $\{(1,3)\}$</button>. The co-colorbinding at $(0,0)$ is connected to the co-colorbinding at $(1,3)$, because with this additional asymmetric move you can get to anything in the $(1,3)$ co-colorbinding. But you can also repeat the asymmetric move to connect the $(0,0)$ and $(1,3)$ co-colorbindings to the $(2,6)$ co-colorbinding. And then once more to get to the $(3,9)$ co-colorbinding&mdash;but that's just the same as $(0,0)$ co-colorbinding! So even by only going forward along our asymmetric $(1,2)$ move, we can actually move from any of these three co-colorbindings to any of the others. Our final piece's colorbinding is thus a combination of all three of these co-colorbindings.</p>
 		<p>An asymmetric move being added to a symmetric piece is perhaps a fairly specific case, but it's a good way of thinking of the Silver General, at least. It's an asymmetric $(0,1)$ move added to the ferz. The ferz of course only has two co-colorbindings, but this asymmetric move links the two co-colorbindings together, and that's why the Silver General can move to every tile on the board. <button class="silvergeneral">Silver General</button> <button class="ferz">Ferz</button></p>
 	</div>
 	<div class="content">
 		<h2>In conclusion</h2>
-		<p>The question we set out to answer, "what are all possible colorbindings of arbitrary leapers?" we found a little bit too difficult to answer completely. We get a very nice answer when we limit ourselves to symmetric leapers: they can always be reduced down to a parallelogram grid of two "vectors." And we can use that fact to answer an offshoot question, "how many copies of a symmetric piece do we need to be able to reach the entire board?"</p>
-		<p>As for the ever-annoying asymmetric pieces&hellip;it <em>feels</em> like there are a lot more patterns and structure in their colorbindings. But I'm really quite stuck here. Monoids are just not as well-behaved (nor as well-asked about on Stack Overflow) as groups. Again, if any of you have more ideas, I'd love to hear them.</p>
-		<p>But even if it's technically not a complete answer, the ten-year-old in me who still loves looking up chess variants and thinking about symmetries of a chessboard is happy to have any answer at all. This is something I've been thinking about on and off since that time, and it's really cool that the answer isn't trivial (either because the set of possible colorbindings is too small to be interesting or because the set of possible colorbindings is so big as to be basically "all possible subsets" without anything interesting to explore). And it was really cool that it touches on some deeper math topics (we had a bit of group theory, a bit of linear algebra, a bit of number theory) that aren't even necessarily <em>that</em> difficult but are certainly beyond what a ten-year-old would be able to figure out, even though it was ten-year-old me who original posed the question.</p>
+		<p>The question we set out to answer, "what are all possible colorbindings of arbitrary leapers?" we found a little bit too difficult to answer completely. We get a very nice answer when we limit ourselves to symmetric leapers: they can always be reduced down to a parallelogram grid generated by just two symmetric moves. And we can use that fact to answer an offshoot question, "how many copies of a symmetric piece do we need to be able to reach the entire board?"</p>
+		<p>As for the ever-annoying asymmetric pieces&hellip;it <em>feels</em> like there are a lot more patterns and structure in their colorbindings. But I'm really quite stuck here. Monoids are just not as well-behaved (nor as well-asked about on StackExchange) as groups. Again, if any of you have more ideas, I'd love to hear them.</p>
+		<p>But even if it's technically not a complete answer, the ten-year-old in me who still loves looking up chess variants and thinking about symmetries of a chessboard is happy to have any answer at all. This is something I've been thinking about on and off since that time, and it's really cool that the answer touches on so many different math topics: a bit of group theory, a bit of linear algebra, a bit of number theory. And they aren't even necessarily <em>that</em> difficult, but are certainly beyond what a ten-year-old me would have been able to figure out.</p>
+		<p>Challenge problem: I didn't talk about <a href="https://www.chessvariants.com/hexagonal.dir/hexagonal.html">hexagonal chess</a> or <a href="https://www.chessvariants.com/3d.dir/3d5.html">3D chess (Raumschach)</a> at all. What do colorbindings look on hex boards and 3D boards?</p>
 	</div>
 
 	<hr>
 	<h1>Acknowledgments</h1>
 	<div class="content">
 		<p>This page was created by Viola Buddy for the Summer of Math Exposition 3 (SoME3), an event organized by the YouTube channel 3Blue1Brown (among others) to encourage people to create explanations of math or math-related subjects in any online medium. This page was written in HTML/Javascript, with equations written using the <a href="https://www.mathjax.org/">MathJax</a> library.</p>
+		<p>The historical details of chess were derived mostly from Wikipedia and chessvariants.com. But other references include <a href="http://history.chess.free.fr/history.htm">this History of Chess page</a> and <a href="https://www.ancientchess.com/">Ancient Chess</a>. (And these are both webpages with old 1990s-2000s style designs, which is fun.)</p>
 	</div>
 <script type="text/javascript">
 	window.MathJax = {
@@ -626,20 +651,6 @@
 			setPiece(movement, 'Reduced Custom Symmetric Piece', 'Symmetric Piece ' + movesetToString(movement_array) +', the reduced version of ' + movesetToString(original_movement_array));
 		}
 		function onClickShowParallelogram(event) {
-			//https://stackoverflow.com/a/14560350
-			function linedraw(theDiv,ax,ay,bx,by)
-			{
-				ax = ax * (CSS_CELL_SIZE+1); // +1 for the table spacing between cells
-				ay = -ay * (CSS_CELL_SIZE+1);
-				bx = bx * (CSS_CELL_SIZE+1);
-				by = -by * (CSS_CELL_SIZE+1);
-
-			    var calc=Math.atan2((ay-by),(bx-ax));
-			    calc=-calc*180/Math.PI;
-			    var length=Math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by))+4; // +4 to account for +2 on each side for line thickness
-
-			    theDiv.setAttribute('style', "width:" + length + "px;position:absolute;transform:translate(" + (ax+CSS_CELL_SIZE/2) + "px, " + (ay-CSS_CELL_SIZE/2) + "px) rotate(" + calc + "deg);");
-			}
 			linedraw(parallelogramDivs[0], 0, 0, movement_array[0][0], movement_array[0][1]);
 			linedraw(parallelogramDivs[1], movement_array[0][0], movement_array[0][1],
 				movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
@@ -649,7 +660,6 @@
 
 			toggleShowParallelogram();
 		}
-		onClickShowParallelogram();
 
 		let output_div = document.getElementById('symmetric_output');
 		output_div.innerHTML = '';
@@ -710,6 +720,44 @@
 		let movement = movement_array;
 
 		setPiece(movement, 'Custom Asymmetric Piece', 'Asymmetric Piece ' + movesetToString(movement_array));
+	});
+
+	document.getElementById('narrowknightparallelogram').addEventListener('click', function(event) {
+		let movement_array = LAURELHORSE;
+		linedraw(parallelogramDivs[0], 0, 0, movement_array[0][0], movement_array[0][1]);
+		linedraw(parallelogramDivs[1], movement_array[0][0], movement_array[0][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+		linedraw(parallelogramDivs[3], 0, 0, movement_array[1][0], movement_array[1][1]);
+		linedraw(parallelogramDivs[2], movement_array[1][0], movement_array[1][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+
+		toggleShowParallelogram();
+	});
+
+	// this getElementsByClassName(...)[0] is hacky but it's too late to care
+	document.getElementsByClassName('example2')[0].addEventListener('click', function(event) {
+		let movement_array = EXAMPLE2;
+		linedraw(parallelogramDivs[0], 0, 0, movement_array[0][0], movement_array[0][1]);
+		linedraw(parallelogramDivs[1], movement_array[0][0], movement_array[0][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+		linedraw(parallelogramDivs[3], 0, 0, movement_array[1][0], movement_array[1][1]);
+		linedraw(parallelogramDivs[2], movement_array[1][0], movement_array[1][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+
+		turnOnShowParallelogram();
+	});
+
+
+	document.getElementById('example2_rectangle').addEventListener('click', function(event) {
+		let movement_array = [[3,0], [0,6]];
+		linedraw(parallelogramDivs[0], 0, 0, movement_array[0][0], movement_array[0][1]);
+		linedraw(parallelogramDivs[1], movement_array[0][0], movement_array[0][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+		linedraw(parallelogramDivs[3], 0, 0, movement_array[1][0], movement_array[1][1]);
+		linedraw(parallelogramDivs[2], movement_array[1][0], movement_array[1][1],
+			movement_array[0][0]+movement_array[1][0], movement_array[0][1]+movement_array[1][1]);
+
+		turnOnShowParallelogram();
 	});
 	
 </script>

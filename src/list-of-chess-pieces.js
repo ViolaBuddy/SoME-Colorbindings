@@ -33,7 +33,11 @@ const GOLDGENERAL = [ [1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,1] ];
 // special
 const EXAMPLE1 = [ [3,2],[-3,-2],[4,3],[-4,-3],[5,1],[-5,-1] ];
 const REDUCEDEXAMPLE1 = [ [1,1],[0,1],[-1,-1],[0,-1] ];
-const EXAMPLE2 = [ [3,2],[0,6],[-3,-2],[0,-6] ];
+const EXAMPLE2 = [ [3,3],[0,6],[-3,-3],[0,-6] ];
+const EXAMPLE2AUGMENTED = [ [3,3],[0,6],[-3,-3],[0,-6],[1,3] ];
+const EXAMPLE3 = [ [1,1],[1,2],[1,3],[1,4] ];
+const EXAMPLE4 = [ [1,2],[-1,2], [1,3] ];
+const EXAMPLE4SYMMETRIC = [ [1,2],[-1,2],[1,3],[-1,-2],[1,-2],[-1,-3] ];
 
 const ALL_MOVEMENTS_DICT = {
 	'wazir': WAZIR,
@@ -68,9 +72,13 @@ const ALL_MOVEMENTS_DICT = {
 	'example1': EXAMPLE1,
 	'reducedexample1': REDUCEDEXAMPLE1,
 	'example2': EXAMPLE2,
+	'example2augmented': EXAMPLE2AUGMENTED,
+	'example3': EXAMPLE3,
+	'example4': EXAMPLE4,
+	'example4_symmetric': EXAMPLE4SYMMETRIC,
 }
 const ALL_NAMES_DICT = {
-	'wazir': 'Wazir',
+	'wazir': 'Wazir/General',
 	'ferz': 'Ferz',
 	'dabbaaba': 'Dabbaaba',
 	'alfil': 'Alfil',
@@ -101,10 +109,13 @@ const ALL_NAMES_DICT = {
 
 	'example1': 'Example Symmetric Piece',
 	'reducedexample1': 'Reduced Example Symmetric Piece',
-	'example2': 'Example Symmetric Piece$',
+	'example2': 'Example Symmetric Piece',
+	'example2augmented': 'Example Asymmetric Piece',
+	'example3': 'Example Asymmetric Piece',
+	'example4': 'Example Asymmetric Piece',
+	'example4_symmetric': 'Example Symmetric Piece',
 }
 
-// TODO
 const ALL_DESCRIPTIONS_DICT = {
 	'wazir': 'A one-space rook. The name (وَزِير‎) means "minister" in Arabic&mdash;which, incidentally, was borrowed via Turkish as the English word "vizier." This piece was called as such in Tamerlane chess. In xiangqi, the king is replaced by a general (将 jiāng for black and 帅 shuài for red) which moves like a wazir but is limited to the 3&times;3 palace.',
 	'ferz': 'A one-space bishop. The name is a shortening of the Classical Persian word "farzin" (فرزین‎), which means "counsellor." This piece existed even in chaturanga; in modern Western chess the much more powerful queen takes its role, and in some European languages "ferz" (or a variation thereof) is still the name given to the modern queen. In xiangqi, this piece is called the advisor (士 shì) and is limited to the 3&times;3 palace. This is also how a checker moves in checkers, though it captures pieces differently, by jumping over the target piece.',
@@ -114,7 +125,7 @@ const ALL_DESCRIPTIONS_DICT = {
 	'knight': 'A piece that jumps in a distinctive $(1,2)$ L-shape. This piece existed even in chaturanga, and hasn\'t changed at all in Western chess. In xiangqi, it is called the horse (马 mǎ) and moves in the same way but cannot jump over pieces. In shōgi it\'s replaced by the forward-only laurel horse.',
 	'camel': 'An elongated knight-like piece that moves in $(1,3)$ L shapes. This piece was called as such in Tamerlane chess; there it was called the Arabic word for (جَمَل, jamal).',
 	'king': 'A piece that moves one space like a rook or one space like a bishop. The goal in chess is to checkmate this piece. This piece existed even in chaturanga, and hasn\'t changed at all in Western chess or in shōgi (where it is called the king general, 王将 ōshō). In xiangqi the general has a more restricted wazir movement.',
-	'fbHsD': 'A constructed piece used here for demonstration. A symmetric piece with movement set $\{(2,0), (0,3)\}$',
+	'fbHsD': 'A constructed piece used here for demonstration. A symmetric piece with movement set $\\{(2,0), (0,3)\\}$',
 	'narrowknight': 'Like a knight, but can only go in the directions that are more vertical than they are horizontal.',
 	'wideknight': 'Like a knight, but can only go in the directions that are more vertical than they are horizontal.',
 
@@ -137,5 +148,9 @@ const ALL_DESCRIPTIONS_DICT = {
 
 	'example1': 'Symmetric Piece $\\{(3,2),(4,3),(5,1)\\}$',
 	'reducedexample1': 'Symmetric Piece $\\{(1,1),(0,1)\\}$, the reduced version of $\\{(3,2),(4,3),(5,1)\\}$',
-	'example2': 'Symmetric Piece $\\{(3,2),(0,6)\\}$',
+	'example2': 'Symmetric Piece $\\{(3,3),(0,6)\\}$',
+	'example2augmented': 'Symmetric Piece $\\{(3,3),(0,6)\\}$ with additional asymmetric move $\{(1,3)\}$',
+	'example3': 'Asymmetric Piece $\\{(1,1),(1,2),(1,3),(1,4)\\}$',
+	'example4': 'Asymmetric Piece $\\{(1,2),(-1,2),(1,3)\\}$',
+	'example4_symmetric': 'Symmetric Piece $\\{(1,2),(-1,2),(1,3)\\}$',
 }

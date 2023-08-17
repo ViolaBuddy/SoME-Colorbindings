@@ -41,6 +41,7 @@ li>strong {
 	box-sizing: border-box;
 	overflow: scroll;
 	margin-top: 8px;
+	margin-bottom: 8px;
 }
 #choose_piece {
 	margin-top: 8px;
